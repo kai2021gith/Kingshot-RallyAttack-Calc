@@ -294,14 +294,14 @@
   function copyTitle(r){
     var offs = r.map(function(x){ return x.off; });
     var uniq = offs.filter(function(v,i){ return offs.indexOf(v) === i; }).sort(function(a,b){ return a-b; });
-    if (uniq.length === 1) return "【同時着弾連凸タイミング】";
+    if (uniq.length === 1) return "【同時タイミング】";
     var firsts = []; offs.forEach(function(o,i){ if (o === uniq[0]) firsts.push(i); });
     if (uniq.length === 2 && firsts.length === 1) return "【集結" + ZD[firsts[0]+1] + "先着連凸タイミング】";
     var groups = uniq.map(function(u){
       var g = []; offs.forEach(function(o,i){ if (o === u) g.push(ZD[i+1]); });
       return g.join("・");
     });
-    return "【集結" + groups.join("→") + "着弾連凸タイミング】";
+    return "【集結" + groups.join("→") + "連凸タイミング】";
   }
   // チャットで改行されないよう、時間は半角（例 05:01）で出力
   function buildCopy(t, r){
