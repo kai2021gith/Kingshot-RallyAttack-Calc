@@ -210,7 +210,7 @@
 </head>
 <body>
 <div class="wrap" style="--n:2">
-  <div class="ver">@kai@ 2026/11/21 Ver1.7</div>
+  <div class="ver">@kai@ 2026/11/21 Ver1.8</div>
   <h1>キングショット <span>連凸計算</span></h1>
 
   <section class="sec">
@@ -291,29 +291,37 @@
   function zen(str){
     return str.replace(/[0-9]/g, function(c){ return ZD[+c]; }).replace(/:/g, "：");
   }
-  // 順番の表記：同じ秒数は「＝」、順番は「→」（例 ２→１＝３）
-  function orderStr(vals){
+  var CN = ["⓪","①","②","③"];  // 丸数字
+  // 秒数の表記：1桁は全角（８）、2桁以上は半角（33）
+  function secNum(x){ return x < 10 ? ZD[x] : String(x); }
+  function secTxt(x){
+    if (x < 60) return secNum(x) + "秒後";
+    var m = Math.floor(x/60), sc = x % 60;
+    return secNum(m) + "分" + (sc ? secNum(sc) + "秒" : "") + "後";
+  }
+  // 順番の表記（例 ③→ ②８秒後→①33秒後）。同じタイミングは「＝」、最初は秒数なし
+  function orderLine(vals){
     var uq = vals.filter(function(v,i){ return vals.indexOf(v) === i; }).sort(function(a,b){ return a-b; });
-    return uq.map(function(u){
-      var g = []; vals.forEach(function(v,i){ if (v === u) g.push(ZD[i+1]); });
-      return g.join("＝");
-    }).join("→");
+    var parts = uq.map(function(u, k){
+      var g = []; vals.forEach(function(v,i){ if (v === u) g.push(CN[i+1]); });
+      return g.join("＝") + (k ? secTxt(u - uq[0]) : "");
+    });
+    return parts[0] + (parts.length > 1 ? "→" + parts.slice(1).join("→") : "");
   }
   // チャットで改行されないよう、時間は半角（例 05:01）で出力
   function buildCopy(t, r){
     var S = "\u3000";
     var head = "・領主", dp = "●集結", mv = "・行軍", ar = "・着弾";
     for (var i=0;i<t.length;i++){
-      head += S + S + ZD[i+1];
+      head += S + S + CN[i+1];
       dp += S + fmtMS(r[i].dep);
       mv += S + fmtMS(t[i]);
       ar += S + fmtMS(r[i].arr);
     }
     return "【連凸タイミング】\n" +
-      "【集結" + orderStr(r.map(function(x){ return x.dep; })) + "】\n" +
-      "【着弾" + orderStr(r.map(function(x){ return x.off; })) + "】\n" +
-      head + "\n" + dp + "\n" + mv + "\n" + ar + "\n" +
-      "＊自分の行軍時間を見て、\n" + S + "自分の集結時間をチェック！";
+      "【出発】" + orderLine(r.map(function(x){ return x.dep; })) + "\n" +
+      "【着弾】" + orderLine(r.map(function(x){ return x.arr; })) + "\n" +
+      head + "\n" + dp + "\n" + mv + "\n" + ar + "\n";
   }
   window.RentotsuCalc = { parse4:parse4, fmtMS:fmtMS, calc:calc, buildCopy:buildCopy };
 
