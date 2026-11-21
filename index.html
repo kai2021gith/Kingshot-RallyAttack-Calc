@@ -20,7 +20,7 @@
     --line:rgba(148,170,210,.16); --line2:rgba(148,170,210,.28);
     --text:#f1f4fa; --sub:#8b97b0;
     --gold:#f5c84c; --gold2:#d99a1e; --gold-l:#ffe9a8; --gold-d:rgba(245,200,76,.12);
-    --r1:#3cc4ff; --r2:#ff5470; --ok:#34e39a; --err:#ff5c6c;
+    --r1:#3cc4ff; --r2:#ff5470; --r3:#4ade80; --ok:#34e39a; --err:#ff5c6c;
     --fs:1; --gap:10px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -165,70 +165,84 @@
   body.d-pc .modes button:hover:not(.on),body.d-pc .reset:hover{border-color:rgba(245,200,76,.5);color:var(--text)}
   body.d-pc .kbd{display:inline}
   .kbd{display:none;color:var(--sub);font-size:11px;font-weight:400}
+
+  /* ===== 3凸対応 ===== */
+  .in.r3,.arr.r3,.card.r3{border-left-color:var(--r3);background:linear-gradient(90deg,rgba(74,222,128,.10),transparent 55%),var(--panel)}
+  .in.r3 label,.card.r3 .name{color:var(--r3)}
+  .arr.r1 .rn{color:var(--r1)} .arr.r2 .rn{color:var(--r2)} .arr.r3 .rn{color:var(--r3)}
+  .inputs,.cards{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
+  body.n3 .in input{font-size:calc(25px * var(--fs));letter-spacing:.06em;padding:7px 2px}
+  body.n3 .card .big{font-size:calc(27px * var(--fs))}
+  body.n3 .in{padding:7px 7px}
+  body.n3 .card{padding:8px 7px}
+  .hide{display:none !important}
+  /* 凸数切替 */
+  .cnt{margin-left:auto;display:flex;background:rgba(10,15,28,.7);border:1px solid var(--line2);border-radius:9px;padding:2px;gap:2px}
+  .cnt button{border:0;background:transparent;color:var(--sub);font-weight:800;font-size:calc(12px * var(--fs));padding:4px 11px;border-radius:7px;letter-spacing:.04em}
+  .cnt button.on{background:linear-gradient(180deg,rgba(245,200,76,.34),rgba(245,200,76,.10));color:var(--gold-l);box-shadow:inset 0 0 0 1px rgba(245,200,76,.5)}
+  .sec-h.has-ctl::after{display:none}
+  /* 着弾順 */
+  .arrs{display:flex;flex-direction:column;gap:6px}
+  .arr{flex-wrap:nowrap;padding:5px 8px;gap:8px}
+  .arr .rn{font-weight:800;font-size:calc(13px * var(--fs));width:3.2em;flex:none}
+  .rank{display:flex;gap:4px;flex:none}
+  .rank button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);background:rgba(10,15,28,.75);color:var(--sub);font-weight:900;font-size:calc(14px * var(--fs));padding:0}
+  .rank button.on{background:linear-gradient(180deg,rgba(245,200,76,.4),rgba(245,200,76,.12));border-color:var(--gold);color:var(--gold-l);box-shadow:0 0 10px rgba(245,200,76,.25)}
+  .arr .at{margin-left:auto;text-align:right;line-height:1.1}
+  .arr .at .k{display:block;font-size:calc(10px * var(--fs));color:var(--sub)}
+  .arr .at .v{font-size:calc(19px * var(--fs));font-weight:800}
+  .arr .lag{display:block;font-size:calc(10px * var(--fs));color:var(--gold);min-height:1.1em}
+  .same{width:100%;background:rgba(10,15,28,.6);border:1px solid var(--line2);border-radius:10px;padding:7px;font-size:calc(13px * var(--fs));font-weight:700;color:var(--sub)}
+  .same.on{border-color:var(--gold);color:var(--gold-l);background:linear-gradient(180deg,rgba(245,200,76,.25),rgba(245,200,76,.06))}
+  .gap-note{font-size:calc(11px * var(--fs));color:var(--sub);font-weight:400;letter-spacing:0}
+  body.d-tablet .rank button,body.d-pc .rank button{width:40px;height:40px}
+  .wrap > .sec + .sec{margin-top:16px}
+  body.d-tablet .wrap > .sec + .sec{margin-top:26px}
+  body.d-pc .wrap > .sec + .sec{margin-top:24px}
+  body.d-phone .rank button{width:31px;height:31px}
+  body.d-phone .arr{padding:3px 8px}
+  body.d-phone .arrs{gap:5px}
+  body.d-phone .same{padding:6px}
+  body.d-phone .explain{padding:6px 8px;font-size:12px}
+  body.d-phone h1{margin:2px 0 6px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="ver">@kai@ 2026/11/21 Ver1.1</div>
+<div class="wrap" style="--n:2">
+  <div class="ver">@kai@ 2026/11/21 Ver1.2</div>
   <h1>キングショット <span>連凸計算</span></h1>
 
-  <div class="grid">
-    <div class="col">
-      <section class="sec">
-        <div class="sec-h"><span class="no"><i>1</i></span>行軍時間</div>
-        <div class="inputs">
-          <div class="in r1" id="box1">
-            <label for="t1"><span><i class="tag"></i>集結1</span></label>
-            <input id="t1" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="例：0308（3分8秒）" value="05:01">
-            <div class="conv num" id="c1"></div>
-          </div>
-          <div class="in r2" id="box2">
-            <label for="t2"><span><i class="tag"></i>集結2</span></label>
-            <input id="t2" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="例：0308（3分8秒）" value="04:56">
-            <div class="conv num" id="c2"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="sec">
-        <div class="sec-h"><span class="no"><i>2</i></span>着弾時間</div>
-        <div class="modes" role="radiogroup" aria-label="着弾設定">
-          <button data-mode="0" role="radio">同時着弾</button>
-          <button data-mode="1" role="radio">集結1を<br>2秒早く着弾</button>
-          <button data-mode="2" role="radio">集結2を<br>2秒早く着弾</button>
-        </div>
-        <div class="arrs">
-          <div class="arr r1"><span class="k">集結1 着弾</span><span class="v num" id="a1">--:--</span><span class="first" id="af1" hidden>2秒先着</span></div>
-          <div class="arr r2"><span class="k">集結2 着弾</span><span class="v num" id="a2">--:--</span><span class="first" id="af2" hidden>2秒先着</span></div>
-        </div>
-      </section>
-    </div>
-
-    <div class="col">
-      <section class="sec">
-        <div class="sec-h"><span class="no"><i>3</i></span>集結時間</div>
-        <div class="result" id="result">
-          <div class="cards">
-            <div class="card r1">
-              <div class="name">集結1<span class="first" id="f1" hidden>先発</span></div>
-              <div class="big num" id="d1">--:--</div>
-            </div>
-            <div class="card r2">
-              <div class="name">集結2<span class="first" id="f2" hidden>先発</span></div>
-              <div class="big num" id="d2">--:--</div>
-            </div>
-          </div>
-          <div class="explain" id="explain"></div>
-        </div>
-      </section>
-
-      <button class="copy" id="copyBtn">📋 計算結果コピー <span class="kbd">(Ctrl+Enter)</span></button>
-      <div class="manual" id="manual">
-        <p>自動コピーできませんでした。下の文字を長押し（またはCtrl+C）でコピーしてください。</p>
-        <textarea id="manualText" readonly></textarea>
+  <section class="sec">
+    <div class="sec-h has-ctl"><span class="no"><i>1</i></span>行軍時間
+      <div class="cnt" role="radiogroup" aria-label="凸数">
+        <button data-n="2" role="radio">2凸</button>
+        <button data-n="3" role="radio">3凸</button>
       </div>
-      <button class="reset" id="resetBtn">↺ リセット</button>
     </div>
+    <div class="inputs" id="inputs"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><span class="no"><i>2</i></span>着弾時間 <span class="gap-note">着弾順を選択（2秒間隔）</span></div>
+    <div class="arrs" id="arrs"></div>
+    <button class="same" id="sameBtn">同時着弾にする</button>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><span class="no"><i>3</i></span>集結時間</div>
+    <div class="result" id="result">
+      <div class="cards" id="cards"></div>
+      <div class="explain" id="explain"></div>
+    </div>
+  </section>
+
+  <div class="sec" style="margin-top:14px">
+    <button class="copy" id="copyBtn">📋 計算結果コピー <span class="kbd">(Ctrl+Enter)</span></button>
+    <div class="manual" id="manual">
+      <p>自動コピーできませんでした。下の文字を長押し（またはCtrl+C）でコピーしてください。</p>
+      <textarea id="manualText" readonly></textarea>
+    </div>
+    <button class="reset" id="resetBtn">↺ リセット</button>
   </div>
 
   <div class="device" role="group" aria-label="表示切替">
@@ -243,71 +257,91 @@
 <script>
 (function(){
   "use strict";
-  var RESET_VAL = "00:00"; // リセット時の行軍時間
-  var LEAD = 2; // 先着させる秒数
-  var MODE_NAMES = ["同時着弾", "集結1を2秒早く着弾", "集結2を2秒早く着弾"];
-  var mode = 0;
+  var MAX = 3;
+  var LEAD = 2;                 // 着弾順1つごとの間隔（秒）
+  var RESET_VAL = "00:00";      // リセット時の行軍時間
+  var INIT = ["05:01", "04:56", "04:50"];
+  var ZD = ["０","１","２","３","４","５","６","７","８","９"];
+  var DEFAULT_N = 2;            // 標準の凸数
+  var n = DEFAULT_N;            // 凸数
+  var rank = [1, 1, 1];         // 着弾順（1=最初）
   var latestCopyText = "";
 
-  /* ---------- 計算ロジック（純粋関数） ---------- */
-  // "0501" → 301秒。不正なら null
+  /* ---------- 計算ロジック ---------- */
   function parse4(str){
     if (!/^\d{4}$/.test(str)) return null;
     var m = parseInt(str.slice(0,2),10), s = parseInt(str.slice(2),10);
     if (s > 59) return null;
     return m*60 + s;
   }
-  function pad(n){ return (n < 10 ? "0" : "") + n; }
-  // 秒 → "MM:SS"（行軍時間）
+  function pad(x){ return (x < 10 ? "0" : "") + x; }
   function fmtMS(sec){ return pad(Math.floor(sec/60)) + ":" + pad(sec%60); }
-  // 秒 → "00:00:05" / "-00:00:05"（集結時間）
-  function fmtHMS(sec){
-    var sign = sec < 0 ? "-" : ""; var a = Math.abs(sec);
-    return sign + pad(Math.floor(a/3600)) + ":" + pad(Math.floor(a%3600/60)) + ":" + pad(a%60);
+  // t: 行軍秒の配列, rk: 着弾順の配列
+  // 着弾 = 基準A + (順位-1)×LEAD、出発 = 着弾 − 行軍。最初に出発する集結を 00:00 にする
+  function calc(t, rk){
+    var off = rk.map(function(r){ return (r - 1) * LEAD; });
+    // 一番早い着弾順を基準(0秒)に詰める（全員②なら同時着弾と同じ）
+    var minOff = Math.min.apply(null, off);
+    off = off.map(function(o){ return o - minOff; });
+    var A = -Infinity;
+    for (var i=0;i<t.length;i++) A = Math.max(A, t[i] - off[i]);
+    return t.map(function(ti, i){ return { dep: A + off[i] - ti, arr: A + off[i], off: off[i] }; });
   }
-  // 集結1出発=0 を基準に、集結2の出発時刻を求める
-  // mode 0: 同時 / 1: 集結1が2秒先着（集結2は2秒遅れ着弾） / 2: 集結2が2秒先着
-  function calc(t1, t2, md){
-    var offset = md === 1 ? LEAD : (md === 2 ? -LEAD : 0); // 集結2の着弾 − 集結1の着弾
-    var dep1 = 0;
-    var arr1 = dep1 + t1;
-    var arr2 = arr1 + offset;
-    var dep2 = arr2 - t2;
-    // 先に出発する集結を 00:00:00 とする（集結2が先なら集結2基準）
-    var base = Math.min(dep1, dep2);
-    return { dep1:dep1-base, dep2:dep2-base, arr1:arr1-base, arr2:arr2-base,
-             baseRally: dep2 < dep1 ? 2 : 1 };
-  }
-  // 半角数字・コロンを全角に変換
   function zen(str){
-    return str.replace(/[0-9]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0xFEE0); }).replace(/:/g, "：");
+    return str.replace(/[0-9]/g, function(c){ return ZD[+c]; }).replace(/:/g, "：");
   }
-  var COPY_TITLES = ["【同時着弾連凸タイミング】", "【集結１先着連凸タイミング】", "【集結２先着連凸タイミング】"];
-  function buildCopy(t1, t2, r, md){
-    var S = "\u3000"; // 全角スペース
-    return COPY_TITLES[md || 0] + "\n" +
-      "集結領主" + S + S + "集結１" + S + S + S + "集結２\n" +
-      "行軍時間" + S + zen(fmtMS(t1))     + S + zen(fmtMS(t2))     + "\n" +
-      "着弾時間" + S + zen(fmtMS(r.arr1)) + S + zen(fmtMS(r.arr2)) + "\n" +
-      "集結時間" + S + zen(fmtMS(r.dep1)) + S + zen(fmtMS(r.dep2));
+  // コピー見出し
+  function copyTitle(r){
+    var offs = r.map(function(x){ return x.off; });
+    var uniq = offs.filter(function(v,i){ return offs.indexOf(v) === i; }).sort(function(a,b){ return a-b; });
+    if (uniq.length === 1) return "【同時着弾連凸タイミング】";
+    var firsts = []; offs.forEach(function(o,i){ if (o === uniq[0]) firsts.push(i); });
+    if (uniq.length === 2 && firsts.length === 1) return "【集結" + ZD[firsts[0]+1] + "先着連凸タイミング】";
+    var groups = uniq.map(function(u){
+      var g = []; offs.forEach(function(o,i){ if (o === u) g.push(ZD[i+1]); });
+      return g.join("・");
+    });
+    return "【集結" + groups.join("→") + "着弾連凸タイミング】";
   }
-  window.RentotsuCalc = { parse4:parse4, fmtMS:fmtMS, fmtHMS:fmtHMS, calc:calc, buildCopy:buildCopy, zen:zen };
+  // チャットで改行されないよう、時間は半角（例 05:01）で出力
+  function buildCopy(t, r){
+    var S = "\u3000";
+    var head = "集結領主", mv = "行軍時間", ar = "着弾時間", dp = "集結時間";
+    for (var i=0;i<t.length;i++){
+      head += S + "集結" + ZD[i+1];
+      mv += S + fmtMS(t[i]);
+      ar += S + fmtMS(r[i].arr);
+      dp += S + fmtMS(r[i].dep);
+    }
+    return copyTitle(r) + "\n" + head + "\n" + mv + "\n" + ar + "\n" + dp;
+  }
+  window.RentotsuCalc = { parse4:parse4, fmtMS:fmtMS, calc:calc, buildCopy:buildCopy };
 
-  /* ---------- DOM ---------- */
+  /* ---------- 画面の組み立て ---------- */
   var $ = function(id){ return document.getElementById(id); };
-  var in1 = $("t1"), in2 = $("t2");
-  var modeBtns = document.querySelectorAll(".modes button");
+  var inputsEl = $("inputs"), arrsEl = $("arrs"), cardsEl = $("cards");
+  for (var i=1;i<=MAX;i++){
+    inputsEl.insertAdjacentHTML("beforeend",
+      '<div class="in r'+i+'" id="box'+i+'"><label for="t'+i+'"><span>集結'+i+'</span></label>' +
+      '<input id="t'+i+'" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="例：0308" value="'+INIT[i-1]+'">' +
+      '<div class="conv num" id="c'+i+'"></div></div>');
+    arrsEl.insertAdjacentHTML("beforeend",
+      '<div class="arr r'+i+'" id="row'+i+'"><span class="rn">集結'+i+'</span>' +
+      '<div class="rank" data-i="'+(i-1)+'"><button data-r="1">①</button><button data-r="2">②</button><button data-r="3" class="r3b">③</button></div>' +
+      '<div class="at"><span class="k">着弾</span><span class="v num" id="a'+i+'">--:--</span><span class="lag" id="l'+i+'"></span></div></div>');
+    cardsEl.insertAdjacentHTML("beforeend",
+      '<div class="card r'+i+'" id="card'+i+'"><div class="name">集結'+i+'<span class="first" id="f'+i+'" hidden>先発</span></div>' +
+      '<div class="big num" id="d'+i+'">--:--</div></div>');
+  }
+  var inputs = [$("t1"), $("t2"), $("t3")];
   var copyBtn = $("copyBtn");
 
   function sanitize(el){
-    // 全角数字を半角に変換し、数字以外を除去
     var v = el.value.replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
                     .replace(/[^0-9]/g,"");
     var prev = el.getAttribute("data-prev") || "";
-    // 4桁入力済みの欄に続けて数字を打った場合は、新しい入力として打ち直し扱い
     if (v.length > 4) v = (prev.length === 4 && v.indexOf(prev) === 0) ? v.slice(4, 8) : v.slice(0, 4);
     el.setAttribute("data-prev", v);
-    // 4桁そろって正しければ「05:07」形式で表示、それ以外は入力中の数字のまま
     var shown = (v.length === 4 && parse4(v) !== null) ? v.slice(0,2) + ":" + v.slice(2) : v;
     if (shown !== el.value) el.value = shown;
     return v;
@@ -316,59 +350,80 @@
     var sec = parse4(raw);
     if (sec === null){
       box.classList.add("bad");
-      if (raw.length < 4) conv.textContent = raw.length === 0 ? "入力してください" : "4桁で入力（例 0308）";
-      else conv.textContent = "秒は00〜59で入力";
+      if (raw.length < 4) conv.textContent = raw.length === 0 ? "入力してください" : "4桁で入力";
+      else conv.textContent = "秒は00〜59";
     } else {
       box.classList.remove("bad");
       conv.textContent = Math.floor(sec/60) + "分" + (sec%60) + "秒";
     }
     return sec;
   }
+  function gapTxt(x){ return x >= 60 ? Math.floor(x/60) + "分" + (x%60 ? (x%60) + "秒" : "") : x + "秒"; }
 
   function render(){
-    var t1 = inputState(sanitize(in1), $("box1"), $("c1"));
-    var t2 = inputState(sanitize(in2), $("box2"), $("c2"));
-    for (var i=0;i<modeBtns.length;i++){
-      var on = +modeBtns[i].getAttribute("data-mode") === mode;
-      modeBtns[i].classList.toggle("on", on);
-      modeBtns[i].setAttribute("aria-checked", on ? "true" : "false");
+    // 凸数の反映
+    document.body.classList.toggle("n3", n === 3);
+    document.querySelector(".wrap").style.setProperty("--n", n);
+    for (var i=1;i<=MAX;i++){
+      var show = i <= n;
+      $("box"+i).classList.toggle("hide", !show);
+      $("row"+i).classList.toggle("hide", !show);
+      $("card"+i).classList.toggle("hide", !show);
     }
+    document.querySelectorAll(".r3b").forEach(function(b){ b.classList.toggle("hide", n < 3); });
+    document.querySelectorAll(".cnt button").forEach(function(b){
+      var on = +b.getAttribute("data-n") === n; b.classList.toggle("on", on); b.setAttribute("aria-checked", on);
+    });
+    document.querySelectorAll(".rank").forEach(function(g){
+      var k = +g.getAttribute("data-i");
+      g.querySelectorAll("button").forEach(function(b){ b.classList.toggle("on", +b.getAttribute("data-r") === rank[k]); });
+    });
+    var rk = rank.slice(0, n);
+    $("sameBtn").classList.toggle("on", rk.every(function(r){ return r === rk[0]; }));
+
+    var t = [];
+    for (i=0;i<n;i++) t.push(inputState(sanitize(inputs[i]), $("box"+(i+1)), $("c"+(i+1))));
     var res = $("result");
-    if (t1 === null || t2 === null){
+    if (t.some(function(x){ return x === null; })){
       res.classList.add("err");
-      ["d1","d2","a1","a2"].forEach(function(id){ $(id).textContent = "--:--"; $(id).classList.remove("neg","pos"); });
-      $("f1").hidden = $("f2").hidden = $("af1").hidden = $("af2").hidden = true;
+      for (i=1;i<=MAX;i++){
+        $("d"+i).textContent = "--:--"; $("d"+i).classList.remove("pos");
+        $("a"+i).textContent = "--:--"; $("l"+i).textContent = ""; $("f"+i).hidden = true;
+      }
       $("explain").textContent = "⚠ 入力エラー：行軍時間を4桁（分2桁＋秒2桁、秒は00〜59）で入力してください";
-      latestCopyText = "";
-      copyBtn.disabled = true;
-      $("manual").classList.remove("show");
+      latestCopyText = ""; copyBtn.disabled = true; $("manual").classList.remove("show");
       return;
     }
-    res.classList.remove("err");
-    copyBtn.disabled = false;
-    var r = calc(t1, t2, mode);
-    $("d1").textContent = fmtMS(r.dep1);
-    $("d2").textContent = fmtMS(r.dep2);
-    $("d1").classList.toggle("pos", r.dep1 > 0);
-    $("d2").classList.toggle("pos", r.dep2 > 0);
-    $("a1").textContent = fmtMS(r.arr1);
-    $("a2").textContent = fmtMS(r.arr2);
-    $("f1").hidden = !(r.dep2 > 0);
-    $("f2").hidden = !(r.dep1 > 0);
-    $("af1").hidden = mode !== 1;
-    $("af2").hidden = mode !== 2;
+    res.classList.remove("err"); copyBtn.disabled = false;
+    var r = calc(t, rk);
+    var allSameDep = r.every(function(x){ return x.dep === 0; });
+    var allSameArr = r.every(function(x){ return x.off === 0; });
+    for (i=0;i<n;i++){
+      var k = i + 1;
+      $("d"+k).textContent = fmtMS(r[i].dep);
+      $("d"+k).classList.toggle("pos", r[i].dep > 0);
+      $("a"+k).textContent = fmtMS(r[i].arr);
+      $("l"+k).textContent = r[i].off > 0 ? "+" + r[i].off + "秒" : (allSameArr ? "" : "先着");
+      $("f"+k).hidden = allSameDep || r[i].dep !== 0;
+    }
 
-    var gap = function(n){ return n >= 60 ? Math.floor(n/60) + "分" + (n%60 ? (n%60) + "秒" : "") : n + "秒"; };
-    var dep, arr;
-    if (r.dep2 > 0) dep = "集結1の出発から <span class='em'>" + gap(r.dep2) + "後</span> に集結2を出発";
-    else if (r.dep1 > 0) dep = "集結2の出発から <span class='em'>" + gap(r.dep1) + "後</span> に集結1を出発";
-    else dep = "集結1・集結2を <span class='em'>同時に出発</span>";
-    if (mode === 0) arr = "<span class='em'>同時着弾</span>（" + fmtMS(r.arr1) + "）";
-    else if (mode === 1) arr = "集結1が <span class='em'>2秒先に着弾</span>";
-    else arr = "集結2が <span class='em'>2秒先に着弾</span>";
-    $("explain").innerHTML = dep + "<br>→ " + arr;
+    // 説明文：出発順と着弾
+    var order = r.map(function(x,i){ return {i:i+1, dep:x.dep}; }).sort(function(a,b){ return a.dep - b.dep || a.i - b.i; });
+    var dep = allSameDep ? "全集結を <span class='em'>同時に出発</span>"
+      : "出発：" + order.map(function(o){ return "集結" + o.i + (o.dep ? "<span class='em'>（" + gapTxt(o.dep) + "後）</span>" : "（最初）"); }).join(" → ");
+    var arr;
+    if (allSameArr) arr = "<span class='em'>同時着弾</span>（" + fmtMS(r[0].arr) + "）";
+    else {
+      var offs = r.map(function(x){ return x.off; });
+      var uq = offs.filter(function(v,j){ return offs.indexOf(v) === j; }).sort(function(a,b){ return a-b; });
+      arr = "着弾：" + uq.map(function(u){
+        var g = []; offs.forEach(function(o,j){ if (o === u) g.push(j+1); });
+        return "集結" + g.join("・") + (u ? "<span class='em'>（+" + u + "秒）</span>" : "");
+      }).join(" → ");
+    }
+    $("explain").innerHTML = dep + "<br>" + arr;
 
-    latestCopyText = buildCopy(t1, t2, r, mode);
+    latestCopyText = buildCopy(t, r);
     if ($("manual").classList.contains("show")) $("manualText").value = latestCopyText;
   }
 
@@ -376,23 +431,21 @@
   var toastTimer;
   function success(){
     $("manual").classList.remove("show");
-    var t = $("toast"); t.classList.add("show");
+    var tt = $("toast"); tt.classList.add("show");
     copyBtn.classList.add("done"); copyBtn.firstChild.nodeValue = "✅ コピーしました！ ";
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){
-      t.classList.remove("show"); copyBtn.classList.remove("done");
+      tt.classList.remove("show"); copyBtn.classList.remove("done");
       copyBtn.firstChild.nodeValue = "📋 計算結果コピー ";
     }, 1600);
   }
   function legacyCopy(text){
     var ta = document.createElement("textarea");
     ta.value = text;
-    ta.setAttribute("readonly","");
     ta.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px";
     document.body.appendChild(ta);
     var ok = false;
     try{
-      // iOS Safari 向け選択処理
       ta.contentEditable = "true"; ta.readOnly = false;
       var range = document.createRange(); range.selectNodeContents(ta);
       var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
@@ -409,7 +462,7 @@
     setTimeout(function(){ try{ ta.focus(); ta.setSelectionRange(0, text.length); }catch(e){} }, 50);
   }
   function doCopy(){
-    render(); // 常に最新の計算結果
+    render();
     var text = latestCopyText;
     if (!text) return;
     if (navigator.clipboard && window.isSecureContext){
@@ -425,7 +478,6 @@
   var devPref = "auto";
   try{ devPref = localStorage.getItem("rentotsu_device") || "auto"; }catch(e){}
   function autoDevice(){
-    var w = Math.min(window.innerWidth, screen.width || window.innerWidth);
     var touch = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
     if (window.innerWidth < 600) return "phone";
     if (touch && window.innerWidth < 1200) return "tablet";
@@ -438,27 +490,41 @@
     document.body.classList.remove("d-phone","d-tablet","d-pc");
     document.body.classList.add("d-" + d);
     $("autoCur").textContent = devPref === "auto" ? DEV_LABEL[d] : "";
-    var btns = document.querySelectorAll(".device button");
-    for (var i=0;i<btns.length;i++) btns[i].classList.toggle("on", btns[i].getAttribute("data-dev") === devPref);
+    document.querySelectorAll(".device button").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-dev") === devPref); });
   }
 
   /* ---------- イベント ---------- */
-  in1.addEventListener("input", render);
-  in2.addEventListener("input", render);
-  [in1,in2].forEach(function(el){
+  inputs.forEach(function(el, idx){
+    el.addEventListener("input", render);
     var selAll = function(){ setTimeout(function(){ try{ el.setSelectionRange(0, el.value.length); }catch(e){} }, 0); };
     el.addEventListener("focus", selAll);
     el.addEventListener("click", selAll);
     el.addEventListener("keydown", function(e){
-      if (e.key === "Enter" && !(e.ctrlKey || e.metaKey)){ e.preventDefault(); if (el === in1) in2.focus(); else el.blur(); }
+      if (e.key === "Enter" && !(e.ctrlKey || e.metaKey)){
+        e.preventDefault();
+        if (idx + 1 < n) inputs[idx + 1].focus(); else el.blur();
+      }
     });
   });
-  for (var i=0;i<modeBtns.length;i++){
-    modeBtns[i].addEventListener("click", function(){ mode = +this.getAttribute("data-mode"); render(); });
-  }
+  document.querySelectorAll(".rank").forEach(function(g){
+    var k = +g.getAttribute("data-i");
+    g.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click", function(){ rank[k] = +b.getAttribute("data-r"); render(); });
+    });
+  });
+  $("sameBtn").addEventListener("click", function(){ rank = [1,1,1]; render(); });
+  document.querySelectorAll(".cnt button").forEach(function(b){
+    b.addEventListener("click", function(){
+      n = +b.getAttribute("data-n");
+      if (n < 3 && rank[2] === 3) rank[2] = 1;
+      rank = rank.map(function(r){ return Math.min(r, n); });
+      $("manual").classList.remove("show"); render();
+    });
+  });
   copyBtn.addEventListener("click", doCopy);
   $("resetBtn").addEventListener("click", function(){
-    in1.value = RESET_VAL; in2.value = RESET_VAL; in1.setAttribute("data-prev",""); in2.setAttribute("data-prev",""); mode = 0;
+    inputs.forEach(function(el){ el.value = RESET_VAL; el.setAttribute("data-prev",""); });
+    rank = [1,1,1]; n = DEFAULT_N;
     $("manual").classList.remove("show"); render();
   });
   document.querySelectorAll(".device button").forEach(function(b){
