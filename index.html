@@ -311,7 +311,7 @@
   // チャットで改行されないよう、時間は半角（例 05:01）で出力
   function buildCopy(t, r){
     var S = "\u3000";
-    var head = "・領主", dp = "●集結", mv = "・行軍", ar = "・着弾";
+    var head = "・領主", dp = "・集結", mv = "・行軍", ar = "・着弾";
     for (var i=0;i<t.length;i++){
       head += S + S + CN[i+1];
       dp += S + fmtMS(r[i].dep);
