@@ -176,6 +176,7 @@
   body.n3 .in{padding:7px 7px}
   body.n3 .card{padding:8px 7px}
   .hide{display:none !important}
+  .in label,.card .name{font-size:calc(17px * var(--fs)) !important;font-weight:900}
   /* 凸数切替 */
   .cnt{margin-left:auto;display:flex;background:rgba(10,15,28,.7);border:1px solid var(--line2);border-radius:9px;padding:2px;gap:2px}
   .cnt button{border:0;background:transparent;color:var(--sub);font-weight:800;font-size:calc(12px * var(--fs));padding:4px 11px;border-radius:7px;letter-spacing:.04em}
@@ -184,7 +185,7 @@
   /* 着弾順 */
   .arrs{display:flex;flex-direction:column;gap:6px}
   .arr{flex-wrap:nowrap;padding:5px 8px;gap:8px}
-  .arr .rn{font-weight:800;font-size:calc(13px * var(--fs));width:3.2em;flex:none}
+  .arr .rn{font-weight:900;font-size:calc(18px * var(--fs));width:1.4em;text-align:center;flex:none}
   .rank{display:flex;gap:4px;flex:none}
   .rank button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);background:rgba(10,15,28,.75);color:var(--sub);font-weight:900;font-size:calc(14px * var(--fs));padding:0}
   .rank button.on{background:linear-gradient(180deg,rgba(245,200,76,.4),rgba(245,200,76,.12));border-color:var(--gold);color:var(--gold-l);box-shadow:0 0 10px rgba(245,200,76,.25)}
@@ -209,7 +210,7 @@
 </head>
 <body>
 <div class="wrap" style="--n:2">
-  <div class="ver">@kai@ 2026/11/21 Ver1.6</div>
+  <div class="ver">@kai@ 2026/11/21 Ver1.7</div>
   <h1>キングショット <span>連凸計算</span></h1>
 
   <section class="sec">
@@ -290,33 +291,29 @@
   function zen(str){
     return str.replace(/[0-9]/g, function(c){ return ZD[+c]; }).replace(/:/g, "：");
   }
-  // コピー見出し：1行目＝着弾順、2行目＝集結（出発）順。同じ秒数は「１・２」とまとめる
+  // 順番の表記：同じ秒数は「＝」、順番は「→」（例 ２→１＝３）
   function orderStr(vals){
     var uq = vals.filter(function(v,i){ return vals.indexOf(v) === i; }).sort(function(a,b){ return a-b; });
     return uq.map(function(u){
       var g = []; vals.forEach(function(v,i){ if (v === u) g.push(ZD[i+1]); });
-      return g.join("・");
+      return g.join("＝");
     }).join("→");
-  }
-  function copyTitle(r){
-    var deps = r.map(function(x){ return x.dep; }), offs = r.map(function(x){ return x.off; });
-    var sameDep = deps.every(function(v){ return v === deps[0]; });
-    var sameArr = offs.every(function(v){ return v === offs[0]; });
-    var l1 = sameDep ? "【同時集結連凸タイミング】" : "【集結" + orderStr(deps) + "連凸タイミング】";
-    var l2 = sameArr ? "【同時着弾連凸タイミング】" : "【着弾" + orderStr(offs) + "連凸タイミング】";
-    return l2 + "\n" + l1;
   }
   // チャットで改行されないよう、時間は半角（例 05:01）で出力
   function buildCopy(t, r){
     var S = "\u3000";
-    var head = "集結領主", mv = "行軍時間", ar = "着弾時間", dp = "集結時間";
+    var head = "・領主", dp = "●集結", mv = "・行軍", ar = "・着弾";
     for (var i=0;i<t.length;i++){
-      head += S + "集結" + ZD[i+1];
+      head += S + S + ZD[i+1];
+      dp += S + fmtMS(r[i].dep);
       mv += S + fmtMS(t[i]);
       ar += S + fmtMS(r[i].arr);
-      dp += S + fmtMS(r[i].dep);
     }
-    return copyTitle(r) + "\n" + head + "\n" + mv + "\n" + ar + "\n" + dp;
+    return "【連凸タイミング】\n" +
+      "【集結" + orderStr(r.map(function(x){ return x.dep; })) + "】\n" +
+      "【着弾" + orderStr(r.map(function(x){ return x.off; })) + "】\n" +
+      head + "\n" + dp + "\n" + mv + "\n" + ar + "\n" +
+      "＊自分の行軍時間を見て、\n" + S + "自分の集結時間をチェック！";
   }
   window.RentotsuCalc = { parse4:parse4, fmtMS:fmtMS, calc:calc, buildCopy:buildCopy };
 
@@ -325,15 +322,15 @@
   var inputsEl = $("inputs"), arrsEl = $("arrs"), cardsEl = $("cards");
   for (var i=1;i<=MAX;i++){
     inputsEl.insertAdjacentHTML("beforeend",
-      '<div class="in r'+i+'" id="box'+i+'"><label for="t'+i+'"><span>集結'+i+'</span></label>' +
+      '<div class="in r'+i+'" id="box'+i+'"><label for="t'+i+'"><span>'+i+'</span></label>' +
       '<input id="t'+i+'" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="例：0308" value="'+INIT[i-1]+'">' +
       '<div class="conv num" id="c'+i+'"></div></div>');
     arrsEl.insertAdjacentHTML("beforeend",
-      '<div class="arr r'+i+'" id="row'+i+'"><span class="rn">集結'+i+'</span>' +
+      '<div class="arr r'+i+'" id="row'+i+'"><span class="rn">'+i+'</span>' +
       '<div class="rank" data-i="'+(i-1)+'"><button data-r="1">①</button><button data-r="2">②</button><button data-r="3" class="r3b">③</button></div>' +
       '<div class="at"><span class="k">着弾</span><span class="v num" id="a'+i+'">--:--</span><span class="lag" id="l'+i+'"></span></div></div>');
     cardsEl.insertAdjacentHTML("beforeend",
-      '<div class="card r'+i+'" id="card'+i+'"><div class="name">集結'+i+'<span class="first" id="f'+i+'" hidden>先発</span></div>' +
+      '<div class="card r'+i+'" id="card'+i+'"><div class="name">'+i+'<span class="first" id="f'+i+'" hidden>先発</span></div>' +
       '<div class="big num" id="d'+i+'">--:--</div></div>');
   }
   var inputs = [$("t1"), $("t2"), $("t3")];
@@ -411,18 +408,18 @@
     }
 
     // 説明文：出発順と着弾
-    // 同じ秒数の集結は「集結1・2」のようにまとめて表示（出発・着弾とも同じ書式）
+    // 同じ秒数は「1＝2」のようにまとめて表示（出発・着弾とも同じ書式）
     function seq(vals, label){
       var uq = vals.filter(function(v,j){ return vals.indexOf(v) === j; }).sort(function(a,b){ return a-b; });
       return label + "：" + uq.map(function(u){
         var g = []; vals.forEach(function(v,j){ if (v === u) g.push(j+1); });
-        return "集結" + g.join("・") + (u ? "<span class='em'>（" + gapTxt(u) + "後）</span>" : "（最初）");
+        // 全員同じタイミング（1グループだけ）なら「（最初）」は付けない
+        return g.join("＝") + (u ? "<span class='em'>（" + gapTxt(u) + "後）</span>" : (uq.length > 1 ? "（最初）" : ""));
       }).join(" → ");
     }
-    var dep = allSameDep ? "全集結を <span class='em'>同時に出発</span>" : seq(r.map(function(x){ return x.dep; }), "出発");
+    var dep = seq(r.map(function(x){ return x.dep; }), "出発");
     var arr;
-    if (allSameArr) arr = "<span class='em'>同時着弾</span>（" + fmtMS(r[0].arr) + "）";
-    else arr = seq(r.map(function(x){ return x.off; }), "着弾");
+    arr = seq(r.map(function(x){ return x.off; }), "着弾");
     $("explain").innerHTML = dep + "<br>" + arr;
 
     latestCopyText = buildCopy(t, r);
