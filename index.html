@@ -209,7 +209,7 @@
 </head>
 <body>
 <div class="wrap" style="--n:2">
-  <div class="ver">@kai@ 2026/11/21 Ver1.5</div>
+  <div class="ver">@kai@ 2026/11/21 Ver1.6</div>
   <h1>キングショット <span>連凸計算</span></h1>
 
   <section class="sec">
@@ -290,7 +290,7 @@
   function zen(str){
     return str.replace(/[0-9]/g, function(c){ return ZD[+c]; }).replace(/:/g, "：");
   }
-  // コピー見出し：1行目＝集結（出発）順、2行目＝着弾順。同じ秒数は「１・２」とまとめる
+  // コピー見出し：1行目＝着弾順、2行目＝集結（出発）順。同じ秒数は「１・２」とまとめる
   function orderStr(vals){
     var uq = vals.filter(function(v,i){ return vals.indexOf(v) === i; }).sort(function(a,b){ return a-b; });
     return uq.map(function(u){
@@ -304,7 +304,7 @@
     var sameArr = offs.every(function(v){ return v === offs[0]; });
     var l1 = sameDep ? "【同時集結連凸タイミング】" : "【集結" + orderStr(deps) + "連凸タイミング】";
     var l2 = sameArr ? "【同時着弾連凸タイミング】" : "【着弾" + orderStr(offs) + "連凸タイミング】";
-    return l1 + "\n" + l2;
+    return l2 + "\n" + l1;
   }
   // チャットで改行されないよう、時間は半角（例 05:01）で出力
   function buildCopy(t, r){
