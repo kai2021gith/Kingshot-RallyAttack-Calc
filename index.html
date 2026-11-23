@@ -292,6 +292,15 @@
   .memo-tbl td.hero,.memo-tbl thead th:first-child{padding-left:1em !important}
   /* 画面幅に収まらない場合は表だけ横スクロール */
   .tbl-wrap{overflow:visible}
+  /* 英雄遠征スキル：効果列はスマホで小さく、1行に収める */
+  body.d-phone .memo-tbl td.eff{font-size:10.5px;white-space:nowrap;letter-spacing:-.02em}
+  @media (max-width:385px){
+    body.d-phone .memo-tbl:not(.eq) td.eff{font-size:10px}
+    body.d-phone .memo-tbl:not(.eq) td.lv{font-size:10.5px;letter-spacing:-.03em}
+    body.d-phone .memo-tbl:not(.eq) .tag{font-size:9.5px;padding:1px 3px}
+    body.d-phone .memo-tbl:not(.eq) td,body.d-phone .memo-tbl:not(.eq) th{padding-left:1px;padding-right:1px}
+    body.d-phone .memo-tbl:not(.eq) td.hero{font-size:11px}
+  }
   .memo-tbl.eq td.equip,.memo-tbl.eq td.skill{display:table-cell;margin:0}
   /* タブ名が長いので、スマホでは折り返して3つとも画面内に収める */
   .memo-head{gap:8px}
@@ -309,7 +318,7 @@
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
-    <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
+    <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 メモ</button>
     <div class="ver">@kai@ 2026/11/24 Ver2.5</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
@@ -359,9 +368,9 @@
   <div class="memo-box">
     <div class="memo-head">
       <div class="memo-tabs" role="tablist">
-        <button role="tab" data-tab="0" class="on">英雄遠征スキル</button>
-        <button role="tab" data-tab="1">英雄専用装備：遠征スキル</button>
-        <button role="tab" data-tab="2">英雄専用装備：討伐スキル</button>
+        <button role="tab" data-tab="0" class="on">右上<br>遠征スキル</button>
+        <button role="tab" data-tab="1">専用装備<br>遠征スキル</button>
+        <button role="tab" data-tab="2">専用装備<br>討伐スキル</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -689,7 +698,7 @@
   ];
   function esc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   var KIND = {"攻撃":"atk","防衛":"def","攻防":"both"};
-  // 英雄専用装備：遠征スキル  [英雄, 専用装備, スキル, 区分, 効果, 最大]
+  // 英雄専用装備：遠征スキル  [英雄, 専用装備, スキル, 区分, 効果, MaxLv]
   var EQUIP = [
     { title:"１．攻撃系", cls:"atk", rows:[
       ["ヘルガ","テュールの手","【狂熱共鳴】","攻撃","殺傷力上昇","15%"],
@@ -733,7 +742,7 @@
           sec.rows.map(rowFn).join("");
       }).join("") + '</tbody></table></div>';
   }
-  var EQ_HEADS = [{t:"英雄"},{t:"専用装備"},{t:"スキル"},{t:"区分",c:1},{t:"効果"},{t:"最大",c:1}];
+  var EQ_HEADS = [{t:"英雄"},{t:"専用装備"},{t:"スキル"},{t:"区分",c:1},{t:"効果"},{t:"MaxLv",c:1}];
   function eqRow(r){
     return '<tr><td class="hero">'+esc(r[0])+'</td>' +
       '<td class="equip">'+esc(r[1])+'</td>' +
@@ -743,19 +752,19 @@
       '<td class="c lv">'+esc(r[5]).replace(/^(攻撃力)(x)/, '$1<br>$2')+'</td></tr>';
   }
   var MEMO_PAGES = [
-    { title:"英雄遠征スキル<small>（集結参加スキル）</small>",
+    { title:"英雄遠征スキル<small>（右上スキル）</small>",
       html: memoTable(
-        [{t:"英雄"},{t:"区分",c:1},{t:"適用",c:1},{t:"効果"},{t:"最大",c:1},{t:"補足",c:1}],
+        [{t:"英雄"},{t:"区分",c:1},{t:"適用",c:1},{t:"効果"},{t:"Lv5",c:1},{t:"補足",c:1}],
         MEMO,
         function(r){
           return '<tr><td class="hero">'+esc(r[0])+'</td>' +
             '<td class="c">'+KTAG(r[1])+'</td>' +
             '<td class="c"><span class="tag '+(r[2]==="敵"?"enemy":"ally")+'">'+esc(r[2])+'</span></td>' +
-            '<td>'+esc(r[3])+'</td>' +
+            '<td class="eff">'+esc(r[3])+'</td>' +
             '<td class="c lv">'+esc(r[4])+'</td>' +
             '<td class="c">'+(r[5] ? '<span class="tag prob">'+esc(r[5])+'</span>' : '')+'</td></tr>';
         }) },
-    { title:"英雄専用装備：遠征スキル<small>（集結参加スキル）</small>", html: memoTable(EQ_HEADS, EQUIP, eqRow, "eq") },
+    { title:"英雄専用装備：遠征スキル", html: memoTable(EQ_HEADS, EQUIP, eqRow, "eq") },
     { title:"英雄専用装備：討伐スキル<small>（集結主、単騎攻撃）</small>", html: memoTable(EQ_HEADS, HUNT, eqRow, "eq") }
   ];
   var memoTab = 0;
