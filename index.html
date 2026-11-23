@@ -206,11 +206,112 @@
   body.d-phone .same{padding:6px}
   body.d-phone .explain{padding:6px 8px;font-size:12px}
   body.d-phone h1{margin:2px 0 6px}
+  /* ===== メモ（英雄遠征スキル） ===== */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 -4px}
+  .topbar .ver{margin:0}
+  .memo-btn{display:inline-flex;align-items:center;gap:4px;background:rgba(10,15,28,.7);border:1px solid rgba(245,200,76,.45);color:var(--gold-l);
+    font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;letter-spacing:.04em}
+  .memo-btn:active{background:rgba(245,200,76,.18)}
+  .memo-ov{position:fixed;inset:0;z-index:20;background:rgba(2,4,10,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    display:flex;align-items:flex-start;justify-content:center;padding:calc(env(safe-area-inset-top) + 12px) 10px calc(env(safe-area-inset-bottom) + 12px)}
+  .memo-ov[hidden]{display:none}
+  .memo-box{width:100%;max-width:640px;max-height:100%;overflow:auto;-webkit-overflow-scrolling:touch;background:#0c1222;border:1px solid rgba(245,200,76,.4);
+    border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);padding:12px 12px 16px}
+  .memo-head{display:flex;align-items:center;justify-content:space-between;position:sticky;top:-12px;background:#0c1222;padding:4px 0 8px;margin-top:-4px;z-index:1}
+  .memo-head h2{margin:0;font-size:18px;font-weight:900;letter-spacing:.06em;color:var(--gold-l)}
+  .memo-close{width:36px;height:36px;border-radius:10px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font-size:18px;font-weight:700}
+  .memo-sec{margin-top:10px}
+  .memo-sec h3{margin:0 0 6px;font-size:14px;font-weight:900;display:flex;align-items:center;gap:6px}
+  .memo-sec.atk h3{color:#ff8a65} .memo-sec.def h3{color:#5ec8ff}
+  .memo-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+  .memo-tbl th{color:var(--sub);font-weight:700;font-size:11px;text-align:left;padding:5px 4px;border-bottom:1px solid var(--line2);white-space:nowrap}
+  .memo-tbl td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .memo-tbl tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+  .memo-tbl td.hero{font-weight:800;white-space:nowrap}
+  .memo-tbl td.c{text-align:center;white-space:nowrap}
+  .tag{display:inline-block;font-size:11px;font-weight:800;border-radius:5px;padding:1px 6px;white-space:nowrap}
+  .tag.atk{background:rgba(255,138,101,.16);color:#ffab91} .tag.def{background:rgba(94,200,255,.16);color:#8fdaff} .tag.both{background:rgba(245,200,76,.18);color:var(--gold-l)}
+  .tag.ally{background:rgba(52,227,154,.14);color:#6ff0b6} .tag.enemy{background:rgba(255,84,112,.16);color:#ff8fa3}
+  .tag.prob{background:rgba(167,139,250,.18);color:#c4b5fd}
+  body.memo-open{overflow:hidden}
+  /* ===== 行の高さを詰める（1.行軍時間・3.集結時間） ===== */
+  .in{padding:5px 8px !important}
+  .in label{line-height:1.1}
+  .in label,.card .name{font-size:calc(14px * var(--fs)) !important}
+  .in input{margin-top:3px;padding:3px 2px !important;font-size:calc(24px * var(--fs)) !important;border-radius:8px}
+  body.n3 .in input{font-size:calc(21px * var(--fs)) !important}
+  .in .conv{margin-top:2px;font-size:calc(11px * var(--fs));min-height:0;line-height:1.2}
+  .card{padding:5px 9px !important;display:flex;align-items:center;justify-content:space-between;gap:4px}
+  .card .name{display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+  .card .name .first{margin-left:2px}
+  .card .big{font-size:calc(26px * var(--fs)) !important;margin:0 !important;line-height:1.15}
+  body.n3 .card{padding:5px 6px !important}
+  body.n3 .card .big{font-size:calc(21px * var(--fs)) !important}
+  .first{white-space:nowrap}
+  body.n3 .card .name{flex-wrap:nowrap;flex:none}
+  body.n3 .card .first{font-size:9px;padding:1px 3px;margin-left:1px}
+  body.n3 .card .big{letter-spacing:0}
+  /* 3.集結時間を少し高く、2.着弾時間を少し小さく */
+  .card{padding:9px 10px !important}
+  body.n3 .card{padding:9px 6px !important}
+  .card .big{font-size:calc(30px * var(--fs)) !important}
+  body.n3 .card .big{font-size:calc(23px * var(--fs)) !important}
+  .arr .at .v{font-size:calc(16px * var(--fs)) !important}
+  .arr .at .k,.arr .lag{font-size:calc(9.5px * var(--fs)) !important}
+  /* ===== 最終結論（出発・着弾）を大きく太く ===== */
+  .explain{font-size:calc(16px * var(--fs)) !important;font-weight:800;line-height:1.6;color:var(--text);padding:8px 10px !important;text-align:left}
+  .explain .lbl{display:inline-block;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#1b1200;border-radius:6px;padding:0 7px;margin-right:6px;font-size:.85em;font-weight:900;vertical-align:1px}
+  .explain .ln{display:block}
+  .explain .ln + .ln{margin-top:4px;padding-top:4px;border-top:1px dashed var(--line2)}
+  .explain .em{font-weight:900}
+  body.n3 .explain{font-size:calc(15px * var(--fs)) !important}
+  .memo-tabs{display:flex;gap:4px;background:rgba(10,15,28,.8);border:1px solid var(--line2);border-radius:10px;padding:3px}
+  .memo-tabs button{border:0;background:transparent;color:var(--sub);font-weight:800;font-size:13px;padding:7px 11px;border-radius:7px;white-space:nowrap}
+  .memo-tabs button.on{background:linear-gradient(180deg,rgba(245,200,76,.34),rgba(245,200,76,.10));color:var(--gold-l);box-shadow:inset 0 0 0 1px rgba(245,200,76,.5)}
+  .memo-title{margin:4px 0 0;font-size:17px;font-weight:900;letter-spacing:.04em;color:var(--gold-l)}
+  .memo-tbl .sec-row th{text-align:left;font-size:14px;font-weight:900;padding:12px 4px 6px;border-bottom:1px solid var(--line2);background:none !important;white-space:normal}
+  .memo-tbl .sec-row.atk th{color:#ff8a65} .memo-tbl .sec-row.def th{color:#5ec8ff}
+  .memo-tbl thead th{position:sticky;top:var(--mh,44px);background:#0c1222;z-index:1}
+  .memo-title{margin-bottom:6px !important}
+  .memo-tabs button{padding:7px 9px !important;font-size:12.5px !important}
+  .memo-tbl.eq td.lv{white-space:nowrap;line-height:1.25}
+  .memo-tbl.eq .equip{display:block;font-weight:700;color:var(--text)}
+  .memo-tbl.eq .skill{display:block;font-size:.9em;color:#c9b8ff;margin-top:1px}
+  .memo-head h2 small,.memo-title small{font-size:12px;font-weight:700;color:var(--sub);margin-left:2px}
+  .memo-tbl th.c{text-align:center}
+  .memo-tbl td.lv{font-weight:900;color:var(--gold-l);font-variant-numeric:tabular-nums}
+  body.d-phone .memo-box{padding:10px 8px 14px}
+  body.d-phone .memo-tbl{font-size:11.5px}
+  body.d-phone .memo-tbl td,body.d-phone .memo-tbl th{padding:6px 2px}
+  body.d-phone .memo-tbl .tag{padding:1px 4px;font-size:10.5px}
+  body.d-tablet .memo-tbl,body.d-pc .memo-tbl{font-size:14px}
+  /* 専用装備・スキルを横並び（別の列）に */
+  .memo-tbl.eq td.equip{font-weight:700;color:var(--text);white-space:nowrap}
+  .memo-tbl.eq td.skill{color:#c9b8ff;white-space:nowrap}
+  /* 英雄名の前を1マス空ける */
+  .memo-tbl td.hero,.memo-tbl thead th:first-child{padding-left:1em !important}
+  /* 画面幅に収まらない場合は表だけ横スクロール */
+  .tbl-wrap{overflow:visible}
+  .memo-tbl.eq td.equip,.memo-tbl.eq td.skill{display:table-cell;margin:0}
+  /* タブ名が長いので、スマホでは折り返して3つとも画面内に収める */
+  .memo-head{gap:8px}
+  .memo-tabs{flex:1;min-width:0}
+  .memo-tabs button{flex:1;min-width:0;white-space:normal;line-height:1.25}
+  .memo-close{flex:none}
+  body.d-phone .memo-tabs button{font-size:11.5px !important;padding:6px 4px !important}
+  body.d-phone .memo-tbl.eq{font-size:11px}
+  body.d-phone .memo-tbl.eq td,body.d-phone .memo-tbl.eq th{padding-left:2px;padding-right:2px}
+  body.d-phone .memo-tbl.eq td.equip,body.d-phone .memo-tbl.eq td.skill{white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+  body.d-phone .memo-tbl.eq td.lv{font-size:11px}
+  body.d-phone .memo-tbl.eq th{font-size:10px}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
-  <div class="ver">@kai@ 2026/11/21 Ver1.8</div>
+  <div class="topbar">
+    <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
+    <div class="ver">@kai@ 2026/11/24 Ver2.5</div>
+  </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
   <section class="sec">
@@ -254,6 +355,20 @@
   </div>
 </div>
 <div class="toast" id="toast">コピーしました！</div>
+<div class="memo-ov" id="memoOv" hidden role="dialog" aria-modal="true" aria-labelledby="memoTitle">
+  <div class="memo-box">
+    <div class="memo-head">
+      <div class="memo-tabs" role="tablist">
+        <button role="tab" data-tab="0" class="on">英雄遠征スキル</button>
+        <button role="tab" data-tab="1">英雄専用装備：遠征スキル</button>
+        <button role="tab" data-tab="2">英雄専用装備：討伐スキル</button>
+      </div>
+      <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
+    </div>
+    <h2 id="memoTitle" class="memo-title"></h2>
+    <div id="memoBody"></div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -311,7 +426,7 @@
   // チャットで改行されないよう、時間は半角（例 05:01）で出力
   function buildCopy(t, r){
     var S = "\u3000";
-    var head = "・領主", dp = "・集結", mv = "・行軍", ar = "・着弾";
+    var head = "・領主", dp = "●集結", mv = "・行軍", ar = "・着弾";
     for (var i=0;i<t.length;i++){
       head += S + S + CN[i+1];
       dp += S + fmtMS(r[i].dep);
@@ -419,16 +534,16 @@
     // 同じ秒数は「1＝2」のようにまとめて表示（出発・着弾とも同じ書式）
     function seq(vals, label){
       var uq = vals.filter(function(v,j){ return vals.indexOf(v) === j; }).sort(function(a,b){ return a-b; });
-      return label + "：" + uq.map(function(u){
+      return "<span class='ln'><span class='lbl'>" + label + "</span>" + uq.map(function(u){
         var g = []; vals.forEach(function(v,j){ if (v === u) g.push(j+1); });
         // 全員同じタイミング（1グループだけ）なら「（最初）」は付けない
         return g.join("＝") + (u ? "<span class='em'>（" + gapTxt(u) + "後）</span>" : (uq.length > 1 ? "（最初）" : ""));
-      }).join(" → ");
+      }).join(" → ") + "</span>";
     }
     var dep = seq(r.map(function(x){ return x.dep; }), "出発");
     var arr;
     arr = seq(r.map(function(x){ return x.off; }), "着弾");
-    $("explain").innerHTML = dep + "<br>" + arr;
+    $("explain").innerHTML = dep + arr;
 
     latestCopyText = buildCopy(t, r);
     if ($("manual").classList.contains("show")) $("manualText").value = latestCopyText;
@@ -546,6 +661,128 @@
   });
   window.addEventListener("resize", applyDevice);
   window.addEventListener("orientationchange", applyDevice);
+
+  /* ---------- メモ（英雄遠征スキル） ---------- */
+  // [英雄, 区分, 適用, 効果, Lv5, 補足]
+  var MEMO = [
+    { title:"１．攻撃系", cls:"atk", rows:[
+      ["チェンコ","攻撃","味方","殺傷力上昇","25%",""],
+      ["あまね","攻撃","味方","攻撃力上昇","25%",""],
+      ["インウー","攻撃","味方","殺傷力上昇","25%",""],
+      ["アマデウス","攻撃","味方","殺傷力上昇","25%",""],
+      ["ゾーイ","攻撃","味方","裂傷を付与","40%","確率20%"],
+      ["マリン","攻撃","味方","与ダメージ上昇","50%","確率40%"],
+      ["ペーラ","攻撃","敵","被ダメージ上昇","50%","確率50%"],
+      ["イェーガー","攻撃","味方","与ダメージ上昇","40%","確率20%"],
+      ["ヒルデ","攻防","味方","攻撃力・防御力上昇","15%/10%",""]
+    ]},
+    { title:"２．防衛系", cls:"def", rows:[
+      ["クイン","防衛","味方","被ダメージ軽減","20%",""],
+      ["ハワード","防衛","味方","被ダメージ軽減","20%",""],
+      ["ゴードン","防衛","味方","総HP上昇","25%",""],
+      ["ファハド","防衛","敵","与ダメージ低下","20%",""],
+      ["ヘルガ","防衛","味方","被ダメージ軽減","50%","確率40%"],
+      ["ジェベル","防衛","味方","被ダメージ軽減","50%","確率40%"],
+      ["サロ","防衛","味方","防御力・HP上昇","10%/15%",""],
+      ["エリック","防衛","敵","攻撃力低下","20%",""]
+    ]}
+  ];
+  function esc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  var KIND = {"攻撃":"atk","防衛":"def","攻防":"both"};
+  // 英雄専用装備：遠征スキル  [英雄, 専用装備, スキル, 区分, 効果, 最大]
+  var EQUIP = [
+    { title:"１．攻撃系", cls:"atk", rows:[
+      ["ヘルガ","テュールの手","【狂熱共鳴】","攻撃","殺傷力上昇","15%"],
+      ["アマデウス","運命","【真実の術】","攻撃","攻撃力上昇","15%"],
+      ["マリン","霧の使者","【無敵艦隊】","攻撃","殺傷力上昇","15%"],
+      ["ペーラ","規定","【運命の計画】","攻撃","攻撃力上昇","15%"]
+    ]},
+    { title:"２．防衛系", cls:"def", rows:[
+      ["ジェベル","信念の戦旗","【信頼】","防衛","殺傷力上昇","15%"],
+      ["サロ","野ウサギ砲","【攻撃は最大の防御】","防衛","攻撃力上昇","15%"],
+      ["ヒルデ","啓示","【タフネス】","防衛","HP上昇","15%"],
+      ["ゾーイ","不義","【不義のプリンセス】","防衛","攻撃力上昇","15%"],
+      ["エリック","教化の槌","【ハンマー・ディフェンス】","防衛","防御力上昇","15%"],
+      ["イェーガー","流刑者","【賛美歌】","防衛","HP上昇","15%"]
+    ]}
+  ];
+  // 英雄専用装備：討伐スキル（集結主、単騎攻撃）
+  var HUNT = [
+    { title:"", cls:"hunt", rows:[
+      ["ジェベル","信念の戦旗","【紅の意志】","防衛","与ダメージ上昇","30%"],
+      ["ヘルガ","テュールの手","【狂熱共鳴】","攻撃","与ダメージ上昇","30%"],
+      ["サロ","野ウサギ砲","【義理尽】","防衛","攻撃力上昇","24%"],
+      ["アマデウス","運命","【双剣防御】","攻撃","被ダメージ減少","30%"],
+      ["ヒルデ","啓示","【聖なる祈祷】","防衛","回復効果上昇","70%"],
+      ["マリン","霧の使者","【酒飲み】","攻撃","最低HP英雄回復","攻撃力x15%"],
+      ["ゾーイ","不義","【デスファイト】","防衛","攻撃力上昇","24%"],
+      ["エリック","教化の槌","【ハンマー・ブレス】","防衛","与ダメージ上昇","30%"],
+      ["ペーラ","規定","【シャッフルマジック】","攻撃","浮動効果上下限上昇","150%"],
+      ["イェーガー","流刑者","【サイレント・シレンス】","防衛","与ダメージ上昇","攻撃力x300%"]
+    ]}
+  ];
+  var KTAG = function(k){ return '<span class="tag '+(KIND[k]||"")+'">'+esc(k)+'</span>'; };
+  // 1ページ＝1つの表（区分は見出し行で区切る）→ 列が上から下までそろう
+  function memoTable(heads, sections, rowFn, cls){
+    var n = heads.length;
+    return '<div class="tbl-wrap"><table class="memo-tbl '+(cls||"")+'"><thead><tr>' + heads.map(function(h){
+        return '<th'+(h.c ? ' class="c"' : '')+'>'+h.t+'</th>';
+      }).join("") + '</tr></thead><tbody>' +
+      sections.map(function(sec){
+        return (sec.title ? '<tr class="sec-row '+sec.cls+'"><th colspan="'+n+'">'+esc(sec.title)+'</th></tr>' : '') +
+          sec.rows.map(rowFn).join("");
+      }).join("") + '</tbody></table></div>';
+  }
+  var EQ_HEADS = [{t:"英雄"},{t:"専用装備"},{t:"スキル"},{t:"区分",c:1},{t:"効果"},{t:"最大",c:1}];
+  function eqRow(r){
+    return '<tr><td class="hero">'+esc(r[0])+'</td>' +
+      '<td class="equip">'+esc(r[1])+'</td>' +
+      '<td class="skill">'+esc(r[2])+'</td>' +
+      '<td class="c">'+KTAG(r[3])+'</td>' +
+      '<td>'+esc(r[4])+'</td>' +
+      '<td class="c lv">'+esc(r[5]).replace(/^(攻撃力)(x)/, '$1<br>$2')+'</td></tr>';
+  }
+  var MEMO_PAGES = [
+    { title:"英雄遠征スキル<small>（集結参加スキル）</small>",
+      html: memoTable(
+        [{t:"英雄"},{t:"区分",c:1},{t:"適用",c:1},{t:"効果"},{t:"最大",c:1},{t:"補足",c:1}],
+        MEMO,
+        function(r){
+          return '<tr><td class="hero">'+esc(r[0])+'</td>' +
+            '<td class="c">'+KTAG(r[1])+'</td>' +
+            '<td class="c"><span class="tag '+(r[2]==="敵"?"enemy":"ally")+'">'+esc(r[2])+'</span></td>' +
+            '<td>'+esc(r[3])+'</td>' +
+            '<td class="c lv">'+esc(r[4])+'</td>' +
+            '<td class="c">'+(r[5] ? '<span class="tag prob">'+esc(r[5])+'</span>' : '')+'</td></tr>';
+        }) },
+    { title:"英雄専用装備：遠征スキル<small>（集結参加スキル）</small>", html: memoTable(EQ_HEADS, EQUIP, eqRow, "eq") },
+    { title:"英雄専用装備：討伐スキル<small>（集結主、単騎攻撃）</small>", html: memoTable(EQ_HEADS, HUNT, eqRow, "eq") }
+  ];
+  var memoTab = 0;
+  function showMemoTab(k){
+    memoTab = k;
+    $("memoTitle").innerHTML = MEMO_PAGES[k].title;
+    $("memoBody").innerHTML = MEMO_PAGES[k].html;
+    document.querySelectorAll(".memo-tabs button").forEach(function(b){
+      var on = +b.getAttribute("data-tab") === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on);
+    });
+    document.querySelector(".memo-box").scrollTop = 0;
+  }
+  document.querySelectorAll(".memo-tabs button").forEach(function(b){
+    b.addEventListener("click", function(){ showMemoTab(+b.getAttribute("data-tab")); });
+  });
+  showMemoTab(0);
+  function fitMemoHead(){
+    var h = document.querySelector(".memo-head");
+    document.querySelector(".memo-box").style.setProperty("--mh", (h.getBoundingClientRect().height - 13) + "px");
+  }
+  function openMemo(){ $("memoOv").hidden = false; document.body.classList.add("memo-open"); fitMemoHead(); $("memoClose").focus(); }
+  window.addEventListener("resize", function(){ if (!$("memoOv").hidden) fitMemoHead(); });
+  function closeMemo(){ $("memoOv").hidden = true; document.body.classList.remove("memo-open"); $("memoBtn").focus(); }
+  $("memoBtn").addEventListener("click", openMemo);
+  $("memoClose").addEventListener("click", closeMemo);
+  $("memoOv").addEventListener("click", function(e){ if (e.target === this) closeMemo(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !$("memoOv").hidden) closeMemo(); });
 
   applyDevice();
   render();
