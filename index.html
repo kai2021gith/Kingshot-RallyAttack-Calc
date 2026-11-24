@@ -407,13 +407,15 @@
   .rare-legend{display:flex;gap:14px;justify-content:flex-end;font-size:11px;font-weight:800;margin-top:8px;color:var(--sub)}
   .rare-legend .r-epic{color:var(--epic)} .rare-legend .r-leg{color:var(--legend)}
   body.d-phone .memo-box .memo-tbl td.note{font-size:clamp(8px,2.3vw,10px)}
+  /* 討伐スキル表の条件（ｽｷﾙ付与英雄 など）はスマホでも1行に収める */
+  body.d-phone .memo-box .memo-tbl.eq td.cond{letter-spacing:-.04em}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/24 Ver4.2</div>
+    <div class="ver">@kai@ 2026/11/24 Ver4.3</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -899,8 +901,8 @@
   // 専用装備の表：中身が空の列（例：遠征スキルの「確率」）は自動で非表示
   // hide:1 の列（専用装備名・スキル名）は、スマホで画面に収めるため表示しない（データは残してあります）
   var EQ_COLS = [
-    {t:"世代", c:1, cls:"gen", w:7}, {t:"英雄", cls:"hero", w:19}, {t:"専用装備", cls:"equip", hide:1}, {t:"スキル", cls:"skill", hide:1},
-    {t:"区分", c:1, tag:1, w:11}, {t:"効果", cls:"eff", w:31}, {t:"最大", c:1, cls:"lv", w:13}, {t:"確率", c:1, cls:"prob-c", w:8}, {t:"条件", cls:"cond", w:11}
+    {t:"世代", c:1, cls:"gen", w:7}, {t:"英雄", cls:"hero", w:17}, {t:"専用装備", cls:"equip", hide:1}, {t:"スキル", cls:"skill", hide:1},
+    {t:"区分", c:1, tag:1, w:11}, {t:"効果", cls:"eff", w:30}, {t:"最大", c:1, cls:"lv", w:13}, {t:"確率", c:1, cls:"prob-c", w:7}, {t:"条件", cls:"cond", w:11}
   ];
   function cellHtml(v){ return esc(v).replace(/\n/g, "<br>"); }
   // 全角カタカナ→半角カタカナ（濁点・半濁点・長音「ー」・中点「・」も半角に。漢字・ひらがな・【】はそのまま）
@@ -942,7 +944,7 @@
   var MEMO_PAGES = [
     { title:"英雄遠征スキル<small>（集結&駐屯参加スキル）</small>",
       html: memoTable(
-        [{t:"世代",c:1,w:7},{t:"英雄",w:19},{t:"区分",c:1,w:11},{t:"適用",c:1,w:9},{t:"効果",w:22},{t:"最大",c:1,w:13},{t:"補足",w:19}],
+        [{t:"世代",c:1,w:7},{t:"英雄",w:17},{t:"区分",c:1,w:11},{t:"適用",c:1,w:9},{t:"効果",w:21},{t:"最大",c:1,w:13},{t:"補足",w:19}],
         MEMO,
         function(r){
           return '<tr class="'+(r[2]==="エピック"?"row-epic":"row-leg")+'"><td class="c gen">'+esc(r[0])+'</td>' + heroTd(r[1]) +
