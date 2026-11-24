@@ -464,7 +464,7 @@
       <div class="memo-tabs" role="tablist">
         <button role="tab" data-tab="0" class="on">集結&駐屯参加<br>英雄<br>遠征スキル</button>
         <button role="tab" data-tab="1">集結&駐屯参加<br>英雄専用装備<br>遠征スキル</button>
-        <button role="tab" data-tab="2">集結&駐屯主&単騎<br>英雄専用装備<br>討伐スキル</button>
+        <button role="tab" data-tab="2">集結駐屯主/単騎<br>英雄専用装備<br>討伐スキル</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -953,8 +953,8 @@
             // 補足：「、」で区切った短い語句（3ターン など）は途中で切らない
             '<td class="note">'+r[7].split("、").map(function(t){ return t.length <= 7 ? '<span class="nw">'+esc(t)+'</span>' : esc(t); }).join("、<wbr>")+'</td></tr>';
         }, "", true) + RARE_LEGEND },
-    { title:"英雄専用装備：遠征スキル<small>（集結&駐屯参加スキル）</small>", html: eqTable(EQUIP, "exp", true) + RARE_LEGEND },
-    { title:"英雄専用装備：討伐スキル<small>（集結&駐屯主/単騎スキル）</small>", html: eqTable(HUNT, "hunt") + RARE_LEGEND }
+    { title:"英雄専用装備：遠征スキル<small>（集結&駐屯参加）</small>", html: eqTable(EQUIP, "exp", true) + RARE_LEGEND },
+    { title:"英雄専用装備：討伐スキル<small>（集結&駐屯主/単騎）</small>", html: eqTable(HUNT, "hunt") + RARE_LEGEND }
   ];
   var memoTab = 0;
   function showMemoTab(k){
