@@ -351,13 +351,42 @@
     body.d-phone .memo-tbl.eq td.hero,body.d-phone .memo-tbl.eq thead th:first-child{padding-left:.5em !important}
     body.d-phone .memo-tbl.eq td,body.d-phone .memo-tbl.eq th{padding-left:1px !important;padding-right:1px !important}
   }
+  /* ===== Ver3.0 専用装備：世代・確率・条件の列 ===== */
+  .memo-tbl.eq td.gen{color:var(--sub);font-weight:700;font-variant-numeric:tabular-nums}
+  .memo-tbl.eq td.hero{padding-left:.4em !important}
+  .memo-tbl.eq thead th:first-child{padding-left:4px !important}
+  .memo-tbl.eq td.prob-c{color:#c4b5fd;font-weight:800;white-space:nowrap}
+  .memo-tbl.eq td.cond{font-size:.82em;color:#9fb3d1;white-space:nowrap}
+  .memo-tbl.eq td.eff,.memo-tbl.eq td.lv,.memo-tbl.eq td.cond{line-height:1.3}
+  .memo-tbl.eq td{white-space:nowrap}
+  body.d-phone .memo-tbl.eq td.gen,body.d-phone .memo-tbl.eq td.prob-c,body.d-phone .memo-tbl.eq td.cond{font-size:clamp(8px,2.3vw,10px) !important}
+  body.d-phone .memo-tbl.eq td.hero{padding-left:.3em !important}
+  body.d-phone .memo-tbl.eq thead th:first-child{padding-left:2px !important}
+  /* PC・タブレット：メモ画面を広げて表を1行で表示 */
+  body.d-pc .memo-box,body.d-tablet .memo-box{max-width:960px}
+  /* スマホ：入りきらない時だけ、装備名・スキル名・効果・条件をマスの中で折り返す */
+  body.d-phone .memo-box .memo-tbl.eq td.equip,body.d-phone .memo-box .memo-tbl.eq td.skill,
+  body.d-phone .memo-box .memo-tbl.eq td.eff,body.d-phone .memo-box .memo-tbl.eq td.cond{white-space:normal !important;overflow-wrap:anywhere}
+  body.d-tablet .memo-box .memo-tbl.eq td.eff,body.d-tablet .memo-box .memo-tbl.eq td.cond{white-space:normal !important}
+  body.d-phone .memo-box .memo-tbl.eq td,body.d-phone .memo-box .memo-tbl.eq th{padding-left:1.5px !important;padding-right:1.5px !important}
+  /* 最大列：スマホ・タブレットでは入りきらない時だけ折り返す */
+  body.d-phone .memo-box .memo-tbl.eq td.lv,body.d-tablet .memo-box .memo-tbl.eq td.lv{white-space:normal !important}
+  /* 遠征スキル表の効果は短いので1行のまま */
+  body.d-phone .memo-box .memo-tbl.eq.exp td.eff{white-space:nowrap !important}
+  /* ===== Ver3.2 項目名の行を各区分（攻撃系・防衛系）の下に表示 ===== */
+  .memo-tbl tr.col-head th{background:none !important;position:static;padding-top:4px;padding-bottom:4px}
+  .memo-tbl tr.col-head th:first-child{padding-left:1em !important}
+  .memo-tbl tr.col-head + tr td{border-top:0}
+  body.d-phone .memo-tbl tr.col-head th{font-size:10px}
+  .memo-tbl.eq tr.col-head th:first-child{padding-left:4px !important}
+  body.d-phone .memo-tbl.eq tr.col-head th:first-child{padding-left:2px !important}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/24 Ver2.9</div>
+    <div class="ver">@kai@ 2026/11/24 Ver3.5</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -406,9 +435,9 @@
   <div class="memo-box">
     <div class="memo-head">
       <div class="memo-tabs" role="tablist">
-        <button role="tab" data-tab="0" class="on">英雄遠征スキル</button>
-        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル</button>
-        <button role="tab" data-tab="2">英雄専用装備<br>討伐スキル</button>
+        <button role="tab" data-tab="0" class="on">集結参加/駐屯参加<br>英雄<br>遠征スキル</button>
+        <button role="tab" data-tab="1">集結参加/駐屯参加<br>英雄専用装備<br>遠征スキル</button>
+        <button role="tab" data-tab="2">集結主/駐屯主/単騎<br>英雄専用装備<br>討伐スキル</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -736,61 +765,124 @@
   ];
   function esc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   var KIND = {"攻撃":"atk","防衛":"def","攻防":"both"};
-  // 英雄専用装備：遠征スキル  [英雄, 専用装備, スキル, 区分, 効果, 最大]
+  // [世代, 英雄, 専用装備, スキル, 区分, 効果, 最大, 確率, 条件]（\n は改行）
   var EQUIP = [
     { title:"１．攻撃系", cls:"atk", rows:[
-      ["ヘルガ","テュールの手","【狂熱共鳴】","攻撃","殺傷力上昇","15%"],
-      ["アマデウス","運命","【真実の術】","攻撃","攻撃力上昇","15%"],
-      ["マリン","霧の使者","【無敵艦隊】","攻撃","殺傷力上昇","15%"],
-      ["ペーラ","規定","【運命の計画】","攻撃","攻撃力上昇","15%"]
+      ["1", "ヘルガ", "テュールの手", "【狂熱共鳴】", "攻撃", "殺傷力上昇", "15%", "", "集結"],
+      ["1", "アマデウス", "運命", "【真実の術】", "攻撃", "攻撃力上昇", "15%", "", "集結"],
+      ["2", "マリン", "霧の使者", "【無敵艦隊】", "攻撃", "殺傷力上昇", "15%", "", "集結"],
+      ["3", "ペーラ", "規定", "【運命の計画】", "攻撃", "攻撃力上昇", "15%", "", "集結"],
+      ["4", "ローザ", "アトモスフィア", "【ｲﾝｽﾊﾟｲｱ･ﾀﾞﾝｽ】", "攻撃", "殺傷力上昇", "15%", "", "集結"],
+      ["5", "スルード", "神狼の鋭牙", "【ｳﾙﾌｷｯｽ】", "攻撃", "殺傷力上昇", "15%", "", "集結"],
+      ["6", "ヤン", "雪の妖精", "【ｱﾀｯｸﾃﾞｨﾌｪﾝｽ】", "攻撃", "殺傷力上昇", "15%", "", "集結"],
+      ["7", "アイヴァ", "七色カメレオン", "【ｸﾛﾏｽﾄｰﾑ】", "攻撃", "殺傷力上昇", "15%", "", "集結"],
+      ["8", "ルナ", "太古の守護者", "【月輝の力】", "攻撃", "攻撃力上昇", "15%", "", "集結"]
     ]},
     { title:"２．防衛系", cls:"def", rows:[
-      ["ジェベル","信念の戦旗","【信頼】","防衛","殺傷力上昇","15%"],
-      ["サロ","野ウサギ砲","【攻撃は最大防御】","防衛","攻撃力上昇","15%"],
-      ["ヒルデ","啓示","【タフネス】","防衛","HP上昇","15%"],
-      ["ゾーイ","不義","【不義のﾌﾟﾘﾝｾｽ】","防衛","攻撃力上昇","15%"],
-      ["エリック","教化の槌","【ﾊﾝﾏｰ･ﾃﾞｨﾌｪﾝｽ】","防衛","防御力上昇","15%"],
-      ["イェーガー","流刑者","【賛美歌】","防衛","HP上昇","15%"]
+      ["1", "ジェベル", "信念の戦旗", "【信頼】", "防衛", "殺傷力上昇", "15%", "", ""],
+      ["1", "サロ", "野ウサギ砲", "【攻撃は最大の防御】", "防衛", "攻撃力上昇", "15%", "", ""],
+      ["2", "ヒルデ", "啓示", "【ﾀﾌﾈｽ】", "防衛", "HP上昇", "15%", "", ""],
+      ["2", "ゾーイ", "不義", "【不義のﾌﾟﾘﾝｾｽ】", "防衛", "攻撃力上昇", "15%", "", ""],
+      ["3", "エリック", "教化の槌", "【ﾊﾝﾏｰ･ﾃﾞｨﾌｪﾝｽ】", "防衛", "防御力上昇", "15%", "", ""],
+      ["3", "イェーガー", "流刑者", "【賛美歌】", "防衛", "HP上昇", "15%", "", ""],
+      ["4", "アルカ", "チャンピオンの盾", "【ｸﾞﾛｰﾘｰ･ｵｰｽ】", "防衛", "HP上昇", "15%", "", ""],
+      ["4", "マーゴ", "狂喜の刃", "【ﾃﾞｽﾏｯﾁ】", "防衛", "殺傷力上昇", "15%", "", ""],
+      ["5", "龍飛", "酔八仙", "【虚実一対】", "防衛", "攻撃力上昇", "15%", "", ""],
+      ["5", "ビビアン", "運命の輪", "【ﾌﾙﾊﾞｳﾝﾃｨ】", "防衛", "防御力上昇", "15%", "", ""],
+      ["6", "トリトン", "潮汐の杖", "【鯨歌の調べ】", "防衛", "防御力上昇", "15%", "", ""],
+      ["6", "ソフィア", "ブラッディローズ", "【ﾀﾞｰｸﾅｲﾄｸｲｰﾝ】", "防衛", "殺傷力上昇", "15%", "", ""],
+      ["7", "チャールズ", "正義の鉄拳", "【華麗なる登場】", "防衛", "全体HP上昇", "15%", "", ""],
+      ["7", "レン&ロン", "ヘヴィキャノン", "【秘密の火薬樽】", "防衛", "攻撃力上昇", "15%", "", ""],
+      ["8", "ディエゴ", "隕鉄剣", "【大巧不工】", "防衛", "防御力上昇", "15%", "", ""],
+      ["8", "リズ", "真鍮のメイス", "【ﾊｲﾊﾟｰﾌﾞｰｽﾀｰ】", "防衛", "殺傷力上昇", "15%", "", ""]
     ]}
   ];
   // 英雄専用装備：討伐スキル（集結主、単騎攻撃）
   var HUNT = [
     { title:"", cls:"hunt", rows:[
-      ["ジェベル","信念の戦旗","【紅の意志】","防衛","与ダメージ上昇","30%"],
-      ["ヘルガ","テュールの手","【狂熱共鳴】","攻撃","与ダメージ上昇","30%"],
-      ["サロ","野ウサギ砲","【義理尽】","防衛","攻撃力上昇","24%"],
-      ["アマデウス","運命","【双剣防御】","攻撃","被ダメージ減少","30%"],
-      ["ヒルデ","啓示","【聖なる祈祷】","防衛","回復効果上昇","70%"],
-      ["マリン","霧の使者","【酒飲み】","攻撃","最低HP英雄回復","攻撃力x15%"],
-      ["ゾーイ","不義","【デスファイト】","防衛","攻撃力上昇","24%"],
-      ["エリック","教化の槌","【ﾊﾝﾏｰ･ﾌﾞﾚｽ】","防衛","与ダメージ上昇","30%"],
-      ["ペーラ","規定","【ｼｬｯﾌﾙﾏｼﾞｯｸ】","攻撃","浮動効果上下限上昇","150%"],
-      ["イェーガー","流刑者","【ｻｲﾚﾝﾄ･ｼﾚﾝｽ】","防衛","与ダメージ上昇","攻撃力x300%"]
+      ["1", "ジェベル", "信念の戦旗", "【紅の意志】", "攻撃", "与ダメージ上昇", "30%", "", ""],
+      ["1", "ヘルガ", "テュールの手", "【狂熱共鳴】", "攻撃", "与ダメージ上昇", "30%", "", ""],
+      ["1", "サロ", "野ウサギ砲", "【義理尽】", "攻撃", "攻撃力上昇", "24%", "", ""],
+      ["1", "アマデウス", "運命", "【双剣防御】", "防衛", "被ダメージ減少", "30%", "", ""],
+      ["2", "マリン", "霧の使者", "【酒飲み】", "防衛", "最低HP英雄回復", "攻撃力x15%", "", ""],
+      ["2", "ヒルデ", "啓示", "【聖なる祈祷】", "防衛", "回復効果上昇", "70%", "", ""],
+      ["2", "ゾーイ", "不義", "【デスファイト】", "攻撃", "攻撃力上昇", "24%", "", "ｽｷﾙ発動後"],
+      ["3", "エリック", "教化の槌", "【ハンマー・ブレス】", "攻撃", "与ダメージ上昇", "30%", "", ""],
+      ["3", "ペーラ", "規定", "【シャッフルマジック】", "攻防", "攻撃/回復ｽｷﾙ上下限上昇", "150%", "", ""],
+      ["3", "イェーガー", "流刑者", "【サイレント・シレンス】", "攻撃", "ｽｷﾙ使用不可\n与ダメージ上昇", "5秒\n攻撃力x300%", "", ""],
+      ["4", "アルカ", "チャンピオンの盾", "【不屈の信念】", "攻撃", "攻撃力上昇(2.5秒)", "42%", "", "ｽｷﾙ付与英雄"],
+      ["4", "マーゴ", "狂喜の刃", "【アンブッシュ】", "攻撃", "与ダメージ追加", "攻撃力x45%", "40%", ""],
+      ["4", "ローザ", "アトモスフィア", "【オールナイト・フェスタ】", "攻撃", "攻撃力上昇", "15%", "", "ｽｷﾙ発動後"],
+      ["5", "スルード", "神狼の鋭牙", "【レイジアックス】", "防衛", "眩暈状態", "1秒", "35%", "ｽｷﾙ発動後"],
+      ["5", "龍飛", "酔八仙", "【呑下三百杯】", "防衛", "1.5秒HP回復", "与ﾀﾞﾒｰｼﾞx15%", "", "ｽｷﾙ延長"],
+      ["5", "ビビアン", "運命の輪", "【ロイヤルシューター】", "攻撃", "ﾗﾝﾀﾞﾑﾀｰｹﾞｯﾄへ与ダメージ", "攻撃力x70%", "", "ｽｷﾙ発動時"],
+      ["6", "トリトン", "潮汐の杖", "【クリスタル改造】", "攻撃", "与ダメージ上昇", "30%", "", ""],
+      ["6", "ヤン", "雪の妖精", "【ラピッドファイア】", "攻撃", "連続5回与ダメージ\n護衛は即撃破", "攻撃力x56%", "", ""],
+      ["6", "ソフィア", "ブラッディローズ", "【オーバーマインド・アイ】", "防衛", "混乱状態(無差別攻撃)", "1秒", "8%", ""],
+      ["7", "アイヴァ", "七色カメレオン", "【カラーセンス】", "攻防", "与ダメージ上昇\n被攻撃力低下", "25%\n15%", "", ""],
+      ["7", "チャールズ", "正義の鉄拳", "【修理の達人】", "防衛", "HP回復\n防御力上昇", "最大HP35%\n30%", "", "HP50%未満\n1回のみ"],
+      ["7", "レン&ロン", "ヘヴィキャノン", "【クールな砲撃手】", "攻撃", "攻撃速度上昇", "14%", "5秒", "ｽｷﾙ発動時"],
+      ["8", "ディエゴ", "隕鉄剣", "【重剣無鋒】", "攻防", "防御力上昇\nﾀﾞﾒｰｼﾞ反射", "攻撃力x95%\n被ﾀﾞﾒｰｼﾞx30%", "", ""],
+      ["8", "ルナ", "太古の守護者", "【星霊の残光】", "防衛", "5秒間HPキープ", "初期HP30%まで", "", ""],
+      ["8", "リズ", "真鍮のメイス", "【スプラッシュバブル】", "攻撃", "攻撃力上昇\n与ﾀﾞﾒｰｼﾞ", "24%\n攻撃力x70%", "", ""]
     ]}
   ];
   var KTAG = function(k){ return '<span class="tag '+(KIND[k]||"")+'">'+esc(k)+'</span>'; };
   // 1ページ＝1つの表（区分は見出し行で区切る）→ 列が上から下までそろう
-  function memoTable(heads, sections, rowFn, cls){
+  // headPerSec=true のときは、項目名の行を表の先頭ではなく「１．攻撃系」「２．防衛系」の各見出し行の下に入れる
+  function memoTable(heads, sections, rowFn, cls, headPerSec){
     var n = heads.length;
-    return '<div class="tbl-wrap"><table class="memo-tbl '+(cls||"")+'"><thead><tr>' + heads.map(function(h){
-        return '<th'+(h.c ? ' class="c"' : '')+'>'+h.t+'</th>';
-      }).join("") + '</tr></thead><tbody>' +
+    var headCells = heads.map(function(h){ return '<th'+(h.c ? ' class="c"' : '')+'>'+h.t+'</th>'; }).join("");
+    return '<div class="tbl-wrap"><table class="memo-tbl '+(cls||"")+'">' +
+      (headPerSec ? '' : '<thead><tr>' + headCells + '</tr></thead>') + '<tbody>' +
       sections.map(function(sec){
         return (sec.title ? '<tr class="sec-row '+sec.cls+'"><th colspan="'+n+'">'+esc(sec.title)+'</th></tr>' : '') +
+          (headPerSec ? '<tr class="col-head">' + headCells + '</tr>' : '') +
           sec.rows.map(rowFn).join("");
       }).join("") + '</tbody></table></div>';
   }
-  var EQ_HEADS = [{t:"英雄"},{t:"専用装備"},{t:"スキル"},{t:"区分",c:1},{t:"効果"},{t:"最大",c:1}];
-  function eqRow(r){
-    return '<tr><td class="hero">'+esc(r[0])+'</td>' +
-      '<td class="equip">'+esc(r[1])+'</td>' +
-      '<td class="skill">'+esc(r[2])+'</td>' +
-      '<td class="c">'+KTAG(r[3])+'</td>' +
-      '<td class="eff">'+esc(r[4])+'</td>' +
-      '<td class="c lv">'+esc(r[5]).replace(/^(攻撃力)(x)/, '$1<br>$2')+'</td></tr>';
+  // 専用装備の表：中身が空の列（例：遠征スキルの「確率」）は自動で非表示
+  var EQ_COLS = [
+    {t:"世代", c:1, cls:"gen"}, {t:"英雄", cls:"hero"}, {t:"専用装備", cls:"equip"}, {t:"スキル", cls:"skill"},
+    {t:"区分", c:1, tag:1}, {t:"効果", cls:"eff"}, {t:"最大", c:1, cls:"lv"}, {t:"確率", c:1, cls:"prob-c"}, {t:"条件", cls:"cond"}
+  ];
+  function cellHtml(v){ return esc(v).replace(/\n/g, "<br>"); }
+  // 全角カタカナ→半角カタカナ（濁点・半濁点・長音「ー」・中点「・」も半角に。漢字・ひらがな・【】はそのまま）
+  var KANA_F = "ァアィイゥウェエォオカキクケコサシスセソタチッツテトナニヌネノハヒフヘホマミムメモャヤュユョヨラリルレロワヲンー・";
+  var KANA_H = "ｧｱｨｲｩｳｪｴｫｵｶｷｸｹｺｻｼｽｾｿﾀﾁｯﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓｬﾔｭﾕｮﾖﾗﾘﾙﾚﾛﾜｦﾝｰ･";
+  function toHankakuKana(str){
+    return String(str).replace(/[\u30A1-\u30FC\u30FB]/g, function(ch){
+      var d = ch.normalize("NFD"), out = "";
+      for (var i=0;i<d.length;i++){
+        var c = d[i], k = KANA_F.indexOf(c);
+        if (k >= 0) out += KANA_H[k];
+        else if (c === "\u3099") out += "ﾞ";
+        else if (c === "\u309A") out += "ﾟ";
+        else out += c;
+      }
+      return out;
+    });
+  }
+  function eqTable(sections, kind, headPerSec){
+    var use = EQ_COLS.map(function(col, j){
+      return sections.some(function(sec){ return sec.rows.some(function(r){ return String(r[j]).trim() !== ""; }); });
+    });
+    var heads = EQ_COLS.filter(function(c,j){ return use[j]; });
+    return memoTable(heads, sections, function(r){
+      return '<tr>' + EQ_COLS.map(function(col, j){
+        if (!use[j]) return "";
+        var v = r[j];
+        if (col.tag) return '<td class="c">'+KTAG(v)+'</td>';
+        // 最大：「攻撃力x300%」などは、幅が足りない時だけ x の前で折り返す
+        if (col.cls === "lv") return '<td class="c lv">'+cellHtml(v).replace(/([^<>\s])(x\d)/g, '$1<wbr>$2')+'</td>';
+        // 専用装備名・スキル名の2列だけ、カタカナを半角にして表示
+        if (col.cls === "equip" || col.cls === "skill") v = toHankakuKana(v);
+        return '<td class="'+(col.c ? "c " : "")+(col.cls||"")+'">'+cellHtml(v)+'</td>';
+      }).join("") + '</tr>';
+    }, "eq " + (kind||""), headPerSec);
   }
   var MEMO_PAGES = [
-    { title:"英雄遠征スキル<small>（集結参加スキル）</small>",
+    { title:"英雄遠征スキル<small>（集結参加/駐屯参加スキル）</small>",
       html: memoTable(
         [{t:"英雄"},{t:"区分",c:1},{t:"適用",c:1},{t:"効果"},{t:"最大",c:1},{t:"補足",c:1}],
         MEMO,
@@ -801,9 +893,9 @@
             '<td class="eff">'+esc(r[3])+'</td>' +
             '<td class="c lv">'+esc(r[4])+'</td>' +
             '<td class="c">'+(r[5] ? '<span class="tag prob">'+esc(r[5])+'</span>' : '')+'</td></tr>';
-        }) },
-    { title:"英雄専用装備：遠征スキル<small>（集結参加スキル）</small>", html: memoTable(EQ_HEADS, EQUIP, eqRow, "eq") },
-    { title:"英雄専用装備：討伐スキル<small>（集結主、単騎攻撃）</small>", html: memoTable(EQ_HEADS, HUNT, eqRow, "eq") }
+        }, "", true) },
+    { title:"英雄専用装備：遠征スキル<small>（集結参加/駐屯参加スキル）</small>", html: eqTable(EQUIP, "exp", true) },
+    { title:"英雄専用装備：討伐スキル<small>（集結主/駐屯主/単騎スキル）</small>", html: eqTable(HUNT, "hunt") }
   ];
   var memoTab = 0;
   function showMemoTab(k){
