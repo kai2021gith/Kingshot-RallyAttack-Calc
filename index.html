@@ -409,13 +409,85 @@
   body.d-phone .memo-box .memo-tbl td.note{font-size:clamp(8px,2.3vw,10px)}
   /* 討伐スキル表の条件（ｽｷﾙ付与英雄 など）はスマホでも1行に収める */
   body.d-phone .memo-box .memo-tbl.eq td.cond{letter-spacing:-.04em}
+  /* ===== Ver4.8 2つの表の幅・列幅・文字サイズをそろえる ===== */
+  html body .memo-box table.memo-tbl:not(#_){table-layout:fixed !important;width:100%}
+  html body .memo-box table.memo-tbl:not(#_) td,html body .memo-box table.memo-tbl:not(#_) th{white-space:nowrap !important;overflow:hidden;padding-left:3px !important;padding-right:3px !important}
+  html body .memo-box table.memo-tbl:not(#_) tr.sec-row th{white-space:normal !important;overflow:visible;font-size:14px !important}
+  html body .memo-box table.memo-tbl:not(#_) tr.col-head th{font-size:10.5px !important}
+  /* 入りきらない時だけ折り返す：効果・最大は「・」「/」「x」の後、補足はどこでも */
+  html body .memo-box table.memo-tbl:not(#_) td.eff,html body .memo-box table.memo-tbl:not(#_) td.lv{white-space:normal !important;word-break:keep-all;overflow-wrap:anywhere}
+  html body .memo-box table.memo-tbl:not(#_) td.note,html body .memo-box table.memo-tbl:not(#_) td.cond{white-space:normal !important;word-break:normal;overflow-wrap:anywhere}
+  /* 文字サイズ（2つの表で共通） */
+  html body .memo-box table.memo-tbl:not(#_) td.gen{font-size:11px !important}
+  html body .memo-box table.memo-tbl:not(#_) td.hero{font-size:12.5px !important;padding-left:4px !important}
+  html body .memo-box table.memo-tbl:not(#_) td.eff{font-size:11.5px !important;letter-spacing:0}
+  html body .memo-box table.memo-tbl:not(#_) td.lv{font-size:12px !important;letter-spacing:0}
+  html body .memo-box table.memo-tbl:not(#_) td.note,html body .memo-box table.memo-tbl:not(#_) td.cond{font-size:10.5px !important;letter-spacing:0;color:#b9c4d8}
+  html body .memo-box table.memo-tbl:not(#_) .tag{font-size:11px !important;padding:1px 5px !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td.gen{font-size:10px !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td.hero{font-size:clamp(9.5px,2.75vw,11.5px) !important;padding-left:3px !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td.eff{font-size:clamp(9.5px,2.7vw,10.5px) !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td.lv{font-size:clamp(10px,2.9vw,11.5px) !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td.note,body.d-phone .memo-box table.memo-tbl:not(#_) td.cond{font-size:clamp(8px,2.3vw,10px) !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) .tag{font-size:clamp(9px,2.6vw,10.5px) !important;padding:1px 3px !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) tr.col-head th{font-size:9.5px !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td,body.d-phone .memo-box table.memo-tbl:not(#_) th{padding-left:1.5px !important;padding-right:1.5px !important}
+  /* 2つのページの幅を同じに（PC・タブレットは少し狭めて見やすく） */
+  body.d-pc .memo-box,body.d-tablet .memo-box{width:100%;max-width:760px}
+  /* PC・タブレット：英雄列に余裕があるので、効果・補足（条件）に回す（2つの表で同じ配分） */
+  body.d-pc .memo-box col.w-hero,body.d-tablet .memo-box col.w-hero{width:12% !important}
+  body.d-pc .memo-box col.w-troop,body.d-tablet .memo-box col.w-troop{width:7% !important}
+  body.d-pc .memo-box col.w-kind,body.d-tablet .memo-box col.w-kind,body.d-pc .memo-box col.w-apply,body.d-tablet .memo-box col.w-apply{width:9% !important}
+  body.d-pc .memo-box col.w-lv,body.d-tablet .memo-box col.w-lv{width:11% !important}
+  body.d-pc .memo-box col.w-gen,body.d-tablet .memo-box col.w-gen{width:6% !important}
+  body.d-pc .memo-box table.memo-tbl:not(.eq) col.w-eff,body.d-tablet .memo-box table.memo-tbl:not(.eq) col.w-eff{width:27% !important}
+  body.d-pc .memo-box table.memo-tbl.eq col.w-eff,body.d-tablet .memo-box table.memo-tbl.eq col.w-eff{width:36% !important}
+  body.d-pc .memo-box col.w-last,body.d-tablet .memo-box col.w-last{width:19% !important}
+  /* 英雄の種類バッジ（歩・騎・弓） */
+  .memo-box .tt{display:inline-block;font-size:.78em;font-weight:900;line-height:1;padding:2px 2px;border-radius:4px;margin-right:3px;vertical-align:1px;text-shadow:none;color:#0b1020}
+  .memo-box .tt.tt-inf{background:#8fd3a1}
+  .memo-box .tt.tt-cav{background:#ffb877}
+  .memo-box .tt.tt-arc{background:#86c8ff}
+  .rare-legend .tl{display:inline-flex;gap:10px;margin-right:auto;color:var(--sub);flex-wrap:wrap}
+  /* ===== Ver4.9 種類列（👤〇歩・🐎△騎・🏹□弓）と並べ替え ===== */
+  .memo-box .ti{font-size:12px;line-height:1;margin-left:2px;vertical-align:middle}
+  .memo-box .ts{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;vertical-align:middle;color:#0b1020;text-shadow:none}
+  .memo-box .ts b{font-size:10px;font-weight:900;line-height:1}
+  .memo-box .ts.tt-inf{background:#8fd3a1;border-radius:50%}
+  .memo-box .ts.tt-cav{background:#ffb877;clip-path:polygon(50% 0,100% 100%,0 100%);width:19px;height:17px;align-items:flex-end;padding-bottom:1px}
+  .memo-box .ts.tt-cav b{font-size:8.5px}
+  .memo-box .ts.tt-arc{background:#86c8ff;border-radius:2px;width:15px;height:15px}
+  html body .memo-box table.memo-tbl:not(#_) td.troop{padding-left:0 !important;padding-right:0 !important}
+  body.d-phone .memo-box .ti{font-size:10.5px;margin-left:1px}
+  body.d-phone .memo-box .ts{width:15px;height:15px}
+  body.d-phone .memo-box .ts b{font-size:9px}
+  body.d-phone .memo-box .ts.tt-cav{width:17px;height:15px}
+  body.d-phone .memo-box .ts.tt-cav b{font-size:7.5px}
+  body.d-phone .memo-box .ts.tt-arc{width:13px;height:13px}
+  .rare-legend .lg{display:inline-flex;align-items:center;gap:1px}
+  .rare-legend .lg .ti{margin-right:2px}
+  .memo-tbl th.sortable{cursor:pointer;color:var(--gold-l);text-decoration:underline dotted;text-underline-offset:3px;user-select:none;-webkit-tap-highlight-color:transparent}
+  html body .memo-box table.memo-tbl:not(#_) th.sortable.on{text-decoration:none;color:#0b1020;background:linear-gradient(180deg,#ffe08a,#f5c84c) !important;border-radius:5px;box-shadow:inset 0 0 0 2px rgba(15,22,40,.9)}
+  body.d-phone .memo-box table.memo-tbl:not(#_) td.lv{letter-spacing:-.05em;font-size:clamp(9.5px,2.8vw,11.5px) !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) th.sortable{padding-left:0 !important;padding-right:0 !important;letter-spacing:-.06em}
+  @media (max-width:370px){
+    body.d-phone .memo-box .ti{font-size:9.5px;margin-left:0}
+    body.d-phone .memo-box .ts.tt-cav{width:15px}
+    body.d-phone .memo-box .ts.tt-inf{width:14px;height:14px}
+  }
+  /* 専用装備ページ：効果は短い語句だけなので、列の中央にそろえて区分・最大との間隔を均等に */
+  html body .memo-box table.memo-tbl.eq:not(#_) td.eff{text-align:center !important}
+  html body .memo-box table.memo-tbl.eq:not(#_) tr.col-head th:nth-child(5){text-align:center !important}
+  /* 世代の番号：太字で明るく */
+  html body .memo-box table.memo-tbl:not(#_) td.gen{font-weight:900 !important;color:#f2f6ff !important;opacity:1 !important}
+  .sort-hint{font-size:10.5px;color:var(--sub);text-align:right;margin-top:6px}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/24 Ver4.7</div>
+    <div class="ver">@kai@ 2026/11/24 Ver5.1</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -464,8 +536,8 @@
   <div class="memo-box">
     <div class="memo-head">
       <div class="memo-tabs" role="tablist">
-        <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル</button>
-        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル（集結主/駐屯主のみ発動）</button>
+        <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル（対象：集結参加者/駐屯参加者）</button>
+        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル（対象：集結主/駐屯主）</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -811,11 +883,49 @@
   // レア度の色分け：エピック＝紫、レジェンド＝金（英雄遠征スキルの表のレア度を、ほかの表の英雄名にも使う）
   var RARITY = {};
   MEMO.forEach(function(sec){ sec.rows.forEach(function(r){ RARITY[r[1]] = r[2]; }); });
+  // 英雄の種類：歩＝歩兵、騎＝騎兵、弓＝弓兵
+  var TROOP = {
+    "チェンコ":"騎","あまね":"弓","インウー":"弓","クイン":"弓","ハワード":"歩","ゴードン":"騎","ファハド":"騎",
+    "アマデウス":"歩","ヘルガ":"歩","ジェベル":"騎","サロ":"弓",
+    "ゾーイ":"歩","ヒルデ":"騎","マリン":"弓",
+    "エリック":"歩","ペーラ":"騎","イェーガー":"弓",
+    "アルカ":"歩","マーゴ":"騎","ローザ":"弓",
+    "龍飛":"歩","スルード":"騎","ビビアン":"弓",
+    "トリトン":"歩","ソフィア":"騎","ヤン":"弓",
+    "チャールズ":"歩","アイヴァ":"騎","レン&ロン":"弓",
+    "ディエゴ":"歩","リズ":"騎","ルナ":"弓"
+  };
+  var TROOP_CLS = {"歩":"tt-inf","騎":"tt-cav","弓":"tt-arc"};
+  var TROOP_NAME = {"歩":"歩兵","騎":"騎兵","弓":"弓兵"};
   function heroTd(name){
     var cls = RARITY[name] === "エピック" ? "r-epic" : (RARITY[name] === "レジェンド" ? "r-leg" : "");
-    return '<td class="hero '+cls+'" title="'+esc(RARITY[name]||"")+'">'+esc(name)+'</td>';
+    var t = TROOP[name] || "";
+    return '<td class="hero '+cls+'" title="'+esc((TROOP_NAME[t]||"")+(RARITY[name] ? "・"+RARITY[name] : ""))+'">'+esc(name)+'</td>';
   }
-  var RARE_LEGEND = '<div class="rare-legend"><span class="r-epic">■ エピック</span><span class="r-leg">■ レジェンド</span></div>';
+  // 種類：丸の歩＋🛡、三角の騎＋🐎、四角の弓＋🏹（文字が先、イラストが後）
+  var TROOP_ICON = {"歩":"🛡️","騎":"🐎","弓":"🏹"};
+  var TROOP_ORDER = {"歩":0,"騎":1,"弓":2};
+  function troopMark(t){ return '<span class="ts '+TROOP_CLS[t]+'"><b>'+t+'</b></span><span class="ti">'+TROOP_ICON[t]+'</span>'; }
+  function troopTd(name){
+    var t = TROOP[name] || "";
+    return '<td class="c troop" title="'+esc(TROOP_NAME[t]||"")+'">'+(t ? troopMark(t) : "")+'</td>';
+  }
+  // 並び順：gen＝世代順（元の並び）、troop＝歩→騎→弓（同じ種類の中は世代順のまま）
+  var memoSort = "troop";  // 初期表示は種類順（歩→騎→弓）
+  function sortSecs(sections){
+    if (memoSort !== "troop") return sections;
+    return sections.map(function(sec){
+      var rows = sec.rows.map(function(r, i){ return {r:r, i:i}; });
+      rows.sort(function(a, b){
+        var d = (TROOP_ORDER[TROOP[a.r[1]]] ?? 9) - (TROOP_ORDER[TROOP[b.r[1]]] ?? 9);
+        return d || a.i - b.i;
+      });
+      return {title:sec.title, cls:sec.cls, rows:rows.map(function(x){ return x.r; })};
+    });
+  }
+  var SORT_HINT = '<div class="sort-hint">※ 最初は種類順（歩・騎・弓）／項目の「世代」をタップ → 世代順、「種類」をタップ → 種類順に戻る</div>';
+  var TROOP_LEGEND = '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span></div>';
+  var RARE_LEGEND = '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span><span class="r-epic">■ エピック</span><span class="r-leg">■ レジェンド</span></div>';
   // [世代, 英雄, 専用装備, スキル, 区分, 効果, 最大, 確率, 条件]（\n は改行）
   var EQUIP = [
     { title:"１．攻撃系", cls:"atk", rows:[
@@ -853,15 +963,21 @@
   // headPerSec=true のときは、項目名の行を表の先頭ではなく「１．攻撃系」「２．防衛系」の各見出し行の下に入れる
   function memoTable(heads, sections, rowFn, cls, headPerSec){
     var n = heads.length;
-    var headCells = heads.map(function(h){ return '<th'+(h.c ? ' class="c"' : '')+'>'+h.t+'</th>'; }).join("");
+    var headCells = heads.map(function(h){
+      var sk = h.k === "gen" ? "gen" : (h.k === "troop" ? "troop" : "");
+      if (!sk) return '<th'+(h.c ? ' class="c"' : '')+'>'+h.t+'</th>';
+      var on = memoSort === sk;
+      return '<th class="c sortable'+(on ? ' on' : '')+'" data-sort="'+sk+'" role="button" tabindex="0" aria-pressed="'+on+'">'+h.t+'</th>';
+    }).join("");
     // 列幅：3つの表で同じ種類の列は同じ幅（%）。合計が100%に満たない分は最後の列に足す
     var ws = heads.map(function(h){ return h.w || 0; });
     var rest = 100 - ws.reduce(function(a,b){ return a+b; }, 0);
     if (rest > 0) ws[ws.length-1] += rest;
-    var cols = '<colgroup>' + ws.map(function(w){ return '<col style="width:'+w+'%">'; }).join("") + '</colgroup>';
+    // 列ごとに class を付け、PC・タブレットでは CSS で幅を少し変えられるようにする
+    var cols = '<colgroup>' + ws.map(function(w, i){ return '<col class="w-'+(heads[i].k||"x")+'" style="width:'+w+'%">'; }).join("") + '</colgroup>';
     return '<div class="tbl-wrap"><table class="memo-tbl '+(cls||"")+'">' + cols +
       (headPerSec ? '' : '<thead><tr>' + headCells + '</tr></thead>') + '<tbody>' +
-      sections.map(function(sec){
+      sortSecs(sections).map(function(sec){
         return (sec.title ? '<tr class="sec-row '+sec.cls+'"><th colspan="'+n+'">'+esc(sec.title)+'</th></tr>' : '') +
           (headPerSec ? '<tr class="col-head">' + headCells + '</tr>' : '') +
           sec.rows.map(rowFn).join("");
@@ -870,8 +986,8 @@
   // 専用装備の表：中身が空の列（例：遠征スキルの「確率」）は自動で非表示
   // hide:1 の列（専用装備名・スキル名）は、スマホで画面に収めるため表示しない（データは残してあります）
   var EQ_COLS = [
-    {t:"世代", c:1, cls:"gen", w:7}, {t:"英雄", cls:"hero", w:17}, {t:"専用装備", cls:"equip", hide:1}, {t:"スキル", cls:"skill", hide:1},
-    {t:"区分", c:1, tag:1, w:11}, {t:"効果", cls:"eff", w:30}, {t:"最大", c:1, cls:"lv", w:13}, {t:"確率", c:1, cls:"prob-c", w:7}, {t:"条件", cls:"cond", w:11}
+    {t:"世代", c:1, cls:"gen", w:6, k:"gen"}, {t:"種類", c:1, cls:"troop", w:9, k:"troop"}, {t:"英雄", cls:"hero", w:18, k:"hero"}, {t:"専用装備", cls:"equip", hide:1}, {t:"スキル", cls:"skill", hide:1},
+    {t:"区分", c:1, tag:1, w:9, k:"kind"}, {t:"効果", cls:"eff", w:32, k:"eff"}, {t:"最大", c:1, cls:"lv", w:10, k:"lv"}, {t:"確率", c:1, cls:"prob-c", w:7, k:"prob"}, {t:"条件", cls:"cond", w:16, k:"last"}
   ];
   function cellHtml(v){ return esc(v).replace(/\n/g, "<br>"); }
   // 全角カタカナ→半角カタカナ（濁点・半濁点・長音「ー」・中点「・」も半角に。漢字・ひらがな・【】はそのまま）
@@ -890,18 +1006,23 @@
       return out;
     });
   }
+  // EQ_COLS の「種類」列はデータに無い（英雄名から自動）ので、データ側の位置は1つ前にずれる
+  var TROOP_COL = EQ_COLS.findIndex(function(c){ return c.cls === "troop"; });
+  function DI(j){ return j > TROOP_COL ? j - 1 : j; }
   function eqTable(sections, kind, headPerSec){
     var use = EQ_COLS.map(function(col, j){
       if (col.hide) return false;
-      return sections.some(function(sec){ return sec.rows.some(function(r){ return String(r[j]).trim() !== ""; }); });
+      if (col.cls === "troop") return true;
+      return sections.some(function(sec){ return sec.rows.some(function(r){ return String(r[DI(j)]).trim() !== ""; }); });
     });
     var heads = EQ_COLS.filter(function(c,j){ return use[j]; });
     return memoTable(heads, sections, function(r){
       return '<tr>' + EQ_COLS.map(function(col, j){
         if (!use[j]) return "";
-        var v = r[j];
+        var v = r[DI(j)];
         if (col.tag) return '<td class="c">'+KTAG(v)+'</td>';
         if (col.cls === "hero") return heroTd(v);
+        if (col.cls === "troop") return troopTd(r[1]);
         // 最大：「攻撃力x300%」などは、幅が足りない時だけ x の前で折り返す
         if (col.cls === "lv") return '<td class="c lv">'+cellHtml(v).replace(/([^<>\s])(x\d)/g, '$1<wbr>$2')+'</td>';
         // 専用装備名・スキル名の2列だけ、カタカナを半角にして表示
@@ -912,25 +1033,25 @@
   }
   var MEMO_PAGES = [
     { title:"英雄：遠征スキル<small></small>",
-      html: memoTable(
-        [{t:"世代",c:1,w:7},{t:"英雄",w:17},{t:"区分",c:1,w:11},{t:"適用",c:1,w:9},{t:"効果",w:21},{t:"最大",c:1,w:13},{t:"補足",w:19}],
+      html: function(){ return memoTable(
+        [{t:"世代",c:1,w:6,k:"gen"},{t:"種類",c:1,w:9,k:"troop"},{t:"英雄",w:18,k:"hero"},{t:"区分",c:1,w:9,k:"kind"},{t:"適用",c:1,w:9,k:"apply"},{t:"効果",w:23,k:"eff"},{t:"最大",c:1,w:10,k:"lv"},{t:"補足",w:16,k:"last"}],
         MEMO,
         function(r){
-          return '<tr class="'+(r[2]==="エピック"?"row-epic":"row-leg")+'"><td class="c gen">'+esc(r[0])+'</td>' + heroTd(r[1]) +
+          return '<tr class="'+(r[2]==="エピック"?"row-epic":"row-leg")+'"><td class="c gen">'+esc(r[0])+'</td>' + troopTd(r[1]) + heroTd(r[1]) +
             '<td class="c">'+KTAG(r[3])+'</td>' +
             '<td class="c"><span class="tag '+(r[4]==="敵"?"enemy":"ally")+'">'+esc(r[4])+'</span></td>' +
-            '<td class="eff">'+esc(r[5])+'</td>' +
+            '<td class="eff">'+esc(r[5]).replace(/([・、])/g, '$1<wbr>')+'</td>' +
             '<td class="c lv">'+esc(r[6]).replace(/([\/・])/g, '$1<wbr>')+'</td>' +
             // 補足：「、」で区切った短い語句（3ターン など）は途中で切らない
             '<td class="note">'+r[7].split("、").map(function(t){ return t.length <= 7 ? '<span class="nw">'+esc(t)+'</span>' : esc(t); }).join("、<wbr>")+'</td></tr>';
-        }, "", true) + RARE_LEGEND },
-    { title:"英雄専用装備：遠征スキル<small></small>", html: eqTable(EQUIP, "exp", true) }
+        }, "", true) + RARE_LEGEND + SORT_HINT; } },
+    { title:"英雄専用装備：遠征スキル<small></small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } }
   ];
   var memoTab = 0;
   function showMemoTab(k){
     memoTab = k;
     $("memoTitle").innerHTML = MEMO_PAGES[k].title;
-    $("memoBody").innerHTML = MEMO_PAGES[k].html;
+    $("memoBody").innerHTML = MEMO_PAGES[k].html();
     document.querySelectorAll(".memo-tabs button").forEach(function(b){
       var on = +b.getAttribute("data-tab") === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on);
     });
@@ -940,6 +1061,21 @@
     b.addEventListener("click", function(){ showMemoTab(+b.getAttribute("data-tab")); });
   });
   showMemoTab(0);
+  // 項目行の「種類」「世代」をタップして並べ替え（2つのページ共通）
+  function setSort(sk){
+    if (!sk || sk === memoSort) return;
+    var box = document.querySelector(".memo-box"), y = box.scrollTop;
+    memoSort = sk;
+    $("memoBody").innerHTML = MEMO_PAGES[memoTab].html();
+    box.scrollTop = y;
+  }
+  $("memoBody").addEventListener("click", function(e){
+    var th = e.target.closest("th.sortable"); if (th) setSort(th.getAttribute("data-sort"));
+  });
+  $("memoBody").addEventListener("keydown", function(e){
+    var th = e.target.closest("th.sortable");
+    if (th && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); setSort(th.getAttribute("data-sort")); }
+  });
   function fitMemoHead(){
     var h = document.querySelector(".memo-head");
     document.querySelector(".memo-box").style.setProperty("--mh", (h.getBoundingClientRect().height - 13) + "px");
