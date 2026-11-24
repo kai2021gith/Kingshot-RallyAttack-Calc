@@ -386,7 +386,7 @@
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/24 Ver3.6</div>
+    <div class="ver">@kai@ 2026/11/24 Ver3.7</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -435,9 +435,9 @@
   <div class="memo-box">
     <div class="memo-head">
       <div class="memo-tabs" role="tablist">
-        <button role="tab" data-tab="0" class="on">集結参加/駐屯参加<br>英雄<br>遠征スキル</button>
-        <button role="tab" data-tab="1">集結参加/駐屯参加<br>英雄専用装備<br>遠征スキル</button>
-        <button role="tab" data-tab="2">集結主/駐屯主/単騎<br>英雄専用装備<br>討伐スキル</button>
+        <button role="tab" data-tab="0" class="on">集結&駐屯参加<br>英雄<br>遠征スキル</button>
+        <button role="tab" data-tab="1">集結&駐屯参加<br>英雄専用装備<br>遠征スキル</button>
+        <button role="tab" data-tab="2">集結&駐屯主&単騎<br>英雄専用装備<br>討伐スキル</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -882,7 +882,7 @@
     }, "eq " + (kind||""), headPerSec);
   }
   var MEMO_PAGES = [
-    { title:"英雄遠征スキル<small>（集結参加/駐屯参加スキル）</small>",
+    { title:"英雄遠征スキル<small>（集結&駐屯参加スキル）</small>",
       html: memoTable(
         [{t:"英雄"},{t:"区分",c:1},{t:"適用",c:1},{t:"効果"},{t:"最大",c:1},{t:"補足",c:1}],
         MEMO,
@@ -894,8 +894,8 @@
             '<td class="c lv">'+esc(r[4])+'</td>' +
             '<td class="c">'+(r[5] ? '<span class="tag prob">'+esc(r[5])+'</span>' : '')+'</td></tr>';
         }, "", true) },
-    { title:"英雄専用装備：遠征スキル<small>（集結参加/駐屯参加スキル）</small>", html: eqTable(EQUIP, "exp", true) },
-    { title:"英雄専用装備：討伐スキル<small>（集結主/駐屯主/単騎スキル）</small>", html: eqTable(HUNT, "hunt") }
+    { title:"英雄専用装備：遠征スキル<small>（集結&駐屯参加スキル）</small>", html: eqTable(EQUIP, "exp", true) },
+    { title:"英雄専用装備：討伐スキル<small>（集結&駐屯主/単騎スキル）</small>", html: eqTable(HUNT, "hunt") }
   ];
   var memoTab = 0;
   function showMemoTab(k){
