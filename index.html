@@ -556,13 +556,22 @@
   /* ===== Ver6.8 （同チャ貼付用）を細字で小さく ===== */
   .copy .cp-sub{font-size:.62em;font-weight:400;letter-spacing:0;opacity:.85;vertical-align:1px}
   .copy.done .cp-sub{display:none}
+  /* ===== Ver6.9 種類を2行（絵が上・文字が下）、英雄名との間の縦線を削除 ===== */
+  .sk-tbl .tstk{display:inline-flex;flex-direction:column;align-items:center;gap:2px;line-height:1}
+  .sk-tbl .tstk .ti{margin:0;font-size:13px}
+  .sk-tbl td.hero,.sk-tbl .g-tt-inf td.hero,.sk-tbl .g-tt-cav td.hero,.sk-tbl .g-tt-arc td.hero{box-shadow:none !important}
+  body.d-phone .sk-tbl .tstk .ti{font-size:11px;display:inline}
+  body.d-phone .sk-tbl td.eff,body.d-phone .sk-tbl td.val{min-width:0}
+  body.d-phone .sk-tbl td,body.d-phone .sk-tbl th{padding-left:1.5px;padding-right:1.5px}
+  body.d-phone .sk-tbl .tag{font-size:9px;padding:1px 2px}
+  body.d-phone .sk-tbl td.hero{font-size:10px}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/25 Ver6.8</div>
+    <div class="ver">@kai@ 2026/11/25 Ver6.9</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -1189,8 +1198,8 @@
     ["1", "ジェベル", "騎兵", "遠征スキル", "3", "戦乙女", "", "全部隊の殺傷力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/4"],
     ["1", "ジェベル", "騎兵", "専用装備スキル", "1", "紅の意志", "信念の戦旗", "与ﾀﾞﾒｰｼﾞ上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/4"],
     ["1", "ジェベル", "騎兵", "専用装備スキル", "2", "信頼", "信念の戦旗", "防衛中の部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/4"],
-    ["2", "ヒルデ", "騎兵", "討伐スキル", "1", "治療祈祷", "", "味方英雄全員のHPを回復", "攻撃×200/220/240/260/280%", "", "https://altema.jp/kingshot/chara/14"],
-    ["2", "ヒルデ", "騎兵", "討伐スキル", "2", "贖罪", "", "最も弱い味方英雄のHPを回復", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "討伐スキル", "1", "治療祈祷", "", "味方英雄全員のHP回復", "攻撃×200/220/240/260/280%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "討伐スキル", "2", "贖罪", "", "最も弱い味方英雄のHP回復", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/14"],
     ["2", "ヒルデ", "騎兵", "討伐スキル", "3", "教化", "", "目標を1秒間無力化+ﾀﾞﾒｰｼﾞ", "攻撃×140/154/168/182/196%", "", "https://altema.jp/kingshot/chara/14"],
     ["2", "ヒルデ", "騎兵", "遠征スキル", "1", "苦行", "", "全部隊の攻撃･防御力上昇", "攻撃3/6/9/12/15%・防御力2/4/6/8/10%", "", "https://altema.jp/kingshot/chara/14"],
     ["2", "ヒルデ", "騎兵", "遠征スキル", "2", "ﾎﾟｰｼｮﾝ注入", "", "全部隊の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "120/140/160/180/200%(確率25%)", "", "https://altema.jp/kingshot/chara/14"],
@@ -1324,7 +1333,7 @@
     body.querySelector(".sk-wrap").hidden = !any;
   }
   function skillTable(){
-    var heads = ["世代","種類","英雄","種別","No","スキル名","効果","数値<br>(Lv1/2/3/4/5)","集結<br>防衛","出典"];
+    var heads = ["世代","種類","英雄","種別","No","効果","数値<br>(Lv1/2/3/4/5)","集結<br>防衛","出典"];
     // 兵種ボタン（押すと開く・もう一度押すと閉じる）
     var anyOpen = SK_TROOPS.some(function(tp){ return skOpen[tp]; });
     var out = '<div class="sk-tgs">' + SK_TROOPS.map(function(tp, gi){
@@ -1353,13 +1362,12 @@
           if (k === 0){
             var rc = RARITY[r0[1]] === "エピック" ? " r-epic" : "";
             out += '<td class="c gen" rowspan="'+n+'">'+esc(r0[0])+'</td>' +
-                   '<td class="c troop" rowspan="'+n+'" title="'+esc(tp)+'">'+(TROOP_CLS[t] ? troopMark(t) : esc(tp))+'</td>' +
+                   '<td class="c troop" rowspan="'+n+'" title="'+esc(tp)+'">'+(TROOP_CLS[t] ? '<span class="tstk"><span class="ti">'+TROOP_ICON[t]+'</span><span class="ts '+TROOP_CLS[t]+'"><b>'+t+'</b></span></span>' : esc(tp))+'</td>' +
                    '<td class="hero'+rc+'" rowspan="'+n+'">'+esc(r0[1])+'</td>';
           }
           var kd = isEq ? ["esk","専用装備"] : (r[3] === "遠征スキル" ? ["xsk","遠征"] : ["hsk","討伐"]);
           out += '<td class="c kind"><span class="tag '+kd[0]+'">'+kd[1]+'</span></td>' +
-                 '<td class="c no">'+esc(r[4])+'</td>' +
-                 '<td class="sname">'+esc(r[5])+'</td>';
+                 '<td class="c no">'+esc(r[4])+'</td>';
           out += '<td class="eff">'+esc(r[7]).replace(/([､・])/g, '$1<wbr>')+'</td>' +
                  '<td class="val">'+esc(r[8]).replace(/([\/・])/g, '$1<wbr>')+'</td>' +
                  '<td class="c scope">'+(r[9] ? '<span class="tag '+(r[9] === "集結" ? "rally" : "garr")+'">'+esc(r[9])+'</span>' : '')+'</td>';
