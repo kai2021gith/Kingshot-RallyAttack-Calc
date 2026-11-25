@@ -413,7 +413,6 @@
   html body .memo-box table.memo-tbl:not(#_){table-layout:fixed !important;width:100%}
   html body .memo-box table.memo-tbl:not(#_) td,html body .memo-box table.memo-tbl:not(#_) th{white-space:nowrap !important;overflow:hidden;padding-left:3px !important;padding-right:3px !important}
   html body .memo-box table.memo-tbl:not(#_) tr.sec-row th{white-space:normal !important;overflow:visible;font-size:14px !important}
-  html body .memo-box table.memo-tbl:not(#_) tr.sec-row.def th{padding-top:28px !important}
   html body .memo-box table.memo-tbl:not(#_) tr.col-head th{font-size:10.5px !important}
   /* 入りきらない時だけ折り返す：効果・最大は「・」「/」「x」の後、補足はどこでも */
   html body .memo-box table.memo-tbl:not(#_) td.eff,html body .memo-box table.memo-tbl:not(#_) td.lv{white-space:normal !important;word-break:keep-all;overflow-wrap:anywhere}
@@ -482,13 +481,88 @@
   /* 世代の番号：太字で明るく */
   html body .memo-box table.memo-tbl:not(#_) td.gen{font-weight:900 !important;color:#f2f6ff !important;opacity:1 !important}
   .sort-hint{font-size:10.5px;color:var(--sub);text-align:right;margin-top:6px}
+  /* ===== Ver6.0 第１～６世代 英雄スキル一覧 ===== */
+  .sk-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .sk-tbl{width:100%;border-collapse:collapse;font-size:12px}
+  .sk-tbl th{color:var(--sub);font-weight:700;font-size:10.5px;text-align:center;padding:5px 3px;border-bottom:1px solid var(--line2);white-space:nowrap;line-height:1.2}
+  .sk-tbl td{padding:5px 3px;border-bottom:1px solid var(--line);vertical-align:middle;line-height:1.3}
+  .sk-tbl td.c{text-align:center;white-space:nowrap}
+  .sk-tbl td.gen{font-weight:900;color:#f2f6ff;font-variant-numeric:tabular-nums}
+  .sk-tbl td.troop{padding-left:0;padding-right:0}
+  .sk-tbl td.hero{font-weight:800;white-space:nowrap;color:var(--legend);text-shadow:0 0 8px currentColor}
+  .sk-tbl td.hero.r-epic{color:var(--epic)}
+  .sk-tbl td.no{color:var(--sub);font-weight:700}
+  .sk-tbl td.sname{font-weight:700;white-space:nowrap}
+  .sk-tbl td.gear{color:#c9b8ff;font-size:.92em;white-space:nowrap}
+  .sk-tbl td.eff{font-size:.92em;min-width:11em}
+  .sk-tbl td.val{font-size:.9em;color:var(--gold-l);font-weight:700;font-variant-numeric:tabular-nums;min-width:8em}
+  .sk-tbl tr.h-top td{border-top:1px solid var(--line2)}
+  .sk-tbl tr.eqr td.kind,.sk-tbl tr.eqr td.no,.sk-tbl tr.eqr td.sname,.sk-tbl tr.eqr td.eff,.sk-tbl tr.eqr td.val,.sk-tbl tr.eqr td.scope{background:rgba(197,139,255,.05)}
+  .sk-tbl tr.sp td{height:1.7em;border:0;background:none !important;padding:0}
+  .sk-tbl .tag.hsk{background:rgba(245,200,76,.16);color:var(--gold-l)}
+  .sk-tbl .tag.xsk{background:rgba(52,227,154,.16);color:#6ff0b6}
+  .sk-tbl tr.exr td.kind,.sk-tbl tr.exr td.no,.sk-tbl tr.exr td.sname,.sk-tbl tr.exr td.gear,.sk-tbl tr.exr td.eff,.sk-tbl tr.exr td.val,.sk-tbl tr.exr td.scope{background:rgba(52,227,154,.05)}
+  .sk-tbl .tag.esk{background:rgba(197,139,255,.18);color:#d9b8ff}
+  .sk-tbl .tag.rally{background:rgba(255,138,101,.16);color:#ffab91}
+  .sk-tbl .tag.garr{background:rgba(94,200,255,.16);color:#8fdaff}
+  .sk-link{display:inline-flex;align-items:center;justify-content:center;width:26px;height:24px;padding:0;font-size:12px;line-height:1;border-radius:6px;
+    border:1px solid rgba(245,200,76,.45);background:rgba(10,15,28,.7);color:var(--gold-l)}
+  .sk-link:active{background:rgba(245,200,76,.2)}
+  body.d-phone .sk-tbl{font-size:10.5px}
+  body.d-phone .sk-tbl th{font-size:9.5px;padding:4px 2px}
+  body.d-phone .sk-tbl td{padding:4px 2px}
+  body.d-phone .sk-tbl .tag{font-size:9.5px;padding:1px 3px}
+  body.d-phone .sk-link{width:22px;height:20px;font-size:10.5px}
+  body.d-pc .sk-tbl,body.d-tablet .sk-tbl{font-size:13px}
+  body.d-pc .memo-box.wide,body.d-tablet .memo-box.wide{max-width:1000px}
+  /* ===== Ver6.3 兵種ボタン（開閉） ===== */
+  .sk-tgs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:2px 0 8px}
+  .sk-tg{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;min-height:44px;padding:6px 4px;border-radius:10px;
+    background:rgba(14,20,36,.85);border:1px solid var(--line2);color:var(--sub);font-weight:800;font-size:13px;line-height:1.2}
+  .sk-tg .no{font-weight:900}
+  .sk-tg .ar{font-size:10px;margin-left:2px;opacity:.8}
+  .sk-tg.tg-tt-inf{border-left:4px solid #8fd3a1} .sk-tg.tg-tt-cav{border-left:4px solid #ffb877} .sk-tg.tg-tt-arc{border-left:4px solid #86c8ff}
+  .sk-tg.on{color:#0b1020}
+  .sk-tg.on.tg-tt-inf{background:linear-gradient(180deg,#b6ecc4,#8fd3a1);border-color:#8fd3a1}
+  .sk-tg.on.tg-tt-cav{background:linear-gradient(180deg,#ffd3a6,#ffb877);border-color:#ffb877}
+  .sk-tg.on.tg-tt-arc{background:linear-gradient(180deg,#b5dcff,#86c8ff);border-color:#86c8ff}
+  .sk-tg.on .ts{box-shadow:0 0 0 1px rgba(11,16,32,.5)}
+  .sk-empty{text-align:center;color:var(--sub);font-size:12px;padding:18px 8px;border:1px dashed var(--line2);border-radius:10px}
+  .sk-empty[hidden],.sk-wrap[hidden],.sk-grp[hidden]{display:none !important}
+  .sk-tbl tr.grp-row th{text-align:left;font-size:14px;font-weight:900;padding:8px 6px;border-bottom:0;color:#0b1020;letter-spacing:.04em}
+  .sk-tbl .g-tt-inf tr.grp-row th{background:linear-gradient(90deg,#8fd3a1,rgba(143,211,161,.15))}
+  .sk-tbl .g-tt-cav tr.grp-row th{background:linear-gradient(90deg,#ffb877,rgba(255,184,119,.15))}
+  .sk-tbl .g-tt-arc tr.grp-row th{background:linear-gradient(90deg,#86c8ff,rgba(134,200,255,.15))}
+  .sk-tbl tbody.sk-grp + tbody.sk-grp tr.grp-row th{border-top:14px solid #0c1222}
+  .sk-tbl .g-tt-inf td.hero{box-shadow:inset 3px 0 0 #8fd3a1} .sk-tbl .g-tt-cav td.hero{box-shadow:inset 3px 0 0 #ffb877} .sk-tbl .g-tt-arc td.hero{box-shadow:inset 3px 0 0 #86c8ff}
+  body.d-phone .sk-tg{font-size:11.5px;min-height:40px;padding:5px 2px;gap:2px}
+  body.d-phone .sk-tbl tr.grp-row th{font-size:12.5px;padding:6px 4px}
+  /* ===== Ver6.4 スキル名を小さく・英雄の境を太線に ===== */
+  .sk-tbl td.sname{font-size:.86em;font-weight:700}
+  body.d-phone .sk-tbl td.sname{font-size:.84em}
+  .sk-tbl tr.h-top td{border-top:3px solid rgba(245,200,76,.7)}
+  .sk-tbl tr.grp-row + tr.h-top td{border-top:0}
+  /* ===== Ver6.6 討伐・遠征・専用装備の境を少し太く、種類と英雄名の間の線を細く薄く ===== */
+  .sk-tbl tr.k-top td{border-top:2px solid rgba(160,180,215,.45)}
+  .sk-tbl .g-tt-inf td.hero{box-shadow:inset 1px 0 0 rgba(143,211,161,.3)}
+  .sk-tbl .g-tt-cav td.hero{box-shadow:inset 1px 0 0 rgba(255,184,119,.3)}
+  .sk-tbl .g-tt-arc td.hero{box-shadow:inset 1px 0 0 rgba(134,200,255,.3)}
+  /* Ver6.7 兵種ボタンを1行に */
+  .sk-tg{flex-wrap:nowrap;white-space:nowrap}
+  body.d-phone .sk-tg{font-size:11px;gap:1px;padding:5px 1px}
+  body.d-phone .sk-tg .ar{margin-left:1px}
+  .sk-tgs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.d-phone .sk-tg .ti{display:none}
+  /* ===== Ver6.8 （同チャ貼付用）を細字で小さく ===== */
+  .copy .cp-sub{font-size:.62em;font-weight:400;letter-spacing:0;opacity:.85;vertical-align:1px}
+  .copy.done .cp-sub{display:none}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/24 Ver5.3</div>
+    <div class="ver">@kai@ 2026/11/25 Ver6.8</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -517,7 +591,7 @@
   </section>
 
   <div class="sec" style="margin-top:14px">
-    <button class="copy" id="copyBtn">📋 計算結果コピー (同チャ貼付用) <span class="kbd">(Ctrl+Enter)</span></button>
+    <button class="copy" id="copyBtn"><span class="cp-main">📋 計算結果コピー</span> <span class="cp-sub">(同チャ貼付用)</span> <span class="kbd">(Ctrl+Enter)</span></button>
     <div class="manual" id="manual">
       <p>自動コピーできませんでした。下の文字を長押し（またはCtrl+C）でコピーしてください。</p>
       <textarea id="manualText" readonly></textarea>
@@ -539,6 +613,7 @@
       <div class="memo-tabs" role="tablist">
         <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル<br>（集結参加者/駐屯参加者）</button>
         <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル<br>（集結主/駐屯主）</button>
+        <button role="tab" data-tab="2">第１～８世代<br>レジェンド英雄<br>スキル一覧表</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -731,11 +806,11 @@
   function success(){
     $("manual").classList.remove("show");
     var tt = $("toast"); tt.classList.add("show");
-    copyBtn.classList.add("done"); copyBtn.firstChild.nodeValue = "✅ コピーしました！ ";
+    copyBtn.classList.add("done"); copyBtn.querySelector(".cp-main").textContent = "✅ コピーしました！";
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){
       tt.classList.remove("show"); copyBtn.classList.remove("done");
-      copyBtn.firstChild.nodeValue = "📋 計算結果コピー ";
+      copyBtn.querySelector(".cp-main").textContent = "📋 計算結果コピー";
     }, 1600);
   }
   function legacyCopy(text){
@@ -871,7 +946,7 @@
       ["1", "ジェベル", "レジェンド", "防衛", "味方", "被ダメージ軽減", "50%", "発動率40%"],
       ["1", "サロ", "レジェンド", "防衛", "味方", "防御力・HP上昇", "10%・15%", ""],
       ["3", "エリック", "レジェンド", "防衛", "敵", "攻撃力低下", "20%", ""],
-      ["4", "アルカ", "レジェンド", "防衛", "味方", "被ダメージ低下", "－", "5ターンごと、2ターン持続"],
+      ["4", "アルカ", "レジェンド", "防衛", "味方", "被ダメージ低下", "70%", "5ターンごと、2ターン持続、歩兵・弓兵が対象"],
       ["5", "龍飛", "レジェンド", "防衛", "味方", "被ダメージ低下", "50%", "発動率40%"],
       ["6", "トリトン", "レジェンド", "防衛", "味方", "防御力上昇", "25%", ""],
       ["6", "ソフィア", "レジェンド", "防衛", "味方", "被ダメージ軽減", "50%", "発動率40%"],
@@ -1032,6 +1107,271 @@
       }).join("") + '</tr>';
     }, "eq " + (kind||""), headPerSec);
   }
+  // レジェンド英雄／スキル一覧表（討伐・遠征・専用装備、スキル名はゲーム内表記） [世代, 英雄, 兵種, 種別, No, スキル名, 専用装備名, 効果, 数値, 集結/防衛, 出典]
+  var SKILLS = [
+    ["1", "ヘルガ", "歩兵", "討伐スキル", "1", "鹿角猛進", "", "範囲ﾀﾞﾒｰｼﾞ+ﾉｯｸﾊﾞｯｸ･1秒間気絶", "攻撃×160/176/192/208/224%", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "討伐スキル", "2", "追撃攻勢", "", "単体ﾀﾞﾒｰｼﾞ", "攻撃×150/165/180/195/210%", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "討伐スキル", "3", "怒狂", "", "被ﾀﾞﾒｰｼﾞ時､確率で3秒間攻撃上昇(最大5ｽﾀｯｸ)", "4/6/8/10/12%(確率10%)", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "遠征スキル", "1", "守護者の誓い", "", "確率で全部隊の被ﾀﾞﾒｰｼﾞ50%減少", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "遠征スキル", "2", "英霊の叫び", "", "全部隊の攻撃上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "遠征スキル", "3", "荒野の均衡", "", "全部隊の殺傷力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "専用装備スキル", "1", "狂熱共鳴", "ﾃｭｰﾙの手", "与ﾀﾞﾒｰｼﾞ上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/2"],
+    ["1", "ヘルガ", "歩兵", "専用装備スキル", "2", "狂熱共鳴", "ﾃｭｰﾙの手", "集結した部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/2"],
+    ["1", "アマデウス", "歩兵", "討伐スキル", "1", "三段斬り", "", "目標ｴﾘｱの敵を打ち上げ､3回斬撃", "各 攻撃×160/176/192/208/224%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "討伐スキル", "2", "剣気", "", "剣を振るうたび前方の敵にﾀﾞﾒｰｼﾞ", "攻撃×15/17/19/21/23%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "討伐スキル", "3", "快進撃", "", "HP50%以上のとき攻撃上昇", "16/24/32/40/48%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "遠征スキル", "1", "臨戦態勢", "", "全部隊の殺傷力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "遠征スキル", "2", "剣術指導", "", "全部隊の攻撃上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "遠征スキル", "3", "不義の一撃", "", "確率で全部隊の与ﾀﾞﾒｰｼﾞ50%上昇", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "専用装備スキル", "1", "双剣防御", "運命", "被ﾀﾞﾒｰｼﾞ減少", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/1"],
+    ["1", "アマデウス", "歩兵", "専用装備スキル", "2", "真実の術", "運命", "集結した部隊の攻撃上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/1"],
+    ["2", "ゾーイ", "歩兵", "討伐スキル", "1", "ｿｰﾄﾞｼｰﾙﾄﾞｱｻﾙﾄ", "", "0.5秒ごとにﾀﾞﾒｰｼﾞ+2秒間､目標の被ﾀﾞﾒｰｼﾞ上昇", "攻撃×60/66/72/78/84%・被ダメージ10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "討伐スキル", "2", "ﾍﾟｲﾝｴｷｻｲﾄﾒﾝﾄ", "", "HP50%未満で最大HPの一部を即回復(1戦闘1回)", "20/25/30/35/40%", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "討伐スキル", "3", "ｺﾞｯﾄﾞﾊﾟﾜｰ", "", "味方全英雄の攻撃速度上昇", "3/4/5/6/7%", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "遠征スキル", "1", "ﾘｯｼﾞﾜｳﾝﾄﾞ", "", "全部隊の攻撃時､確率で裂傷を付与(3ﾀｰﾝ､毎ﾀｰﾝﾀﾞﾒｰｼﾞ)", "8/16/24/32/40%(確率20%)", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "遠征スキル", "2", "感情支配", "", "全部隊の攻撃上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "遠征スキル", "3", "無限ﾃｸﾆｯｸ", "", "全部隊の攻撃時､確率で敵の被ﾀﾞﾒｰｼﾞ上昇", "10/20/30/40/50%(確率50%)", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "専用装備スキル", "1", "ﾃﾞｽﾌｧｲﾄ", "不義", "ﾍﾟｲﾝｴｷｻｲﾄﾒﾝﾄ発動で戦闘終了まで攻撃上昇", "8/12/16/20/24%", "", "https://altema.jp/kingshot/chara/16"],
+    ["2", "ゾーイ", "歩兵", "専用装備スキル", "2", "不義のﾌﾟﾘﾝｾｽ", "不義", "防衛中の部隊の攻撃上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/16"],
+    ["3", "エリック", "歩兵", "討伐スキル", "1", "ﾊﾝﾏｰ･ｽｳｨﾝｸﾞ", "", "前方にﾀﾞﾒｰｼﾞ+4秒間攻撃速度50%低下", "攻撃×120/132/144/156/168%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "討伐スキル", "2", "ﾊﾞﾄﾙ･ﾎﾞﾃﾞｨ", "", "攻撃を受けると確率で2秒間防御力上昇(最大5ｽﾀｯｸ)", "確率8/10/12/14/16%・防御力8/11/14/17/20%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "討伐スキル", "3", "ﾍﾋﾞｰｽﾏｯｼｭ", "", "扇状範囲ﾀﾞﾒｰｼﾞ､30%の確率で1秒間気絶", "攻撃×80/88/96/104/112%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "遠征スキル", "1", "浄化", "", "敵部隊の攻撃低下", "4/8/12/16/20%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "遠征スキル", "2", "意志", "", "全部隊の被ﾀﾞﾒｰｼﾞ減少", "4/8/12/16/20%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "遠征スキル", "3", "鼓舞", "", "全部隊のHP上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "専用装備スキル", "1", "ﾊﾝﾏｰ･ﾌﾞﾚｽ", "教化の槌", "与ﾀﾞﾒｰｼﾞ上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/17"],
+    ["3", "エリック", "歩兵", "専用装備スキル", "2", "ﾊﾝﾏｰ･ﾃﾞｨﾌｪﾝｽ", "教化の槌", "防衛中の部隊の防御力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/17"],
+    ["4", "アルカ", "歩兵", "討伐スキル", "1", "ｸﾞﾛｰﾘｰ･ﾓｰﾒﾝﾄ", "", "無敵状態になり､2秒間周囲の味方の被ﾀﾞﾒｰｼﾞ減少", "30/40/50/60/70%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "討伐スキル", "2", "ｽﾌﾟﾘｯﾄ･ﾗﾝｽ", "", "直線上にﾀﾞﾒｰｼﾞ+2秒間､命中した敵の被ﾀﾞﾒｰｼﾞ20%上昇", "攻撃×70/77/84/91/98%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "討伐スキル", "3", "ﾘﾊﾞｲﾊﾞﾙ･ｽﾋﾟﾘｯﾄ", "", "ｸﾞﾛｰﾘｰ･ﾓｰﾒﾝﾄの発動中､5秒間毎秒HP回復", "攻撃×30/33/36/39/42%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "遠征スキル", "1", "ｱｼｽﾄ･ｱﾘｰ", "", "5ﾀｰﾝごとに2ﾀｰﾝの間､歩兵･弓兵の被ﾀﾞﾒｰｼﾞ減少", "14/28/42/56/70%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "遠征スキル", "2", "ﾁｬﾝﾋﾟｵﾝ･ｳｨﾙ", "", "歩兵の与ﾀﾞﾒｰｼﾞ上昇､騎兵･弓兵の与ﾀﾞﾒｰｼﾞ上昇", "歩兵20/40/60/80/100%・騎兵弓兵2/4/6/8/10%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "遠征スキル", "3", "ﾁｬﾝｽ･ｵﾌﾞ･ﾌｭｰﾘｰ", "", "1ﾀｰﾝの間､歩兵の与ﾀﾞﾒｰｼﾞ上昇+目標の被ﾀﾞﾒｰｼﾞ上昇", "与ダメージ12/24/36/48/60%・被ダメージ5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "専用装備スキル", "1", "不屈の信念", "ﾁｬﾝﾋﾟｵﾝの盾", "ｸﾞﾛｰﾘｰ･ﾓｰﾒﾝﾄで2.5秒間､味方部隊の攻撃上昇", "30/33/36/39/42%", "", "https://altema.jp/kingshot/chara/25"],
+    ["4", "アルカ", "歩兵", "専用装備スキル", "2", "ｸﾞﾛｰﾘｰ･ｵｰｽ", "ﾁｬﾝﾋﾟｵﾝの盾", "防衛中の部隊のHP上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/25"],
+    ["5", "龍飛", "歩兵", "討伐スキル", "1", "聖なる玉湯", "", "4秒間､攻撃速度上昇+ｺﾝﾄﾛｰﾙ効果無効", "80/90/100/110/120%", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "討伐スキル", "2", "雲散霧消", "", "HP50%未満のとき被ﾀﾞﾒｰｼﾞ減少", "20/30/40/50/60%", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "討伐スキル", "3", "圧倒する力", "", "HP50%未満のとき攻撃上昇", "16/24/32/40/48%", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "遠征スキル", "1", "天昇豪胆", "", "確率で全部隊の被ﾀﾞﾒｰｼﾞ減少", "10/20/30/40/50%(確率40%)", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "遠征スキル", "2", "剛筋頑健", "", "全部隊の防御力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "遠征スキル", "3", "杯投烈脚", "", "全部隊の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "120/140/160/180/200%(確率25%)", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "専用装備スキル", "1", "呑下三百杯", "酔八仙", "聖なる玉湯の効果時間を1.5秒延長､与ﾀﾞﾒｰｼﾞの一部でHP回復", "7/9/11/13/15%", "", "https://altema.jp/kingshot/chara/26"],
+    ["5", "龍飛", "歩兵", "専用装備スキル", "2", "虚実一対", "酔八仙", "防衛中の部隊の攻撃上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/26"],
+    ["6", "トリトン", "歩兵", "討伐スキル", "1", "潮汐の意思", "", "2秒間無敵になった後､範囲ﾀﾞﾒｰｼﾞ", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "討伐スキル", "2", "諸王の怒り", "", "4秒間､攻撃と防御力が上昇", "攻撃8/12/16/20/24%・防御力16/24/32/40/48%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "討伐スキル", "3", "必殺の一撃", "", "通常攻撃のたびにﾗﾝﾀﾞﾑな敵へ追加ﾀﾞﾒｰｼﾞ", "攻撃×20/22/24/26/28%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "遠征スキル", "1", "律令の力", "", "全部隊の防御力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "遠征スキル", "2", "戦争の力", "", "全部隊の与ﾀﾞﾒｰｼﾞ上昇", "6/12/18/24/30%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "遠征スキル", "3", "誓約の力", "", "歩兵のHP上昇､騎兵･弓兵のHP上昇", "歩兵4/8/12/16/20%・騎兵弓兵6/12/18/24/30%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "専用装備スキル", "1", "ｸﾘｽﾀﾙ改造", "潮汐の杖", "与ﾀﾞﾒｰｼﾞ上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/29"],
+    ["6", "トリトン", "歩兵", "専用装備スキル", "2", "鯨歌の調べ", "潮汐の杖", "防衛中の部隊の防御力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/29"],
+    ["7", "チャールズ", "歩兵", "討伐スキル", "1", "ﾘﾍﾞﾝｼﾞｬｰ", "", "前方扇形にﾀﾞﾒｰｼﾞ+1秒間眩暈､2秒間自身の攻撃上昇", "攻撃×100～140%・攻撃20～100%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "討伐スキル", "2", "ﾌｪｱｳｪﾙ", "", "周囲の敵にﾀﾞﾒｰｼﾞ", "攻撃×200～280%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "討伐スキル", "3", "ｹｱﾌﾘｰ", "", "確率で被ﾀﾞﾒｰｼﾞ50%軽減", "確率10～50%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "遠征スキル", "1", "ﾊﾟﾝﾂｧｰｵｰﾗ", "", "敵全体の殺傷力低下", "4～20%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "遠征スキル", "2", "鋼鉄の身体", "", "全部隊の被ﾀﾞﾒｰｼﾞ低下", "4～20%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "遠征スキル", "3", "愛と正義", "", "全部隊の総HP上昇", "5～25%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "専用装備スキル", "1", "修理の達人", "正義の鉄拳", "HP50%未満で最大HPの35%を回復+防御力上昇(1戦闘1回)", "最大 回復35%・防御力30%", "", "https://altema.jp/kingshot/chara/32"],
+    ["7", "チャールズ", "歩兵", "専用装備スキル", "2", "華麗なる登場", "正義の鉄拳", "味方全体のHP上昇", "最大15%", "防衛", "https://altema.jp/kingshot/chara/32"],
+    ["8", "ディエゴ", "歩兵", "討伐スキル", "1", "完全無欠", "", "剣気の盾(ｼｰﾙﾄﾞ)を張る(5秒間)", "攻撃×220～380%", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "討伐スキル", "2", "健在の剣心", "", "敵の攻撃低下+自身の攻撃上昇(威圧した敵英雄の数に比例､3秒間)", "敵攻撃1～5%・自身1～5%×人数", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "討伐スキル", "3", "影渡し", "", "確率で通常攻撃を回避､攻撃時に確率で会心", "回避3～15%・会心4～20%", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "遠征スキル", "1", "防守の指導", "", "全部隊の防御力･HP上昇", "防御力3～15%・HP2～10%", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "遠征スキル", "2", "無形の剣気", "", "全部隊の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "10～50%(確率50%)", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "遠征スキル", "3", "凛然なる剣気", "", "全部隊の殺傷力上昇", "5～25%", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "専用装備スキル", "1", "重剣無鋒", "隕鉄剣", "完全無欠のｼｰﾙﾄﾞ追加+ｼｰﾙﾄﾞ中は被ﾀﾞﾒｰｼﾞの一部を反射", "最大 攻撃×95%・反射30%", "", "https://altema.jp/kingshot/chara/35"],
+    ["8", "ディエゴ", "歩兵", "専用装備スキル", "2", "大巧不工", "隕鉄剣", "防衛部隊の防御力上昇", "最大15%", "防衛", "https://altema.jp/kingshot/chara/35"],
+    ["1", "ジェベル", "騎兵", "討伐スキル", "1", "ﾗﾝｽｽﾊﾟｲｸ", "", "範囲ﾀﾞﾒｰｼﾞ+1.5秒間移動不能", "攻撃×180/198/216/234/252%", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "討伐スキル", "2", "真っ向勝負", "", "単体ﾀﾞﾒｰｼﾞ", "攻撃×150/165/180/195/210%", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "討伐スキル", "3", "執念", "", "HP50%以下のとき攻撃速度上昇", "20/30/40/50/60%", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "遠征スキル", "1", "赤き旗", "", "確率で全部隊の被ﾀﾞﾒｰｼﾞ50%減少", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "遠征スキル", "2", "勇姿", "", "全部隊の攻撃時､確率で与ﾀﾞﾒｰｼﾞ上昇", "10/20/30/40/50%(確率50%)", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "遠征スキル", "3", "戦乙女", "", "全部隊の殺傷力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "専用装備スキル", "1", "紅の意志", "信念の戦旗", "与ﾀﾞﾒｰｼﾞ上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/4"],
+    ["1", "ジェベル", "騎兵", "専用装備スキル", "2", "信頼", "信念の戦旗", "防衛中の部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/4"],
+    ["2", "ヒルデ", "騎兵", "討伐スキル", "1", "治療祈祷", "", "味方英雄全員のHPを回復", "攻撃×200/220/240/260/280%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "討伐スキル", "2", "贖罪", "", "最も弱い味方英雄のHPを回復", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "討伐スキル", "3", "教化", "", "目標を1秒間無力化+ﾀﾞﾒｰｼﾞ", "攻撃×140/154/168/182/196%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "遠征スキル", "1", "苦行", "", "全部隊の攻撃･防御力上昇", "攻撃3/6/9/12/15%・防御力2/4/6/8/10%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "遠征スキル", "2", "ﾎﾟｰｼｮﾝ注入", "", "全部隊の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "120/140/160/180/200%(確率25%)", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "遠征スキル", "3", "意志の試練", "", "確率で全部隊の被ﾀﾞﾒｰｼﾞ50%減少", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "専用装備スキル", "1", "聖なる祈祷", "啓示", "回復効果上昇", "30/40/50/60/70%", "", "https://altema.jp/kingshot/chara/14"],
+    ["2", "ヒルデ", "騎兵", "専用装備スキル", "2", "ﾀﾌﾈｽ", "啓示", "防衛中の部隊のHP上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/14"],
+    ["3", "ペーラ", "騎兵", "討伐スキル", "1", "ｼﾞｬｯｼﾞｶｰﾄﾞ", "", "単体ﾀﾞﾒｰｼﾞ+｢2秒間攻撃20%低下｣か｢1.5秒間気絶｣", "攻撃×270/297/324/351/378%", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "討伐スキル", "2", "無情な運命", "", "基礎値の5〜600%のﾗﾝﾀﾞﾑﾀﾞﾒｰｼﾞ", "基礎値 攻撃×50/55/60/65/70%", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "討伐スキル", "3", "ｻﾌﾟﾗｲｽﾞｶｰﾄﾞ", "", "HP割合が最も低い味方英雄を基礎値の5〜400%ﾗﾝﾀﾞﾑ回復", "基礎値 攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "遠征スキル", "1", "ﾄﾞｩｰﾑ", "", "全部隊の攻撃時､確率で呪い(敵の被ﾀﾞﾒｰｼﾞ上昇)を付与", "10/20/30/40/50%(確率50%)", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "遠征スキル", "2", "ﾗｯｷｰｶｰﾄﾞ", "", "全部隊の攻撃時､確率で与ﾀﾞﾒｰｼﾞ上昇", "10/20/30/40/50%(確率50%)", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "遠征スキル", "3", "ｶﾞｰﾃﾞｨｱﾝｶｰﾄﾞ", "", "確率で全部隊の被ﾀﾞﾒｰｼﾞ減少", "10/20/30/40/50%(確率40%)", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "専用装備スキル", "1", "ｼｬｯﾌﾙﾏｼﾞｯｸ", "規定", "変動ｽｷﾙの上限･下限を上昇", "30/60/90/120/150%", "", "https://altema.jp/kingshot/chara/18"],
+    ["3", "ペーラ", "騎兵", "専用装備スキル", "2", "運命の計画", "規定", "集結した部隊の攻撃上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/18"],
+    ["4", "マーゴ", "騎兵", "討伐スキル", "1", "ﾄﾘｯｸｱﾀｯｸ", "", "爆弾で範囲ﾀﾞﾒｰｼﾞ", "攻撃×300/330/360/390/420%", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "討伐スキル", "2", "ﾄﾘｯｸｽﾙｰ", "", "確率で敵の攻撃を完全回避", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "討伐スキル", "3", "ｸﾗｯｼｭｽﾄﾗｲｸ", "", "単体ﾀﾞﾒｰｼﾞ(英雄優先)+1.5秒間移動不能", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "遠征スキル", "1", "ﾃﾞｽﾄﾛｲ", "", "全部隊の攻撃上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "遠征スキル", "2", "ﾀｸﾃｨｸｽ", "", "全部隊に確率で通常攻撃を回避する効果を付与", "確率4/8/12/16/20%", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "遠征スキル", "3", "ﾄﾘｯｸﾃｸﾆｯｸ", "", "騎兵が確率で追加攻撃", "120/140/160/180/200%(確率25%)", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "専用装備スキル", "1", "ｱﾝﾌﾞｯｼｭ", "狂喜の刃", "通常攻撃時､確率で2回目の攻撃", "攻撃×25/30/35/40/45%(確率40%)", "", "https://altema.jp/kingshot/chara/23"],
+    ["4", "マーゴ", "騎兵", "専用装備スキル", "2", "ﾃﾞｽﾏｯﾁ", "狂喜の刃", "防衛中の部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/23"],
+    ["5", "スルード", "騎兵", "討伐スキル", "1", "ｽﾄｰﾑｱｯｸｽ", "", "ﾗﾝﾀﾞﾑな目標(英雄優先)に斧5本､範囲ﾀﾞﾒｰｼﾞ", "攻撃×60/66/72/78/84%", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "討伐スキル", "2", "ﾊﾞｰｻｶｰｽﾛｰ", "", "範囲ﾀﾞﾒｰｼﾞ+1.5秒間気絶", "攻撃×50/55/60/65/70%", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "討伐スキル", "3", "ｳﾙﾌﾊﾞﾝｹｯﾄ", "", "全部隊の攻撃上昇", "3/3.5/4/4.5/5%", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "遠征スキル", "1", "ﾌｧﾅﾃｨｯｸ", "", "歩兵･弓兵の被ﾀﾞﾒｰｼﾞ減少+与ﾀﾞﾒｰｼﾞ上昇", "被ダメージ3/6/9/12/15%・与ダメージ3/6/9/12/15%", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "遠征スキル", "2", "ﾚｯｸﾚｽ", "", "騎兵の攻撃時､確率で敵全体に追加ﾀﾞﾒｰｼﾞ", "20/40/60/80/100%(確率20%)", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "遠征スキル", "3", "ｱﾝｾｽﾀｰ", "", "騎兵の4回攻撃ごとに2ﾀｰﾝの間､全部隊の与ﾀﾞﾒｰｼﾞ上昇･被ﾀﾞﾒｰｼﾞ減少", "与ダメージ5/10/15/20/25%・被ダメージ5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "専用装備スキル", "1", "ﾚｲｼﾞｱｯｸｽ", "神狼の鋭牙", "ｽﾄｰﾑｱｯｸｽ中､確率で目標を気絶", "確率25/27.5/30/32.5/35%・0.6/0.7/0.8/0.9/1秒", "", "https://altema.jp/kingshot/chara/27"],
+    ["5", "スルード", "騎兵", "専用装備スキル", "2", "ｳﾙﾌｷｯｽ", "神狼の鋭牙", "集結した部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/27"],
+    ["6", "ソフィア", "騎兵", "討伐スキル", "1", "ﾏﾘｵﾈｯﾄ", "", "範囲ﾀﾞﾒｰｼﾞ+1秒間混乱(敵味方問わず攻撃)", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "討伐スキル", "2", "ﾍﾟｲﾝ･ﾏｰｸ", "", "単体ﾀﾞﾒｰｼﾞ+4秒間､目標の被ﾀﾞﾒｰｼﾞ上昇", "攻撃×50/55/60/65/70%・被ダメージ+2/3/4/5/6%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "討伐スキル", "3", "ﾏｰｸ･ｳｨｯﾌﾟ", "", "攻撃上昇､印の付いた目標へのﾀﾞﾒｰｼﾞ上昇", "攻撃8/12/16/20/24%・ダメージ4/6/8/10/12%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "遠征スキル", "1", "ｺﾝﾄﾗｸﾄ･ﾊﾞｲﾝﾄﾞ", "", "毎ﾀｰﾝ確率で全部隊の被ﾀﾞﾒｰｼﾞ50%減少", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "遠征スキル", "2", "ﾊﾟﾆｯｸ･ﾀﾞﾒｰｼﾞ", "", "2ﾀｰﾝごとに敵に恐怖を付与､次のﾀｰﾝ騎兵からの被ﾀﾞﾒｰｼﾞ上昇(1ﾀｰﾝ)", "40/80/120/160/200%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "遠征スキル", "3", "ﾊﾟﾆｯｸ･ｼﾞｴﾝﾄﾞ", "", "恐怖状態の目標への全部隊の与ﾀﾞﾒｰｼﾞ上昇", "15/30/45/60/75%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "専用装備スキル", "1", "ｵｰﾊﾞｰﾏｲﾝﾄﾞ･ｱｲ", "ﾌﾞﾗｯﾃﾞｨﾛｰｽﾞ", "攻撃時､確率で目標を1秒間混乱", "確率2/3.5/5/6.5/8%", "", "https://altema.jp/kingshot/chara/30"],
+    ["6", "ソフィア", "騎兵", "専用装備スキル", "2", "ﾀﾞｰｸﾅｲﾄｸｲｰﾝ", "ﾌﾞﾗｯﾃﾞｨﾛｰｽﾞ", "防衛中の部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/30"],
+    ["7", "アイヴァ", "騎兵", "討伐スキル", "1", "ﾎﾞﾏｰﾍﾟｲﾝﾄ", "", "小範囲に0.5秒ごとにﾀﾞﾒｰｼﾞ(3秒間)", "攻撃×50～70%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "討伐スキル", "2", "ｽﾎﾟｲﾙﾍﾟｲﾝﾄ", "", "0.5秒ごとにﾀﾞﾒｰｼﾞ+目標の被ﾀﾞﾒｰｼﾞ上昇(2秒間)", "攻撃×25～35%・被ダメージ5～25%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "討伐スキル", "3", "ﾌｪｲｸﾍﾟｲﾝﾄ", "", "自身の防御力上昇", "25～75%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "遠征スキル", "1", "ｱﾅﾗｲｽﾞ", "", "敵全部隊の防御力低下", "5～25%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "遠征スキル", "2", "ﾗｲﾄ&ｼｬﾄﾞｳ", "", "4ﾀｰﾝごとに敵全体の被ﾀﾞﾒｰｼﾞ上昇(2ﾀｰﾝ)", "10～50%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "遠征スキル", "3", "ｸｰﾙ&ﾎｯﾄ", "", "全部隊の殺傷力上昇", "5～25%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "専用装備スキル", "1", "ｶﾗｰｾﾝｽ", "七色ｶﾒﾚｵﾝ", "自身の与ﾀﾞﾒｰｼﾞ上昇+塗料を受けた敵の攻撃低下", "最大 与ダメージ25%・攻撃低下15%", "", "https://altema.jp/kingshot/chara/33"],
+    ["7", "アイヴァ", "騎兵", "専用装備スキル", "2", "ｸﾛﾏｽﾄｰﾑ", "七色ｶﾒﾚｵﾝ", "集結を発起したとき全部隊の殺傷力上昇", "最大15%", "集結", "https://altema.jp/kingshot/chara/33"],
+    ["8", "リズ", "騎兵", "討伐スキル", "1", "ﾋﾞｯｸﾞﾊﾞﾌﾞﾙ", "", "1.5秒間行動不能+範囲ﾀﾞﾒｰｼﾞ", "攻撃×220～300%", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "討伐スキル", "2", "ｽﾛｳﾎﾟｰｼｮﾝ", "", "単体ﾀﾞﾒｰｼﾞ+周囲の攻撃速度50%低下(3秒間)", "攻撃×100～140%", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "討伐スキル", "3", "ﾗｲﾄﾎﾟｰｼｮﾝ", "", "自身の攻撃速度上昇", "10～30%", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "遠征スキル", "1", "ﾊﾟﾜｰﾌﾞｰｽﾀｰ", "", "ﾗｳﾝﾄﾞごとに確率で全部隊の殺傷力50%上昇", "確率10～50%", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "遠征スキル", "2", "ｴﾅｼﾞｰﾌﾞｰｽﾀｰ", "", "全部隊のHP上昇", "5～25%", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "遠征スキル", "3", "ﾗｲﾄﾞﾏｽﾀｰ", "", "騎兵の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "30～150%(確率50%)", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "専用装備スキル", "1", "ｽﾌﾟﾗｯｼｭﾊﾞﾌﾞﾙ", "真鍮のﾒｲｽ", "自身の攻撃上昇+ﾋﾞｯｸﾞﾊﾞﾌﾞﾙの行動不能終了時に範囲ﾀﾞﾒｰｼﾞ", "最大 攻撃24%・攻撃×70%", "", "https://altema.jp/kingshot/chara/36"],
+    ["8", "リズ", "騎兵", "専用装備スキル", "2", "ﾊｲﾊﾟｰﾌﾞｰｽﾀｰ", "真鍮のﾒｲｽ", "防衛部隊の殺傷力上昇", "最大15%", "防衛", "https://altema.jp/kingshot/chara/36"],
+    ["1", "サロ", "弓兵", "討伐スキル", "1", "連続射撃", "", "連続攻撃+2秒間気絶", "各 攻撃×55/60/65/70/75%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "討伐スキル", "2", "金剛不壊", "", "HP50%以下のとき防御力上昇", "50/75/100/125/150%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "討伐スキル", "3", "工法改良", "", "攻撃速度上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "遠征スキル", "1", "特派訓練", "", "全部隊の防御力･HP上昇", "防御力2/4/6/8/10%・HP3/6/9/12/15%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "遠征スキル", "2", "ﾘｻｲｸﾙ", "", "建造速度上昇･建設ｺｽﾄ減少", "速度3/6/9/12/15%・コスト3/6/9/12/15%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "遠征スキル", "3", "陣地戦の強者", "", "全部隊の殺傷力上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "専用装備スキル", "1", "義理尽", "野ｳｻｷﾞ砲", "攻撃上昇", "最大24%", "", "https://altema.jp/kingshot/chara/3"],
+    ["1", "サロ", "弓兵", "専用装備スキル", "2", "攻撃は最大の防御", "野ｳｻｷﾞ砲", "防衛中の部隊の攻撃上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/3"],
+    ["2", "マリン", "弓兵", "討伐スキル", "1", "ﾊﾞｯｸｳｫｯｼｭ", "", "範囲ﾀﾞﾒｰｼﾞ+1.5秒間移動不能", "攻撃×200/220/240/260/280%", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "討伐スキル", "2", "ﾄﾞﾗﾝｶｰﾐｽﾄ", "", "範囲ﾀﾞﾒｰｼﾞ", "攻撃×50/55/60/65/70%", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "討伐スキル", "3", "ﾗｯｷｰｼｮｯﾄ", "", "一定回数の攻撃ごとに目標を気絶", "8/7/7/6/5回ごと・0.2/0.2/0.4/0.4/0.5秒", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "遠征スキル", "1", "予測不能", "", "確率で全部隊の与ﾀﾞﾒｰｼﾞ50%上昇", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "遠征スキル", "2", "ﾗﾑ酒", "", "全部隊の攻撃時､確率で2ﾀｰﾝの間､敵の殺傷力低下", "10/20/30/40/50%(確率20%)", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "遠征スキル", "3", "強化ｶﾞﾝﾊﾟｳﾀﾞｰ", "", "全部隊の攻撃時､確率で与ﾀﾞﾒｰｼﾞ上昇", "10/20/30/40/50%(確率50%)", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "専用装備スキル", "1", "酒飲み", "霧の使者", "通常攻撃のたびに最も弱い英雄を回復", "攻撃×5/7.5/10/12.5/15%", "", "https://altema.jp/kingshot/chara/15"],
+    ["2", "マリン", "弓兵", "専用装備スキル", "2", "無敵艦隊", "霧の使者", "集結した部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/15"],
+    ["3", "イェーガー", "弓兵", "討伐スキル", "1", "ﾃﾞｽｱﾄﾗｸﾄ", "", "範囲ﾀﾞﾒｰｼﾞ+2秒間気絶", "攻撃×160/176/192/208/224%", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "討伐スキル", "2", "不器用な演技", "", "成功でﾀﾞﾒｰｼﾞ､失敗で目標のHPを攻撃×50%回復", "攻撃×220/240/260/280/300%", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "討伐スキル", "3", "ｼｰｸﾚｯﾄ･ｽﾄｰﾘｰ", "", "3秒間､敵の被ﾀﾞﾒｰｼﾞ上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "遠征スキル", "1", "ｽﾄｰﾑｿﾝｸﾞ", "", "確率で3ﾀｰﾝの間､全部隊の与ﾀﾞﾒｰｼﾞ上昇", "8/16/24/32/40%(確率20%)", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "遠征スキル", "2", "ｺﾝﾌﾘｸﾄｿﾝｸﾞ", "", "全部隊の攻撃時､確率で2ﾀｰﾝの間､敵の殺傷力低下", "10/20/30/40/50%(確率20%)", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "遠征スキル", "3", "ﾌｪｽﾃｨﾊﾞﾙｿﾝｸﾞ", "", "全部隊のHP上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "専用装備スキル", "1", "ｻｲﾚﾝﾄ･ｼﾚﾝｽ", "流刑者", "目標を沈黙させｽｷﾙ使用を封じる+ﾀﾞﾒｰｼﾞ", "3/3.5/4/4.5/5秒・攻撃×220/240/260/280/300%", "", "https://altema.jp/kingshot/chara/19"],
+    ["3", "イェーガー", "弓兵", "専用装備スキル", "2", "賛美歌", "流刑者", "防衛中の部隊のHP上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/19"],
+    ["4", "ローザ", "弓兵", "討伐スキル", "1", "ｾﾝﾀｰ･ｱﾃﾝｼｮﾝ", "", "全部隊のﾃﾞﾊﾞﾌ解除､一定時間 攻撃上昇+ﾃﾞﾊﾞﾌ免疫", "3/3.5/4/4.5/5秒・攻撃3/4/5/6/7%", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "討伐スキル", "2", "ﾌｧﾝ･ﾀﾞﾝｽ", "", "経路上の敵にﾀﾞﾒｰｼﾞ", "攻撃×220/240/260/280/300%", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "討伐スキル", "3", "ﾏｲﾝﾄﾞ･ｼｬｯﾀｰ", "", "敵全部隊の攻撃速度と回復効果を低下", "攻撃速度1/1.5/2/2.5/3%・回復40/45/50/55/60%", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "遠征スキル", "1", "ﾉｲｽﾞ･ﾀｲﾑ", "", "確率で全部隊の与ﾀﾞﾒｰｼﾞ上昇", "10/20/30/40/50%(確率40%)", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "遠征スキル", "2", "ﾁｬｰﾑ･ﾀﾞﾝｽ", "", "敵全部隊の与ﾀﾞﾒｰｼﾞ低下", "4/8/12/16/20%", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "遠征スキル", "3", "ｺﾞｰﾙﾃﾞﾝ･ﾘｽﾞﾑ", "", "弓兵の攻撃上昇", "6/12/18/24/30%", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "専用装備スキル", "1", "ｵｰﾙﾅｲﾄ･ﾌｪｽﾀ", "ｱﾄﾓｽﾌｨｱ", "ｾﾝﾀｰ･ｱﾃﾝｼｮﾝ発動で戦闘終了まで攻撃上昇", "5/7.5/10/12.5/15%", "", "https://altema.jp/kingshot/chara/24"],
+    ["4", "ローザ", "弓兵", "専用装備スキル", "2", "ｲﾝｽﾊﾟｲｱ･ﾀﾞﾝｽ", "ｱﾄﾓｽﾌｨｱ", "集結した部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/24"],
+    ["5", "ビビアン", "弓兵", "討伐スキル", "1", "ｺﾞｰﾙﾃﾞﾝｼｮｯﾄ", "", "敵後列(英雄優先)に範囲ﾀﾞﾒｰｼﾞ+2秒間攻撃速度50%低下", "攻撃×180/198/216/234/252%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "討伐スキル", "2", "ｸﾞｯﾄﾞﾗｯｸ", "", "単体ﾀﾞﾒｰｼﾞ(英雄優先)､50%の確率で2倍", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "討伐スキル", "3", "ｺﾞｰﾙﾄﾞﾗｯｼｭ", "", "3秒間､範囲内の敵に毎秒ﾀﾞﾒｰｼﾞ", "攻撃×35/38.5/42/45.5/49%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "遠征スキル", "1", "ｱｳｪｲﾃｨﾝｸﾞ", "", "全部隊の攻撃で敵の被ﾀﾞﾒｰｼﾞ上昇", "5/10/15/20/25%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "遠征スキル", "2", "ﾊﾞﾗｰｼﾞｼｮｯﾄ", "", "4回攻撃ごとに追加ﾀﾞﾒｰｼﾞ+目標の次の被ﾀﾞﾒｰｼﾞ上昇", "追加20/40/60/80/100%・被ダメージ5/7.5/10/12.5/15%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "遠征スキル", "3", "ｸﾞﾘｰﾄﾞﾄﾗｯﾌﾟ", "", "弓兵の4回攻撃ごとの次の攻撃で敵全体に追加ﾀﾞﾒｰｼﾞ", "12/24/36/48/60%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "専用装備スキル", "1", "ﾛｲﾔﾙｼｭｰﾀｰ", "運命の輪", "ｽｷﾙ発動のたびにﾗﾝﾀﾞﾑな敵(英雄優先)へ追加ﾀﾞﾒｰｼﾞ", "攻撃×50/55/60/65/70%", "", "https://altema.jp/kingshot/chara/28"],
+    ["5", "ビビアン", "弓兵", "専用装備スキル", "2", "ﾌﾙﾊﾞｳﾝﾃｨ", "運命の輪", "防衛中の部隊の防御力上昇", "5/7.5/10/12.5/15%", "防衛", "https://altema.jp/kingshot/chara/28"],
+    ["6", "ヤン", "弓兵", "討伐スキル", "1", "ﾒｶﾞｽﾛｰ", "", "直線上に範囲ﾀﾞﾒｰｼﾞ(戻りでも同量のﾀﾞﾒｰｼﾞ)", "攻撃×100/110/120/130/140%", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "討伐スキル", "2", "ﾁｪｰﾝｼｮｯﾄ", "", "確率で連射し追加ﾀﾞﾒｰｼﾞ", "確率15～30%", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "討伐スキル", "3", "ﾍｯﾄﾞｼｮｯﾄ", "", "ｸﾘﾃｨｶﾙ率上昇", "3/6/9/12/15%", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "遠征スキル", "1", "ｱﾊﾞﾗﾝﾁ", "", "4ﾀｰﾝごとに全部隊が追加攻撃", "20/40/60/80/100%", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "遠征スキル", "2", "ｱｲｽｿﾞｰﾝ", "", "弓兵の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "20/40/60/80/100%(確率40%)", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "遠征スキル", "3", "ｱﾝﾌﾞｯｼｭ", "", "毎ﾀｰﾝ確率で全部隊の与ﾀﾞﾒｰｼﾞ上昇を付与", "確率8/16/24/32/40%", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "専用装備スキル", "1", "ﾗﾋﾟｯﾄﾞﾌｧｲｱ", "雪の妖精", "5連射でﾗﾝﾀﾞﾑな敵にﾀﾞﾒｰｼﾞ､目標がｴｽｺｰﾄなら確率で即ﾉｯｸﾀﾞｳﾝ", "攻撃×40/44/48/52/56%・確率40/55/70/85/100%", "", "https://altema.jp/kingshot/chara/31"],
+    ["6", "ヤン", "弓兵", "専用装備スキル", "2", "ｱﾀｯｸﾃﾞｨﾌｪﾝｽ", "雪の妖精", "集結した部隊の殺傷力上昇", "5/7.5/10/12.5/15%", "集結", "https://altema.jp/kingshot/chara/31"],
+    ["7", "レン&ロン", "弓兵", "討伐スキル", "1", "ｽｶｲﾊｲｼｮｯﾄ", "", "範囲ﾀﾞﾒｰｼﾞ", "攻撃×300～420%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "討伐スキル", "2", "特製ﾅﾊﾟｰﾑ弾", "", "範囲ﾀﾞﾒｰｼﾞ+燃焼ｴﾘｱ(2秒間､0.5秒ごとにﾀﾞﾒｰｼﾞ)", "攻撃×60～84%・燃焼 攻撃×17～25%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "討伐スキル", "3", "ｷｬﾉﾝﾎﾞｳﾗｰ", "", "自身の攻撃上昇", "10～26%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "遠征スキル", "1", "砲兵隊", "", "全部隊の攻撃･殺傷力上昇", "攻撃3～15%・殺傷力2～10%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "遠征スキル", "2", "連続砲撃", "", "全部隊の弓兵･歩兵への与ﾀﾞﾒｰｼﾞ上昇", "対弓兵6～30%・対歩兵5～25%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "遠征スキル", "3", "ﾍﾋﾞｨｷｬﾉﾝ出撃", "", "全部隊の攻撃時､確率で50%の追加ﾀﾞﾒｰｼﾞ", "確率10～50%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "専用装備スキル", "1", "ｸｰﾙな砲撃手", "ﾍｳﾞｨｷｬﾉﾝ", "ｽｶｲﾊｲｼｮｯﾄ後､味方英雄･護衛の攻撃速度上昇(5秒間)", "最大14%", "", "https://altema.jp/kingshot/chara/34"],
+    ["7", "レン&ロン", "弓兵", "専用装備スキル", "2", "秘密の火薬樽", "ﾍｳﾞｨｷｬﾉﾝ", "防衛部隊の攻撃上昇", "最大15%", "防衛", "https://altema.jp/kingshot/chara/34"],
+    ["8", "ルナ", "弓兵", "討伐スキル", "1", "ｽﾀｰﾌｫｰﾙ", "", "範囲ﾀﾞﾒｰｼﾞ+1.5秒間眩暈", "攻撃×220～300%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "討伐スキル", "2", "ﾊﾞﾗｰｼﾞｱﾛｰ", "", "範囲ﾀﾞﾒｰｼﾞ", "攻撃×100～140%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "討伐スキル", "3", "ﾊﾝﾃｨﾝｸﾞﾘｽﾞﾑ", "", "敵ﾕﾆｯﾄ撃破ごとに自身の攻撃上昇(最大15層)", "0.5～2.5%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "遠征スキル", "1", "月光の灯火", "", "全部隊の攻撃上昇", "5～25%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "遠征スキル", "2", "密林の復讐", "", "2ﾀｰﾝごとに敵全体の攻撃低下(1ﾀｰﾝ)", "10～50%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "遠征スキル", "3", "閃光の矢", "", "弓兵の攻撃ごとに追加ﾀﾞﾒｰｼﾞ", "10～50%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "専用装備スキル", "1", "星霊の残光", "太古の守護者", "星霊を召喚し敵の攻撃を引き寄せる(HPはﾙﾅの初期HPの30%､5秒間)", "最大30%", "", "https://altema.jp/kingshot/chara/37"],
+    ["8", "ルナ", "弓兵", "専用装備スキル", "2", "月輝の力", "太古の守護者", "集結部隊の攻撃上昇", "最大15%", "集結", "https://altema.jp/kingshot/chara/37"]
+  ];
+  var SK_TROOPS = ["歩兵","騎兵","弓兵"];
+  var skOpen = {"歩兵":false, "騎兵":false, "弓兵":false};  // 最初はすべて閉じた状態
+  function toggleTroop(tp){
+    skOpen[tp] = !skOpen[tp];
+    var body = $("memoBody");
+    var b = body.querySelector('.sk-tg[data-tp="'+tp+'"]'), g = body.querySelector('.sk-grp[data-tp="'+tp+'"]');
+    if (!b || !g) return;
+    b.classList.toggle("on", skOpen[tp]); b.setAttribute("aria-expanded", skOpen[tp]);
+    b.querySelector(".ar").textContent = skOpen[tp] ? "▲" : "▼";
+    g.hidden = !skOpen[tp];
+    var any = SK_TROOPS.some(function(x){ return skOpen[x]; });
+    body.querySelector(".sk-wrap").hidden = !any;
+  }
+  function skillTable(){
+    var heads = ["世代","種類","英雄","種別","No","スキル名","効果","数値<br>(Lv1/2/3/4/5)","集結<br>防衛","出典"];
+    // 兵種ボタン（押すと開く・もう一度押すと閉じる）
+    var anyOpen = SK_TROOPS.some(function(tp){ return skOpen[tp]; });
+    var out = '<div class="sk-tgs">' + SK_TROOPS.map(function(tp, gi){
+      var t = tp.charAt(0);
+      return '<button type="button" class="sk-tg tg-'+TROOP_CLS[t]+(skOpen[tp] ? ' on' : '')+'" data-tp="'+tp+'" aria-expanded="'+!!skOpen[tp]+'">' +
+        '<span class="no">'+(gi+1)+'．</span>'+troopMark(t)+'<span class="lb">'+tp+'英雄</span><span class="ar">'+(skOpen[tp] ? '▲' : '▼')+'</span></button>';
+    }).join("") + '</div>';
+    out += '<div class="sk-wrap"'+(anyOpen ? '' : ' hidden')+'><table class="sk-tbl"><thead><tr>' + heads.map(function(h){ return '<th>'+h+'</th>'; }).join("") + '</tr></thead>';
+    SK_TROOPS.forEach(function(tp, gi){
+      var t0 = tp.charAt(0);
+      out += '<tbody class="sk-grp g-'+TROOP_CLS[t0]+'" data-tp="'+tp+'"'+(skOpen[tp] ? '' : ' hidden')+'>' +
+        '<tr class="grp-row"><th colspan="'+heads.length+'"><span class="no">'+(gi+1)+'．</span>'+troopMark(t0)+' '+tp+'英雄一覧</th></tr>';
+      var list = SKILLS.filter(function(r){ return r[2] === tp; });
+      // 英雄ごとにまとめる（データの並び順のまま）
+      var blocks = [];
+      list.forEach(function(r){
+        var b = blocks[blocks.length-1];
+        if (!b || b.hero !== r[1]) blocks.push(b = {hero:r[1], rows:[]});
+        b.rows.push(r);
+      });
+      blocks.forEach(function(b){
+        var n = b.rows.length, r0 = b.rows[0], t = tp.charAt(0);
+        b.rows.forEach(function(r, k){
+          var isEq = r[3] === "専用装備スキル";
+          out += '<tr class="'+(k === 0 ? "h-top " : (b.rows[k-1][3] !== r[3] ? "k-top " : ""))+(isEq ? "eqr" : (r[3] === "遠征スキル" ? "exr" : ""))+'">';
+          if (k === 0){
+            var rc = RARITY[r0[1]] === "エピック" ? " r-epic" : "";
+            out += '<td class="c gen" rowspan="'+n+'">'+esc(r0[0])+'</td>' +
+                   '<td class="c troop" rowspan="'+n+'" title="'+esc(tp)+'">'+(TROOP_CLS[t] ? troopMark(t) : esc(tp))+'</td>' +
+                   '<td class="hero'+rc+'" rowspan="'+n+'">'+esc(r0[1])+'</td>';
+          }
+          var kd = isEq ? ["esk","専用装備"] : (r[3] === "遠征スキル" ? ["xsk","遠征"] : ["hsk","討伐"]);
+          out += '<td class="c kind"><span class="tag '+kd[0]+'">'+kd[1]+'</span></td>' +
+                 '<td class="c no">'+esc(r[4])+'</td>' +
+                 '<td class="sname">'+esc(r[5])+'</td>';
+          out += '<td class="eff">'+esc(r[7]).replace(/([､・])/g, '$1<wbr>')+'</td>' +
+                 '<td class="val">'+esc(r[8]).replace(/([\/・])/g, '$1<wbr>')+'</td>' +
+                 '<td class="c scope">'+(r[9] ? '<span class="tag '+(r[9] === "集結" ? "rally" : "garr")+'">'+esc(r[9])+'</span>' : '')+'</td>';
+          if (k === 0) out += '<td class="c" rowspan="'+n+'"><button type="button" class="sk-link" data-url="'+esc(r0[10])+'" title="'+esc(r0[10])+'" aria-label="'+esc(r0[1])+'の出典ページ">🔗</button></td>';
+          out += '</tr>';
+        });
+      });
+      out += '</tbody>';
+    });
+    return out + '</table></div>' +
+      '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span></div>';
+  }
   var MEMO_PAGES = [
     { title:"英雄：遠征スキル<small></small>",
       html: function(){ return memoTable(
@@ -1046,13 +1386,15 @@
             // 補足：「、」で区切った短い語句（3ターン など）は途中で切らない
             '<td class="note">'+r[7].split("、").map(function(t){ return t.length <= 7 ? '<span class="nw">'+esc(t)+'</span>' : esc(t); }).join("、<wbr>")+'</td></tr>';
         }, "", true) + RARE_LEGEND + SORT_HINT; } },
-    { title:"英雄専用装備：遠征スキル<small></small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } }
+    { title:"英雄専用装備：遠征スキル<small></small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } },
+    { title:"第１～８世代／レジェンド英雄／スキル一覧表<small></small>", html: skillTable, wide: true }
   ];
   var memoTab = 0;
   function showMemoTab(k){
     memoTab = k;
     $("memoTitle").innerHTML = MEMO_PAGES[k].title;
     $("memoBody").innerHTML = MEMO_PAGES[k].html();
+    document.querySelector(".memo-box").classList.toggle("wide", !!MEMO_PAGES[k].wide);
     document.querySelectorAll(".memo-tabs button").forEach(function(b){
       var on = +b.getAttribute("data-tab") === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on);
     });
@@ -1072,6 +1414,15 @@
   }
   $("memoBody").addEventListener("click", function(e){
     var th = e.target.closest("th.sortable"); if (th) setSort(th.getAttribute("data-sort"));
+    // 兵種ボタン：開く／閉じる
+    var tg = e.target.closest(".sk-tg");
+    if (tg){ toggleTroop(tg.getAttribute("data-tp")); return; }
+    // 出典リンク：確認してからOKで開く
+    var lk = e.target.closest(".sk-link");
+    if (lk){
+      var url = lk.getAttribute("data-url");
+      if (url && window.confirm("リンク先を開きますか？\n" + url)) window.open(url, "_blank", "noopener");
+    }
   });
   $("memoBody").addEventListener("keydown", function(e){
     var th = e.target.closest("th.sortable");
