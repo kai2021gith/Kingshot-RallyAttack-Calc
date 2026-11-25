@@ -565,13 +565,16 @@
   body.d-phone .sk-tbl td,body.d-phone .sk-tbl th{padding-left:1.5px;padding-right:1.5px}
   body.d-phone .sk-tbl .tag{font-size:9px;padding:1px 2px}
   body.d-phone .sk-tbl td.hero{font-size:10px}
+  /* Ver7.0 タブの各行を途中で改行しない */
+  .memo-tabs button{white-space:nowrap !important}
+  @media (max-width:350px){ body.d-phone .memo-tabs button{font-size:10px !important;padding:6px 1px !important;letter-spacing:-.04em} }
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/25 Ver6.9</div>
+    <div class="ver">@kai@ 2026/11/25 Ver7.0</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -620,8 +623,8 @@
   <div class="memo-box">
     <div class="memo-head">
       <div class="memo-tabs" role="tablist">
-        <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル<br>（集結参加者/駐屯参加者）</button>
-        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル<br>（集結主/駐屯主）</button>
+        <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル<br>【集結参加者】<br>【駐屯参加者】</button>
+        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル<br>【集結主】<br>【駐屯主】</button>
         <button role="tab" data-tab="2">第１～８世代<br>レジェンド英雄<br>スキル一覧表</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
