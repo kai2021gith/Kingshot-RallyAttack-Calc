@@ -634,7 +634,7 @@
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/27 Ver8.0</div>
+    <div class="ver">@kai@ 2026/11/27 Ver8.1</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -1535,8 +1535,8 @@
         }, "", true) + RARE_LEGEND + SORT_HINT; } },
     { title:"英雄専用装備：遠征スキル<small>（集結主・駐屯主）</small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } },
     { title:"英雄：全スキル<small>（レジェンド・エピック・レア）</small>", html: function(){ return skillTable("all", this.title); }, wide: true },
-    { title:"英雄：討伐スキルのみ<small>（発動：討伐戦闘　例)競技場・討伐小隊キャンプ）</small>", html: function(){ return skillTable("conq", this.title); }, wide: true },
-    { title:"英雄：遠征スキルのみ<small>（発動：遠征戦闘　例)単騎攻撃・集結・駐屯など）</small>", html: function(){ return skillTable("exp", this.title); }, wide: true }
+    { title:"英雄：討伐スキルのみ<small>（発動：競技場・討伐小隊キャンプ）</small>", html: function(){ return skillTable("conq", this.title); }, wide: true },
+    { title:"英雄：遠征スキルのみ<small>（発動：単騎攻撃・集結・駐屯など）</small>", html: function(){ return skillTable("exp", this.title); }, wide: true }
   ];
   var memoTab = 0;
   function showMemoTab(k){
