@@ -1504,7 +1504,7 @@
                    '<td class="c troop" rowspan="'+n+'" title="'+esc(tp)+'">'+(TROOP_CLS[t] ? '<span class="tstk"><span class="ti">'+TROOP_ICON[t]+'</span><span class="ts '+TROOP_CLS[t]+'"><b>'+t+'</b></span></span>' : esc(tp))+'</td>' +
                    '<td class="hero'+rc+'" rowspan="'+n+'">'+esc(r0[1])+'</td>';
           }
-          var kd = isEq ? ["esk", r[4] === "1" ? "装備:討伐" : "装備:遠征"] : (r[3] === "遠征スキル" ? ["xsk","遠征"] : ["hsk","討伐"]);
+          var kd = isEq ? ["esk", r[4] === "1" ? "装備 討伐" : "装備 遠征"] : (r[3] === "遠征スキル" ? ["xsk","遠征"] : ["hsk","討伐"]);
           out += '<td class="c kind"><span class="tag '+kd[0]+'">'+kd[1].split(":").map(function(x, j, a){ return '<span class="nw">'+x+(j < a.length-1 ? ':' : '')+'</span>'; }).join('<wbr>')+'</span></td>' +
                  '<td class="c no">'+esc(r[4])+'</td>';
           out += '<td class="eff">'+esc(r[7]).replace(/([､・])/g, '$1<wbr>')+'</td>' +
@@ -1520,7 +1520,7 @@
       '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span><span class="r-rare">■ レア</span><span class="r-epic">■ エピック</span><span class="r-leg">■ レジェンド</span></div>';
   }
   var MEMO_PAGES = [
-    { title:"英雄：遠征スキル１<small>（発動：集結参加・駐屯参加＠左英雄・右上スキル）</small>",
+    { title:"英雄：遠征スキル１<small>（集結/駐屯参加＠左英雄/右上）</small>",
       html: function(){ return memoTable(
         [{t:"世代",c:1,w:6,k:"gen"},{t:"種類",c:1,w:9,k:"troop"},{t:"英雄",w:18,k:"hero"},{t:"区分",c:1,w:9,k:"kind"},{t:"適用",c:1,w:9,k:"apply"},{t:"効果",w:23,k:"eff"},{t:"最大",c:1,w:10,k:"lv"},{t:"補足",w:16,k:"last"}],
         MEMO,
@@ -1533,7 +1533,7 @@
             // 補足：「、」で区切った短い語句（3ターン など）は途中で切らない
             '<td class="note">'+r[7].split("、").map(function(t){ return t.length <= 7 ? '<span class="nw">'+esc(t)+'</span>' : esc(t); }).join("、<wbr>")+'</td></tr>';
         }, "", true) + RARE_LEGEND + SORT_HINT; } },
-    { title:"英雄専用装備：遠征スキル<small>（発動：集結主・駐屯主）</small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } },
+    { title:"英雄専用装備：遠征スキル<small>（集結主・駐屯主）</small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } },
     { title:"英雄：全スキル<small>（レジェンド・エピック・レア）</small>", html: function(){ return skillTable("all", this.title); }, wide: true },
     { title:"英雄：討伐スキルのみ<small>（発動：討伐戦闘　例)競技場・討伐小隊キャンプ）</small>", html: function(){ return skillTable("conq", this.title); }, wide: true },
     { title:"英雄：遠征スキルのみ<small>（発動：遠征戦闘　例)単騎攻撃・集結・駐屯など）</small>", html: function(){ return skillTable("exp", this.title); }, wide: true }
