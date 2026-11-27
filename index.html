@@ -394,7 +394,7 @@
   .memo-box .memo-tbl:not(.eq) tr.col-head th:first-child{padding-left:4px !important}
   body.d-phone .memo-box .memo-tbl:not(.eq) td.hero{font-size:clamp(9.5px,2.75vw,11.5px) !important;padding-left:.3em !important}
   body.d-phone .memo-box .memo-tbl:not(.eq) td.gen{font-size:clamp(8px,2.3vw,10px) !important}
-  /* ===== Ver4.1 レア度の色分け（エピック＝紫、レジェンド＝金） ===== */
+  /* ===== Ver4.1 度の色分け（エピック＝紫、レジェンド＝金） ===== */
   :root{--epic:#c58bff;--legend:#f5c84c}
   .memo-box .memo-tbl td.hero.r-epic{color:var(--epic) !important}
   .memo-box .memo-tbl td.hero.r-leg{color:var(--legend) !important}
@@ -592,7 +592,7 @@
   .sk-tbl .tag .nw{white-space:nowrap}
   body.d-phone .sk-tbl td.kind{min-width:calc(3.2em + 4px)}
   body.d-phone .sk-tbl .tag.esk{min-width:3.2em}
-  /* ===== Ver7.4 エピック・レア英雄 ===== */
+  /* ===== Ver7.4 エピック・英雄 ===== */
   :root{--rare:#7cc4ff}
   .sk-tbl td.hero.r-rare{color:var(--rare)}
   .sk-tbl tr.rar-row th{text-align:left;font-size:11.5px;font-weight:900;padding:5px 6px;border-top:3px solid rgba(245,200,76,.7);letter-spacing:.05em}
@@ -621,20 +621,36 @@
   .sk-tbl tr.col-head th{position:sticky;top:var(--sk3,150px);z-index:3;background:#111a2e;box-shadow:inset 0 -1px 0 var(--line2)}
   .sk-tbl tbody.sk-grp + tbody.sk-grp tr.grp-row th{border-top:0}
   .sk-tbl tbody.sk-grp + tbody.sk-grp tr.grp-row th{box-shadow:0 -14px 0 #0c1222}
-  /* ===== Ver7.7 レア→エピック→レジェンドの順 ===== */
+  /* ===== Ver7.7 →エピック→レジェンドの順 ===== */
   .sk-tbl tr.rar-row.rr-leg th{color:var(--legend);background:rgba(245,200,76,.10)}
   .sk-tbl tr.col-head + tr.rar-row th{border-top:0}
   /* ===== Ver8.0 遠征スキル１・専用装備の表：兵種の切れ目を太線に、攻撃系と防衛系の間を広く ===== */
   html body .memo-box table.memo-tbl:not(#_) tr[data-tb] td{border-top:3px solid rgba(160,180,215,.55)}
   html body .memo-box table.memo-tbl:not(#_) tr.sec-row.sec-next th{padding-top:30px !important}
   body.d-phone .memo-box table.memo-tbl:not(#_) tr.sec-row.sec-next th{padding-top:24px !important}
+  /* ===== Ver8.2 遠征スキル１・専用装備の表もスクロールで見出し〜項目名の行を固定 ===== */
+  .memo-head{z-index:6}
+  .memo-box:not(.wide) #memoTitle{position:sticky;top:var(--m1,60px);z-index:4;background:#0c1222;margin:0 !important;padding:4px 0 6px}
+  /* ===== Ver8.3 固定部分の背景を透けなくする・区分ごとの固定ブロック ===== */
+  .memo-box:not(.wide) #memoTitle{box-shadow:0 -14px 0 #0c1222}
+  .msec-head{position:sticky;top:var(--m2,90px);z-index:3;background:#0c1222;box-shadow:0 -14px 0 #0c1222}
+  .msec-title{font-size:14px;font-weight:900;padding:8px 4px 6px;border-bottom:1px solid var(--line2)}
+  .msec-title.atk{color:#ff8a65} .msec-title.def{color:#5ec8ff}
+  .msec-next{margin-top:26px}
+  body.d-phone .msec-next{margin-top:20px}
+  html body .memo-box table.memo-tbl.mhdr:not(#_) tr.col-head th{background:#111a2e !important;box-shadow:inset 0 -1px 0 var(--line2)}
+  html body .memo-box table.memo-tbl.mhdr:not(#_) th.sortable.on{background:linear-gradient(180deg,#ffe08a,#f5c84c) !important}
+  .memo-tbl.mbody tbody tr:first-child td{border-top:0}
+  .sk-sticky{box-shadow:0 -14px 0 #0c1222}
+  .sk-tbl tr.grp-row th{box-shadow:0 -14px 0 #0c1222 !important}
+  .sk-tbl tr.col-head th{box-shadow:inset 0 -1px 0 var(--line2),0 -4px 0 #111a2e !important}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/27 Ver8.1</div>
+    <div class="ver">@kai@ 2026/11/27 Ver8.3</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -989,7 +1005,7 @@
   window.addEventListener("orientationchange", applyDevice);
 
   /* ---------- メモ（英雄遠征スキル） ---------- */
-  // [世代, 英雄, レア度, 区分, 適用, 効果, 最大, 補足]
+  // [世代, 英雄, 度, 区分, 適用, 効果, 最大, 補足]
   var MEMO = [
     { title:"１．攻撃系", cls:"atk", rows:[
       ["1", "チェンコ", "エピック", "攻撃", "味方", "殺傷力上昇", "25%", ""],
@@ -1030,7 +1046,7 @@
   ];
   function esc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   var KIND = {"攻撃":"atk","防衛":"def","攻防":"both"};
-  // レア度の色分け：エピック＝紫、レジェンド＝金（英雄遠征スキルの表のレア度を、ほかの表の英雄名にも使う）
+  // 度の色分け：エピック＝紫、レジェンド＝金（英雄遠征スキルの表の度を、ほかの表の英雄名にも使う）
   var RARITY = {};
   MEMO.forEach(function(sec){ sec.rows.forEach(function(r){ RARITY[r[1]] = r[2]; }); });
   // 英雄の種類：歩＝歩兵、騎＝騎兵、弓＝弓兵
@@ -1125,18 +1141,23 @@
     if (rest > 0) ws[ws.length-1] += rest;
     // 列ごとに class を付け、PC・タブレットでは CSS で幅を少し変えられるようにする
     var cols = '<colgroup>' + ws.map(function(w, i){ return '<col class="w-'+(heads[i].k||"x")+'" style="width:'+w+'%">'; }).join("") + '</colgroup>';
-    return '<div class="tbl-wrap"><table class="memo-tbl '+(cls||"")+'">' + cols +
-      (headPerSec ? '' : '<thead><tr>' + headCells + '</tr></thead>') + '<tbody>' +
-      sortSecs(sections).map(function(sec, si){
-        return (sec.title ? '<tr class="sec-row '+sec.cls+(si > 0 ? ' sec-next' : '')+'"><th colspan="'+n+'">'+esc(sec.title)+'</th></tr>' : '') +
-          (headPerSec ? '<tr class="col-head">' + headCells + '</tr>' : '') +
-          sec.rows.map(function(r, i){
-            var h = rowFn(r);
-            // 種類順のとき：歩→騎、騎→弓の切れ目の行に印を付ける（太い線）
-            if (memoSort === "troop" && i > 0 && TROOP[r[1]] !== TROOP[sec.rows[i-1][1]]) h = h.replace(/^<tr/, '<tr data-tb="1"');
-            return h;
-          }).join("");
-      }).join("") + '</tbody></table></div>';
+    var tcls = 'memo-tbl '+(cls||"");
+    // 区分（攻撃系・防衛系）ごとに：固定ブロック（帯＋項目名の行）＋本体の表
+    // 固定ブロックは区分の中だけで留まるので、次の区分に来ると入れ替わり、最後の区分は最後まで留まる
+    return '<div class="tbl-wrap">' + sortSecs(sections).map(function(sec, si){
+      return '<div class="msec'+(si > 0 ? ' msec-next' : '')+'">' +
+        '<div class="msec-head">' +
+          (sec.title ? '<div class="msec-title '+sec.cls+'">'+esc(sec.title)+'</div>' : '') +
+          '<table class="'+tcls+' mhdr">' + cols + '<tbody><tr class="col-head">' + headCells + '</tr></tbody></table>' +
+        '</div>' +
+        '<table class="'+tcls+' mbody">' + cols + '<tbody>' +
+        sec.rows.map(function(r, i){
+          var h = rowFn(r);
+          // 種類順のとき：歩→騎、騎→弓の切れ目の行に印を付ける（太い線）
+          if (memoSort === "troop" && i > 0 && TROOP[r[1]] !== TROOP[sec.rows[i-1][1]]) h = h.replace(/^<tr/, '<tr data-tb="1"');
+          return h;
+        }).join("") + '</tbody></table></div>';
+    }).join("") + '</div>';
   }
   // 専用装備の表：中身が空の列（例：遠征スキルの「確率」）は自動で非表示
   // hide:1 の列（専用装備名・スキル名）は、スマホで画面に収めるため表示しない（データは残してあります）
@@ -1186,7 +1207,7 @@
       }).join("") + '</tr>';
     }, "eq " + (kind||""), headPerSec);
   }
-  // 英雄スキル一覧表（レジェンド・エピック・レア、討伐・遠征・専用装備、スキル名はゲーム内表記） [世代, 英雄, 兵種, 種別, No, スキル名, 専用装備名, 効果, 数値, 集結/防衛, 出典]
+  // 英雄スキル一覧表（レジェンド・エピック・、討伐・遠征・専用装備、スキル名はゲーム内表記） [世代, 英雄, 兵種, 種別, No, スキル名, 専用装備名, 効果, 数値, 集結/防衛, 出典]
   var SKILLS = [
     ["－", "フォルスト", "歩兵", "討伐スキル", "1", "斧旋風", "", "0.5秒ごとに周囲の敵にﾀﾞﾒｰｼﾞ(3秒間)", "攻撃×80～110%", "", "https://altema.jp/kingshot/chara/13"],
     ["－", "フォルスト", "歩兵", "討伐スキル", "2", "鋭刃", "", "与ﾀﾞﾒｰｼﾞ上昇", "10～30%", "", "https://altema.jp/kingshot/chara/13"],
@@ -1516,8 +1537,7 @@
       });
       out += '</tbody>';
     });
-    return out + '</table></div>' +
-      '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span><span class="r-rare">■ レア</span><span class="r-epic">■ エピック</span><span class="r-leg">■ レジェンド</span></div>';
+    return out + '</table></div>';
   }
   var MEMO_PAGES = [
     { title:"英雄：遠征スキル１<small>（集結/駐屯参加＠左英雄/右上）</small>",
@@ -1548,7 +1568,7 @@
       var on = +b.getAttribute("data-tab") === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on);
     });
     document.querySelector(".memo-box").scrollTop = 0;
-    fitSkSticky();
+    fitSkSticky(); fitMemoSticky();
   }
   document.querySelectorAll(".memo-tabs button").forEach(function(b){
     b.addEventListener("click", function(){ showMemoTab(+b.getAttribute("data-tab")); });
@@ -1560,6 +1580,7 @@
     var box = document.querySelector(".memo-box"), y = box.scrollTop;
     memoSort = sk;
     $("memoBody").innerHTML = MEMO_PAGES[memoTab].html();
+    fitMemoSticky();
     box.scrollTop = y;
   }
   $("memoBody").addEventListener("click", function(e){
@@ -1586,14 +1607,22 @@
   function fitSkSticky(){
     var box = document.querySelector(".memo-box"), head = document.querySelector(".memo-head"), sb = box.querySelector(".sk-sticky");
     if (!sb || $("memoOv").hidden) return;
-    var t1 = head.offsetHeight - 12;                     // .memo-head は top:-12px で固定
-    var t2 = t1 + sb.offsetHeight;                       // 兵種の帯
+    var t1 = head.getBoundingClientRect().height - 12 - 1;               // .memo-head は top:-12px で固定（1px重ねる）
+    var t2 = t1 + sb.getBoundingClientRect().height - 1;                 // 兵種の帯
     var gr = box.querySelector(".sk-grp:not([hidden]) tr.grp-row");
-    var t3 = t2 + (gr ? gr.offsetHeight : 0);            // 項目名の行
+    var t3 = t2 + (gr ? gr.getBoundingClientRect().height : 0) - 1;      // 項目名の行
     box.style.setProperty("--sk1", t1 + "px"); box.style.setProperty("--sk2", t2 + "px"); box.style.setProperty("--sk3", t3 + "px");
   }
-  function openMemo(){ $("memoOv").hidden = false; document.body.classList.add("memo-open"); fitMemoHead(); fitSkSticky(); $("memoClose").focus(); }
-  window.addEventListener("resize", function(){ if (!$("memoOv").hidden){ fitMemoHead(); fitSkSticky(); } });
+  // 遠征スキル１・専用装備の表：見出し・区分（攻撃系/防衛系）・項目名の行を、スクロールしても上に留める
+  function fitMemoSticky(){
+    var box = document.querySelector(".memo-box"), head = document.querySelector(".memo-head");
+    if ($("memoOv").hidden || box.classList.contains("wide")) return;
+    var m1 = head.getBoundingClientRect().height - 12 - 1;                 // 見出し
+    var m2 = m1 + $("memoTitle").getBoundingClientRect().height - 1;      // 帯＋項目名の行
+    box.style.setProperty("--m1", m1 + "px"); box.style.setProperty("--m2", m2 + "px");
+  }
+  function openMemo(){ $("memoOv").hidden = false; document.body.classList.add("memo-open"); fitMemoHead(); fitSkSticky(); fitMemoSticky(); $("memoClose").focus(); }
+  window.addEventListener("resize", function(){ if (!$("memoOv").hidden){ fitMemoHead(); fitSkSticky(); fitMemoSticky(); } });
   function closeMemo(){ $("memoOv").hidden = true; document.body.classList.remove("memo-open"); $("memoBtn").focus(); }
   $("memoBtn").addEventListener("click", openMemo);
   $("memoClose").addEventListener("click", closeMemo);
