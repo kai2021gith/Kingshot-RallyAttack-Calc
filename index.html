@@ -568,13 +568,73 @@
   /* Ver7.0 タブの各行を途中で改行しない */
   .memo-tabs button{white-space:nowrap !important}
   @media (max-width:350px){ body.d-phone .memo-tabs button{font-size:10px !important;padding:6px 1px !important;letter-spacing:-.04em} }
+  /* ===== Ver7.1 ===== */
+  .sk-tbl tr.col-head th{border-bottom:1px solid var(--line2);background:rgba(10,15,28,.6)}
+  .sk-tbl tr.col-head + tr.h-top td{border-top:0}
+  body.d-phone .sk-tbl td.hero{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:-.05em;
+    padding:4px 0 !important;width:1.3em;line-height:1;font-size:11px;white-space:nowrap;text-align:center}
+  body.d-phone .sk-tbl .tag{white-space:nowrap}
+  body.d-phone .sk-tbl td.kind{white-space:normal}
+  body.d-phone .sk-tbl .tag.esk{white-space:normal;display:inline-block;line-height:1.15;padding:1px 2px}
+  /* ===== Ver7.2 ===== */
+  .sk-tg .bi{font-size:15px;line-height:1}
+  body.d-phone .sk-tg .bi{font-size:13px}
+  /* 世代・種類・英雄の列を詰め、英雄と種別の間を少しあける */
+  .sk-tbl td.gen,.sk-tbl td.troop,.sk-tbl tr.col-head th:nth-child(-n+3){padding-left:1px !important;padding-right:1px !important}
+  .sk-tbl td.hero{padding-left:1px !important;padding-right:10px !important}
+  .sk-tbl tr.col-head th:nth-child(3){padding-right:10px !important}
+  .sk-tbl td.gen{width:1.4em}
+  body.d-phone .sk-tbl td.hero{padding:4px 6px 4px 0 !important}
+  body.d-phone .sk-tbl tr.col-head th:nth-child(3){padding-right:6px !important}
+  body.d-phone .sk-tbl tr.col-head th:nth-child(-n+3){letter-spacing:-.08em}
+  body:not(.d-phone) .sk-tbl .tag.esk{white-space:nowrap}
+  /* ===== Ver7.3 装備:討伐／装備:遠征 をスマホで2行に収める（「装備:」の幅を確保） ===== */
+  .sk-tbl .tag .nw{white-space:nowrap}
+  body.d-phone .sk-tbl td.kind{min-width:calc(3.2em + 4px)}
+  body.d-phone .sk-tbl .tag.esk{min-width:3.2em}
+  /* ===== Ver7.4 エピック・レア英雄 ===== */
+  :root{--rare:#7cc4ff}
+  .sk-tbl td.hero.r-rare{color:var(--rare)}
+  .sk-tbl tr.rar-row th{text-align:left;font-size:11.5px;font-weight:900;padding:5px 6px;border-top:3px solid rgba(245,200,76,.7);letter-spacing:.05em}
+  .sk-tbl tr.rar-row.rr-epic th{color:var(--epic);background:rgba(197,139,255,.10)}
+  .sk-tbl tr.rar-row.rr-rare th{color:var(--rare);background:rgba(124,196,255,.10)}
+  .sk-tbl tr.rar-row + tr.h-top td{border-top:0}
+  .rare-legend .r-rare{color:var(--rare)}
+  /* ===== Ver7.5 タブ5つ：上段2つ・下段3つ ===== */
+  .memo-tabs{display:grid !important;grid-template-columns:repeat(6,minmax(0,1fr))}
+  .memo-tabs button[data-tab="0"],.memo-tabs button[data-tab="1"]{grid-column:span 3}
+  .memo-tabs button[data-tab="2"],.memo-tabs button[data-tab="3"],.memo-tabs button[data-tab="4"]{grid-column:span 2}
+  /* ===== Ver7.6 ===== */
+  /* 2. タブは選ぶ前も四角い枠で囲う */
+  .memo-tabs button{border:1px solid var(--line2) !important}
+  .memo-tabs button.on{border-color:rgba(245,200,76,.7) !important}
+  /* 3. スクロールしても留める */
+  .memo-box.wide #memoTitle{display:none}
+  .sk-sticky{position:sticky;top:var(--sk1,60px);z-index:4;background:#0c1222;padding:4px 0 2px;margin-top:-2px}
+  .sk-sticky .sk-title{margin:0 0 6px !important}
+  .sk-sticky .sk-tgs{margin-bottom:6px}
+  .sk-wrap{overflow:visible !important}
+  .sk-tbl tr.grp-row th{position:sticky;top:var(--sk2,120px);z-index:3}
+  .sk-tbl .g-tt-inf tr.grp-row th{background:linear-gradient(90deg,#8fd3a1,rgba(143,211,161,.15)),#0c1222}
+  .sk-tbl .g-tt-cav tr.grp-row th{background:linear-gradient(90deg,#ffb877,rgba(255,184,119,.15)),#0c1222}
+  .sk-tbl .g-tt-arc tr.grp-row th{background:linear-gradient(90deg,#86c8ff,rgba(134,200,255,.15)),#0c1222}
+  .sk-tbl tr.col-head th{position:sticky;top:var(--sk3,150px);z-index:3;background:#111a2e;box-shadow:inset 0 -1px 0 var(--line2)}
+  .sk-tbl tbody.sk-grp + tbody.sk-grp tr.grp-row th{border-top:0}
+  .sk-tbl tbody.sk-grp + tbody.sk-grp tr.grp-row th{box-shadow:0 -14px 0 #0c1222}
+  /* ===== Ver7.7 レア→エピック→レジェンドの順 ===== */
+  .sk-tbl tr.rar-row.rr-leg th{color:var(--legend);background:rgba(245,200,76,.10)}
+  .sk-tbl tr.col-head + tr.rar-row th{border-top:0}
+  /* ===== Ver8.0 遠征スキル１・専用装備の表：兵種の切れ目を太線に、攻撃系と防衛系の間を広く ===== */
+  html body .memo-box table.memo-tbl:not(#_) tr[data-tb] td{border-top:3px solid rgba(160,180,215,.55)}
+  html body .memo-box table.memo-tbl:not(#_) tr.sec-row.sec-next th{padding-top:30px !important}
+  body.d-phone .memo-box table.memo-tbl:not(#_) tr.sec-row.sec-next th{padding-top:24px !important}
 </style>
 </head>
 <body>
 <div class="wrap" style="--n:2">
   <div class="topbar">
     <button class="memo-btn" id="memoBtn" aria-haspopup="dialog">📝 英雄スキル情報</button>
-    <div class="ver">@kai@ 2026/11/26 Ver7.1</div>
+    <div class="ver">@kai@ 2026/11/27 Ver8.0</div>
   </div>
   <h1>キングショット <span>連凸計算</span></h1>
 
@@ -623,9 +683,11 @@
   <div class="memo-box">
     <div class="memo-head">
       <div class="memo-tabs" role="tablist">
-        <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル１<br>【集結参加者】<br>【駐屯参加者】</button>
-        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル<br>【集結主】<br>【駐屯主】</button>
-        <button role="tab" data-tab="2">第１～８世代<br>レジェンド英雄<br>スキル一覧表</button>
+        <button role="tab" data-tab="0" class="on">英雄<br>遠征スキル１<br>【集結/駐屯参加】</button>
+        <button role="tab" data-tab="1">英雄専用装備<br>遠征スキル<br>【集結主/駐屯主】</button>
+        <button role="tab" data-tab="2">英雄<br>全スキル</button>
+        <button role="tab" data-tab="3">英雄<br>討伐スキルのみ</button>
+        <button role="tab" data-tab="4">英雄<br>遠征スキルのみ</button>
       </div>
       <button class="memo-close" id="memoClose" aria-label="閉じる">✕</button>
     </div>
@@ -1065,10 +1127,15 @@
     var cols = '<colgroup>' + ws.map(function(w, i){ return '<col class="w-'+(heads[i].k||"x")+'" style="width:'+w+'%">'; }).join("") + '</colgroup>';
     return '<div class="tbl-wrap"><table class="memo-tbl '+(cls||"")+'">' + cols +
       (headPerSec ? '' : '<thead><tr>' + headCells + '</tr></thead>') + '<tbody>' +
-      sortSecs(sections).map(function(sec){
-        return (sec.title ? '<tr class="sec-row '+sec.cls+'"><th colspan="'+n+'">'+esc(sec.title)+'</th></tr>' : '') +
+      sortSecs(sections).map(function(sec, si){
+        return (sec.title ? '<tr class="sec-row '+sec.cls+(si > 0 ? ' sec-next' : '')+'"><th colspan="'+n+'">'+esc(sec.title)+'</th></tr>' : '') +
           (headPerSec ? '<tr class="col-head">' + headCells + '</tr>' : '') +
-          sec.rows.map(rowFn).join("");
+          sec.rows.map(function(r, i){
+            var h = rowFn(r);
+            // 種類順のとき：歩→騎、騎→弓の切れ目の行に印を付ける（太い線）
+            if (memoSort === "troop" && i > 0 && TROOP[r[1]] !== TROOP[sec.rows[i-1][1]]) h = h.replace(/^<tr/, '<tr data-tb="1"');
+            return h;
+          }).join("");
       }).join("") + '</tbody></table></div>';
   }
   // 専用装備の表：中身が空の列（例：遠征スキルの「確率」）は自動で非表示
@@ -1119,8 +1186,21 @@
       }).join("") + '</tr>';
     }, "eq " + (kind||""), headPerSec);
   }
-  // レジェンド英雄／スキル一覧表（討伐・遠征・専用装備、スキル名はゲーム内表記） [世代, 英雄, 兵種, 種別, No, スキル名, 専用装備名, 効果, 数値, 集結/防衛, 出典]
+  // 英雄スキル一覧表（レジェンド・エピック・レア、討伐・遠征・専用装備、スキル名はゲーム内表記） [世代, 英雄, 兵種, 種別, No, スキル名, 専用装備名, 効果, 数値, 集結/防衛, 出典]
   var SKILLS = [
+    ["－", "フォルスト", "歩兵", "討伐スキル", "1", "斧旋風", "", "0.5秒ごとに周囲の敵にﾀﾞﾒｰｼﾞ(3秒間)", "攻撃×80～110%", "", "https://altema.jp/kingshot/chara/13"],
+    ["－", "フォルスト", "歩兵", "討伐スキル", "2", "鋭刃", "", "与ﾀﾞﾒｰｼﾞ上昇", "10～30%", "", "https://altema.jp/kingshot/chara/13"],
+    ["－", "フォルスト", "歩兵", "遠征スキル", "1", "一子相伝", "", "伐採場の生産量上昇", "5～25%", "", "https://altema.jp/kingshot/chara/13"],
+    ["－", "フォルスト", "歩兵", "遠征スキル", "2", "伐採名人", "", "木材の採集速度上昇", "5～25%", "", "https://altema.jp/kingshot/chara/13"],
+    ["－", "スミス", "歩兵", "討伐スキル", "1", "火炎槌", "", "前方扇形の敵にﾀﾞﾒｰｼﾞ", "攻撃×200～280%", "", "https://altema.jp/kingshot/chara/12"],
+    ["－", "スミス", "歩兵", "討伐スキル", "2", "防具強化", "", "被ﾀﾞﾒｰｼﾞ低下", "10～30%", "", "https://altema.jp/kingshot/chara/12"],
+    ["－", "スミス", "歩兵", "遠征スキル", "1", "善は急げ", "", "鉄鉱場の生産量上昇", "5～25%", "", "https://altema.jp/kingshot/chara/12"],
+    ["－", "スミス", "歩兵", "遠征スキル", "2", "鍛治職人", "", "鉄鉱の採集速度上昇", "5～25%", "", "https://altema.jp/kingshot/chara/12"],
+    ["－", "ハワード", "歩兵", "討伐スキル", "1", "盾ｲﾝﾊﾟｸﾄ", "", "範囲ﾀﾞﾒｰｼﾞ+ﾉｯｸﾊﾞｯｸ", "攻撃×200～280%", "", "https://altema.jp/kingshot/chara/6"],
+    ["－", "ハワード", "歩兵", "討伐スキル", "2", "盾の壁", "", "味方全英雄の防御力上昇", "5～15%", "", "https://altema.jp/kingshot/chara/6"],
+    ["－", "ハワード", "歩兵", "討伐スキル", "3", "盾ﾌﾞﾛｯｸ", "", "自身の被ﾀﾞﾒｰｼﾞ低下", "10～30%", "", "https://altema.jp/kingshot/chara/6"],
+    ["－", "ハワード", "歩兵", "遠征スキル", "1", "ﾌﾟﾛﾃｸﾄ", "", "全部隊の被ﾀﾞﾒｰｼﾞ減少", "4～20%", "", "https://altema.jp/kingshot/chara/6"],
+    ["－", "ハワード", "歩兵", "遠征スキル", "2", "弱体化打撃", "", "敵全部隊の攻撃低下", "4～20%", "", "https://altema.jp/kingshot/chara/6"],
     ["1", "ヘルガ", "歩兵", "討伐スキル", "1", "鹿角猛進", "", "範囲ﾀﾞﾒｰｼﾞ+ﾉｯｸﾊﾞｯｸ･1秒間気絶", "攻撃×160/176/192/208/224%", "", "https://altema.jp/kingshot/chara/2"],
     ["1", "ヘルガ", "歩兵", "討伐スキル", "2", "追撃攻勢", "", "単体ﾀﾞﾒｰｼﾞ", "攻撃×150/165/180/195/210%", "", "https://altema.jp/kingshot/chara/2"],
     ["1", "ヘルガ", "歩兵", "討伐スキル", "3", "怒狂", "", "被ﾀﾞﾒｰｼﾞ時､確率で3秒間攻撃上昇(最大5ｽﾀｯｸ)", "4/6/8/10/12%(確率10%)", "", "https://altema.jp/kingshot/chara/2"],
@@ -1193,6 +1273,25 @@
     ["8", "ディエゴ", "歩兵", "遠征スキル", "3", "凛然なる剣気", "", "全部隊の殺傷力上昇", "5～25%", "", "https://altema.jp/kingshot/chara/35"],
     ["8", "ディエゴ", "歩兵", "専用装備スキル", "1", "重剣無鋒", "隕鉄剣", "完全無欠のｼｰﾙﾄﾞ追加+ｼｰﾙﾄﾞ中は被ﾀﾞﾒｰｼﾞの一部を反射", "最大 攻撃×95%・反射30%", "", "https://altema.jp/kingshot/chara/35"],
     ["8", "ディエゴ", "歩兵", "専用装備スキル", "2", "大巧不工", "隕鉄剣", "防衛部隊の防御力上昇", "最大15%", "防衛", "https://altema.jp/kingshot/chara/35"],
+    ["－", "エドウィン", "騎兵", "討伐スキル", "1", "自家製爆弾", "", "目標と周囲の敵にﾀﾞﾒｰｼﾞ", "攻撃×140～196%", "", "https://altema.jp/kingshot/chara/11"],
+    ["－", "エドウィン", "騎兵", "討伐スキル", "2", "高威力爆弾", "", "確率で目標を気絶", "確率10～20%・0.5～1.5秒", "", "https://altema.jp/kingshot/chara/11"],
+    ["－", "エドウィン", "騎兵", "遠征スキル", "1", "発破技士", "", "石材工場の生産量上昇", "5～25%", "", "https://altema.jp/kingshot/chara/11"],
+    ["－", "エドウィン", "騎兵", "遠征スキル", "2", "巨石採掘", "", "石材の採集速度上昇", "5～25%", "", "https://altema.jp/kingshot/chara/11"],
+    ["－", "ファハド", "騎兵", "討伐スキル", "1", "ｻﾝﾄﾞｽﾄｰﾑ", "", "範囲内の敵の攻撃低下(2秒間)", "1～5%", "", "https://altema.jp/kingshot/chara/20"],
+    ["－", "ファハド", "騎兵", "討伐スキル", "2", "ﾊﾔﾌﾞｻの導き", "", "ｻﾝﾄﾞｽﾄｰﾑ後､自身と周囲の味方の攻撃上昇(2秒間)", "15～35%", "", "https://altema.jp/kingshot/chara/20"],
+    ["－", "ファハド", "騎兵", "討伐スキル", "3", "砂の将軍", "", "自身の攻撃速度上昇", "10～30%", "", "https://altema.jp/kingshot/chara/20"],
+    ["－", "ファハド", "騎兵", "遠征スキル", "1", "ｻﾝﾄﾞｼｪｰﾄﾞ", "", "敵全体の与ﾀﾞﾒｰｼﾞ低下", "4～20%", "", "https://altema.jp/kingshot/chara/20"],
+    ["－", "ファハド", "騎兵", "遠征スキル", "2", "先行者", "", "ﾓﾝｽﾀｰ討伐部隊の出征速度上昇", "20～100%", "", "https://altema.jp/kingshot/chara/20"],
+    ["－", "ゴードン", "騎兵", "討伐スキル", "1", "ﾊﾞｰﾍﾞｷｭｰ", "", "味方全体のHP回復+攻撃上昇(4秒間)", "攻撃×200～280%・攻撃5～7%", "", "https://altema.jp/kingshot/chara/9"],
+    ["－", "ゴードン", "騎兵", "討伐スキル", "2", "嵐の厨房", "", "自身の被ﾀﾞﾒｰｼﾞ低下", "10～30%", "", "https://altema.jp/kingshot/chara/9"],
+    ["－", "ゴードン", "騎兵", "討伐スキル", "3", "非常食", "", "5秒ごとに自身のHP回復", "攻撃×50～70%", "", "https://altema.jp/kingshot/chara/9"],
+    ["－", "ゴードン", "騎兵", "遠征スキル", "1", "幸せｸﾞﾙﾒ", "", "全部隊のHP上昇", "5～25%", "", "https://altema.jp/kingshot/chara/9"],
+    ["－", "ゴードン", "騎兵", "遠征スキル", "2", "暴言", "", "全部隊の攻撃上昇", "5～25%", "", "https://altema.jp/kingshot/chara/9"],
+    ["－", "チェンコ", "騎兵", "討伐スキル", "1", "機関銃掃射", "", "扇状範囲に0.5秒ごとにﾀﾞﾒｰｼﾞ(2秒間)", "攻撃×55～75%", "", "https://altema.jp/kingshot/chara/8"],
+    ["－", "チェンコ", "騎兵", "討伐スキル", "2", "防具改造", "", "自身の防御力上昇", "25～70%", "", "https://altema.jp/kingshot/chara/8"],
+    ["－", "チェンコ", "騎兵", "討伐スキル", "3", "武器改造", "", "自身の攻撃上昇", "8～24%", "", "https://altema.jp/kingshot/chara/8"],
+    ["－", "チェンコ", "騎兵", "遠征スキル", "1", "完全武装", "", "全部隊の殺傷力上昇", "5～25%", "", "https://altema.jp/kingshot/chara/8"],
+    ["－", "チェンコ", "騎兵", "遠征スキル", "2", "ｱｰﾏｰ", "", "全部隊の被ﾀﾞﾒｰｼﾞ減少", "4～20%", "", "https://altema.jp/kingshot/chara/8"],
     ["1", "ジェベル", "騎兵", "討伐スキル", "1", "ﾗﾝｽｽﾊﾟｲｸ", "", "範囲ﾀﾞﾒｰｼﾞ+1.5秒間移動不能", "攻撃×180/198/216/234/252%", "", "https://altema.jp/kingshot/chara/4"],
     ["1", "ジェベル", "騎兵", "討伐スキル", "2", "真っ向勝負", "", "単体ﾀﾞﾒｰｼﾞ", "攻撃×150/165/180/195/210%", "", "https://altema.jp/kingshot/chara/4"],
     ["1", "ジェベル", "騎兵", "討伐スキル", "3", "執念", "", "HP50%以下のとき攻撃速度上昇", "20/30/40/50/60%", "", "https://altema.jp/kingshot/chara/4"],
@@ -1257,6 +1356,30 @@
     ["8", "リズ", "騎兵", "遠征スキル", "3", "ﾗｲﾄﾞﾏｽﾀｰ", "", "騎兵の攻撃時､確率で追加ﾀﾞﾒｰｼﾞ", "30～150%(確率50%)", "", "https://altema.jp/kingshot/chara/36"],
     ["8", "リズ", "騎兵", "専用装備スキル", "1", "ｽﾌﾟﾗｯｼｭﾊﾞﾌﾞﾙ", "真鍮のﾒｲｽ", "自身の攻撃上昇+ﾋﾞｯｸﾞﾊﾞﾌﾞﾙの行動不能終了時に範囲ﾀﾞﾒｰｼﾞ", "最大 攻撃24%・攻撃×70%", "", "https://altema.jp/kingshot/chara/36"],
     ["8", "リズ", "騎兵", "専用装備スキル", "2", "ﾊｲﾊﾟｰﾌﾞｰｽﾀｰ", "真鍮のﾒｲｽ", "防衛部隊の殺傷力上昇", "最大15%", "防衛", "https://altema.jp/kingshot/chara/36"],
+    ["－", "オリーブ", "弓兵", "討伐スキル", "1", "矢の雨", "", "ﾀﾞﾒｰｼﾞ", "攻撃×180～252%", "", "https://altema.jp/kingshot/chara/10"],
+    ["－", "オリーブ", "弓兵", "討伐スキル", "2", "ﾏｰｸ", "", "狩人の印を付与し､その攻撃の与ﾀﾞﾒｰｼﾞ上昇", "10～30%", "", "https://altema.jp/kingshot/chara/10"],
+    ["－", "オリーブ", "弓兵", "遠征スキル", "1", "栽培専門家", "", "製粉所の生産量上昇", "5～25%", "", "https://altema.jp/kingshot/chara/10"],
+    ["－", "オリーブ", "弓兵", "遠征スキル", "2", "食糧調達", "", "ﾊﾟﾝの採集速度上昇", "5～25%", "", "https://altema.jp/kingshot/chara/10"],
+    ["－", "あまね", "弓兵", "討伐スキル", "1", "桜花爛漫", "", "味方全体の英雄･護衛の攻撃･攻撃速度上昇(4秒間)", "攻撃1.5～3.5%・攻撃速度2.5～4.5%", "", "https://altema.jp/kingshot/chara/22"],
+    ["－", "あまね", "弓兵", "討伐スキル", "2", "破魔矢", "", "単体ﾀﾞﾒｰｼﾞ", "攻撃×150～210%", "", "https://altema.jp/kingshot/chara/22"],
+    ["－", "あまね", "弓兵", "討伐スキル", "3", "神楽", "", "通常攻撃3回ごとに自身の攻撃速度上昇(戦闘終了まで)", "1～5%", "", "https://altema.jp/kingshot/chara/22"],
+    ["－", "あまね", "弓兵", "遠征スキル", "1", "三布の陣", "", "全部隊の攻撃上昇", "5～25%", "", "https://altema.jp/kingshot/chara/22"],
+    ["－", "あまね", "弓兵", "遠征スキル", "2", "破魔の祈り", "", "野戦病院の治療速度上昇", "10～50%", "", "https://altema.jp/kingshot/chara/22"],
+    ["－", "インウー", "弓兵", "討伐スキル", "1", "散華", "", "3回斬撃(3回目は範囲ﾀﾞﾒｰｼﾞ)", "攻撃×100%・125～175%・150～210%", "", "https://altema.jp/kingshot/chara/21"],
+    ["－", "インウー", "弓兵", "討伐スキル", "2", "飛燕", "", "単体ﾀﾞﾒｰｼﾞ+攻撃速度低下(2秒間)", "攻撃×100～140%・攻撃速度30～50%", "", "https://altema.jp/kingshot/chara/21"],
+    ["－", "インウー", "弓兵", "討伐スキル", "3", "双剣", "", "自身の攻撃上昇", "8～24%", "", "https://altema.jp/kingshot/chara/21"],
+    ["－", "インウー", "弓兵", "遠征スキル", "1", "戦の構え", "", "全部隊の殺傷力上昇", "5～25%", "", "https://altema.jp/kingshot/chara/21"],
+    ["－", "インウー", "弓兵", "遠征スキル", "2", "多聞", "", "科学研究の速度上昇", "3～15%", "", "https://altema.jp/kingshot/chara/21"],
+    ["－", "ダイアナ", "弓兵", "討伐スキル", "1", "爆裂矢", "", "単体ﾀﾞﾒｰｼﾞ+周囲の小範囲にﾀﾞﾒｰｼﾞ", "攻撃×210～290%・周囲 攻撃×70～98%", "", "https://altema.jp/kingshot/chara/7"],
+    ["－", "ダイアナ", "弓兵", "討伐スキル", "2", "射手の才", "", "自身の攻撃速度上昇", "10～30%", "", "https://altema.jp/kingshot/chara/7"],
+    ["－", "ダイアナ", "弓兵", "討伐スキル", "3", "必殺", "", "自身の会心率上昇", "7～20%", "", "https://altema.jp/kingshot/chara/7"],
+    ["－", "ダイアナ", "弓兵", "遠征スキル", "1", "強靭ﾎﾞﾃﾞｨ", "", "領主の体力消耗減少", "10～20%", "", "https://altema.jp/kingshot/chara/7"],
+    ["－", "ダイアナ", "弓兵", "遠征スキル", "2", "迅速行動", "", "出征速度上昇", "20～100%", "", "https://altema.jp/kingshot/chara/7"],
+    ["－", "クイン", "弓兵", "討伐スキル", "1", "ﾍｯﾄﾞｼｮｯﾄ", "", "単体ﾀﾞﾒｰｼﾞ", "攻撃×400～560%", "", "https://altema.jp/kingshot/chara/5"],
+    ["－", "クイン", "弓兵", "討伐スキル", "2", "ｸｲｯｸｼｮｯﾄ", "", "自身の攻撃速度上昇", "10～30%", "", "https://altema.jp/kingshot/chara/5"],
+    ["－", "クイン", "弓兵", "討伐スキル", "3", "適者生存", "", "自身の与ﾀﾞﾒｰｼﾞ上昇", "10～30%", "", "https://altema.jp/kingshot/chara/5"],
+    ["－", "クイン", "弓兵", "遠征スキル", "1", "危険予知", "", "全部隊の被ﾀﾞﾒｰｼﾞ減少", "4～20%", "", "https://altema.jp/kingshot/chara/5"],
+    ["－", "クイン", "弓兵", "遠征スキル", "2", "弱点射撃", "", "全部隊の攻撃時､確率で与ﾀﾞﾒｰｼﾞ上昇", "10～50%(確率50%)", "", "https://altema.jp/kingshot/chara/5"],
     ["1", "サロ", "弓兵", "討伐スキル", "1", "連続射撃", "", "連続攻撃+2秒間気絶", "各 攻撃×55/60/65/70/75%", "", "https://altema.jp/kingshot/chara/3"],
     ["1", "サロ", "弓兵", "討伐スキル", "2", "金剛不壊", "", "HP50%以下のとき防御力上昇", "50/75/100/125/150%", "", "https://altema.jp/kingshot/chara/3"],
     ["1", "サロ", "弓兵", "討伐スキル", "3", "工法改良", "", "攻撃速度上昇", "10/15/20/25/30%", "", "https://altema.jp/kingshot/chara/3"],
@@ -1323,7 +1446,8 @@
     ["8", "ルナ", "弓兵", "専用装備スキル", "2", "月輝の力", "太古の守護者", "集結部隊の攻撃上昇", "最大15%", "集結", "https://altema.jp/kingshot/chara/37"]
   ];
   var SK_TROOPS = ["歩兵","騎兵","弓兵"];
-  var skOpen = {"歩兵":false, "騎兵":false, "弓兵":false};  // 最初はすべて閉じた状態
+  var SK_RARITY = {"あまね": "エピック", "インウー": "エピック", "ファハド": "エピック", "ゴードン": "エピック", "チェンコ": "エピック", "ダイアナ": "エピック", "ハワード": "エピック", "クイン": "エピック", "フォルスト": "レア", "スミス": "レア", "エドウィン": "レア", "オリーブ": "レア"};  // 書いていない英雄はレジェンド
+  var skOpen = {"歩兵":true, "騎兵":true, "弓兵":true};  // 最初はすべて開いた状態（ボタンを押すと閉じる）
   function toggleTroop(tp){
     skOpen[tp] = !skOpen[tp];
     var body = $("memoBody");
@@ -1334,22 +1458,30 @@
     g.hidden = !skOpen[tp];
     var any = SK_TROOPS.some(function(x){ return skOpen[x]; });
     body.querySelector(".sk-wrap").hidden = !any;
+    fitSkSticky();
   }
-  function skillTable(){
+  // mode: "all"＝全スキル、"conq"＝討伐スキル＋装備:討伐、"exp"＝遠征スキル＋装備:遠征
+  function skillUse(r, mode){
+    if (mode === "conq") return r[3] === "討伐スキル" || (r[3] === "専用装備スキル" && r[4] === "1");
+    if (mode === "exp")  return r[3] === "遠征スキル" || (r[3] === "専用装備スキル" && r[4] === "2");
+    return true;
+  }
+  function skillTable(mode, title){
     var heads = ["世代","種類","英雄","種別","No","効果","数値<br>(Lv1/2/3/4/5)","集結<br>防衛","出典"];
     // 兵種ボタン（押すと開く・もう一度押すと閉じる）
     var anyOpen = SK_TROOPS.some(function(tp){ return skOpen[tp]; });
-    var out = '<div class="sk-tgs">' + SK_TROOPS.map(function(tp, gi){
+    var out = '<div class="sk-sticky"><h2 class="memo-title sk-title">'+(title||"")+'</h2><div class="sk-tgs">' + SK_TROOPS.map(function(tp, gi){
       var t = tp.charAt(0);
       return '<button type="button" class="sk-tg tg-'+TROOP_CLS[t]+(skOpen[tp] ? ' on' : '')+'" data-tp="'+tp+'" aria-expanded="'+!!skOpen[tp]+'">' +
-        '<span class="no">'+(gi+1)+'．</span>'+troopMark(t)+'<span class="lb">'+tp+'英雄</span><span class="ar">'+(skOpen[tp] ? '▲' : '▼')+'</span></button>';
-    }).join("") + '</div>';
-    out += '<div class="sk-wrap"'+(anyOpen ? '' : ' hidden')+'><table class="sk-tbl"><thead><tr>' + heads.map(function(h){ return '<th>'+h+'</th>'; }).join("") + '</tr></thead>';
+        '<span class="no">'+(gi+1)+'．</span><span class="bi">'+TROOP_ICON[t]+'</span><span class="lb">'+tp+'英雄</span><span class="ar">'+(skOpen[tp] ? '▲' : '▼')+'</span></button>';
+    }).join("") + '</div></div>';
+    out += '<div class="sk-wrap"'+(anyOpen ? '' : ' hidden')+'><table class="sk-tbl">';
+    var headRow = '<tr class="col-head">' + heads.map(function(h){ return '<th>'+h+'</th>'; }).join("") + '</tr>';
     SK_TROOPS.forEach(function(tp, gi){
       var t0 = tp.charAt(0);
       out += '<tbody class="sk-grp g-'+TROOP_CLS[t0]+'" data-tp="'+tp+'"'+(skOpen[tp] ? '' : ' hidden')+'>' +
-        '<tr class="grp-row"><th colspan="'+heads.length+'"><span class="no">'+(gi+1)+'．</span>'+troopMark(t0)+' '+tp+'英雄一覧</th></tr>';
-      var list = SKILLS.filter(function(r){ return r[2] === tp; });
+        '<tr class="grp-row"><th colspan="'+heads.length+'"><span class="no">'+(gi+1)+'．</span>'+troopMark(t0)+' '+tp+'英雄一覧</th></tr>' + headRow;
+      var list = SKILLS.filter(function(r){ return r[2] === tp && skillUse(r, mode); });
       // 英雄ごとにまとめる（データの並び順のまま）
       var blocks = [];
       list.forEach(function(r){
@@ -1357,19 +1489,23 @@
         if (!b || b.hero !== r[1]) blocks.push(b = {hero:r[1], rows:[]});
         b.rows.push(r);
       });
+      var prevRar = "";   // レア→エピック→レジェンドの順。それぞれの先頭に区切りの帯
       blocks.forEach(function(b){
+        var rarB = SK_RARITY[b.hero] || "レジェンド";
+        if (rarB !== prevRar){ out += '<tr class="rar-row '+(rarB === "エピック" ? "rr-epic" : (rarB === "レア" ? "rr-rare" : "rr-leg"))+'"><th colspan="'+heads.length+'">'+rarB+'英雄</th></tr>'; prevRar = rarB; }
         var n = b.rows.length, r0 = b.rows[0], t = tp.charAt(0);
         b.rows.forEach(function(r, k){
           var isEq = r[3] === "専用装備スキル";
           out += '<tr class="'+(k === 0 ? "h-top " : (b.rows[k-1][3] !== r[3] ? "k-top " : ""))+(isEq ? "eqr" : (r[3] === "遠征スキル" ? "exr" : ""))+'">';
           if (k === 0){
-            var rc = RARITY[r0[1]] === "エピック" ? " r-epic" : "";
+            var rar = SK_RARITY[r0[1]] || "レジェンド";
+            var rc = rar === "エピック" ? " r-epic" : (rar === "レア" ? " r-rare" : "");
             out += '<td class="c gen" rowspan="'+n+'">'+esc(r0[0])+'</td>' +
                    '<td class="c troop" rowspan="'+n+'" title="'+esc(tp)+'">'+(TROOP_CLS[t] ? '<span class="tstk"><span class="ti">'+TROOP_ICON[t]+'</span><span class="ts '+TROOP_CLS[t]+'"><b>'+t+'</b></span></span>' : esc(tp))+'</td>' +
                    '<td class="hero'+rc+'" rowspan="'+n+'">'+esc(r0[1])+'</td>';
           }
-          var kd = isEq ? ["esk","専用装備"] : (r[3] === "遠征スキル" ? ["xsk","遠征"] : ["hsk","討伐"]);
-          out += '<td class="c kind"><span class="tag '+kd[0]+'">'+kd[1]+'</span></td>' +
+          var kd = isEq ? ["esk", r[4] === "1" ? "装備:討伐" : "装備:遠征"] : (r[3] === "遠征スキル" ? ["xsk","遠征"] : ["hsk","討伐"]);
+          out += '<td class="c kind"><span class="tag '+kd[0]+'">'+kd[1].split(":").map(function(x, j, a){ return '<span class="nw">'+x+(j < a.length-1 ? ':' : '')+'</span>'; }).join('<wbr>')+'</span></td>' +
                  '<td class="c no">'+esc(r[4])+'</td>';
           out += '<td class="eff">'+esc(r[7]).replace(/([､・])/g, '$1<wbr>')+'</td>' +
                  '<td class="val">'+esc(r[8]).replace(/([\/・])/g, '$1<wbr>')+'</td>' +
@@ -1381,10 +1517,10 @@
       out += '</tbody>';
     });
     return out + '</table></div>' +
-      '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span></div>';
+      '<div class="rare-legend"><span class="tl"><span class="lg">'+troopMark("歩")+'歩兵</span><span class="lg">'+troopMark("騎")+'騎兵</span><span class="lg">'+troopMark("弓")+'弓兵</span></span><span class="r-rare">■ レア</span><span class="r-epic">■ エピック</span><span class="r-leg">■ レジェンド</span></div>';
   }
   var MEMO_PAGES = [
-    { title:"英雄：遠征スキル１<small></small>",
+    { title:"英雄：遠征スキル１<small>（発動：集結参加・駐屯参加＠左英雄・右上スキル）</small>",
       html: function(){ return memoTable(
         [{t:"世代",c:1,w:6,k:"gen"},{t:"種類",c:1,w:9,k:"troop"},{t:"英雄",w:18,k:"hero"},{t:"区分",c:1,w:9,k:"kind"},{t:"適用",c:1,w:9,k:"apply"},{t:"効果",w:23,k:"eff"},{t:"最大",c:1,w:10,k:"lv"},{t:"補足",w:16,k:"last"}],
         MEMO,
@@ -1397,8 +1533,10 @@
             // 補足：「、」で区切った短い語句（3ターン など）は途中で切らない
             '<td class="note">'+r[7].split("、").map(function(t){ return t.length <= 7 ? '<span class="nw">'+esc(t)+'</span>' : esc(t); }).join("、<wbr>")+'</td></tr>';
         }, "", true) + RARE_LEGEND + SORT_HINT; } },
-    { title:"英雄専用装備：遠征スキル<small></small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } },
-    { title:"第１～８世代／レジェンド英雄／スキル一覧表<small></small>", html: skillTable, wide: true }
+    { title:"英雄専用装備：遠征スキル<small>（発動：集結主・駐屯主）</small>", html: function(){ return eqTable(EQUIP, "exp", true) + TROOP_LEGEND + SORT_HINT; } },
+    { title:"英雄：全スキル<small>（レジェンド・エピック・レア）</small>", html: function(){ return skillTable("all", this.title); }, wide: true },
+    { title:"英雄：討伐スキルのみ<small>（発動：討伐戦闘　例)競技場・討伐小隊キャンプ）</small>", html: function(){ return skillTable("conq", this.title); }, wide: true },
+    { title:"英雄：遠征スキルのみ<small>（発動：遠征戦闘　例)単騎攻撃・集結・駐屯など）</small>", html: function(){ return skillTable("exp", this.title); }, wide: true }
   ];
   var memoTab = 0;
   function showMemoTab(k){
@@ -1410,6 +1548,7 @@
       var on = +b.getAttribute("data-tab") === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on);
     });
     document.querySelector(".memo-box").scrollTop = 0;
+    fitSkSticky();
   }
   document.querySelectorAll(".memo-tabs button").forEach(function(b){
     b.addEventListener("click", function(){ showMemoTab(+b.getAttribute("data-tab")); });
@@ -1443,8 +1582,18 @@
     var h = document.querySelector(".memo-head");
     document.querySelector(".memo-box").style.setProperty("--mh", (h.getBoundingClientRect().height - 13) + "px");
   }
-  function openMemo(){ $("memoOv").hidden = false; document.body.classList.add("memo-open"); fitMemoHead(); $("memoClose").focus(); }
-  window.addEventListener("resize", function(){ if (!$("memoOv").hidden) fitMemoHead(); });
+  // スキル一覧表：タブ・見出し・兵種ボタン・兵種の帯・項目名の行を、スクロールしても上に留める
+  function fitSkSticky(){
+    var box = document.querySelector(".memo-box"), head = document.querySelector(".memo-head"), sb = box.querySelector(".sk-sticky");
+    if (!sb || $("memoOv").hidden) return;
+    var t1 = head.offsetHeight - 12;                     // .memo-head は top:-12px で固定
+    var t2 = t1 + sb.offsetHeight;                       // 兵種の帯
+    var gr = box.querySelector(".sk-grp:not([hidden]) tr.grp-row");
+    var t3 = t2 + (gr ? gr.offsetHeight : 0);            // 項目名の行
+    box.style.setProperty("--sk1", t1 + "px"); box.style.setProperty("--sk2", t2 + "px"); box.style.setProperty("--sk3", t3 + "px");
+  }
+  function openMemo(){ $("memoOv").hidden = false; document.body.classList.add("memo-open"); fitMemoHead(); fitSkSticky(); $("memoClose").focus(); }
+  window.addEventListener("resize", function(){ if (!$("memoOv").hidden){ fitMemoHead(); fitSkSticky(); } });
   function closeMemo(){ $("memoOv").hidden = true; document.body.classList.remove("memo-open"); $("memoBtn").focus(); }
   $("memoBtn").addEventListener("click", openMemo);
   $("memoClose").addEventListener("click", closeMemo);
